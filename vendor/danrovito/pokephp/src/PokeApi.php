@@ -356,14 +356,21 @@ class PokeApi
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Added by O.R.
+        // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); // Added by O.R.
+        // curl_setopt ($ch, CURLOPT_PORT , 8089); // results in An error 0 has occured. curl (7) Failed connect to pokeapi.co:8089; No error
+        // curl_setopt($ch, CURLOPT_SSLVERSION,1); // Added by O.R.
         $data = curl_exec($ch);
 
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+        $curl_errno = curl_errno($ch);
+        $curl_error = curl_error($ch);
+
         curl_close($ch);
 
         if ($http_code != 200) {
-            return json_encode('An error has occured.');
+            return json_encode('An error '.$http_code.' has occured. curl ('.$curl_errno.') '.$curl_error);
         }
 
         return $data;
