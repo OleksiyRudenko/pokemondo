@@ -1,0 +1,71 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "7c432e81eb05747db9b2682bde5a9be5",
+    "content-hash": "5b028b9cd0827a38d7727b55b119eeae",
+    "packages": [
+        {
+            "name": "danrovito/pokephp",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DanRovito/pokephp.git",
+                "reference": "cd55b150b1f58f936a851511cd085e2597d3422c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DanRovito/pokephp/zipball/cd55b150b1f58f936a851511cd085e2597d3422c",
+                "reference": "cd55b150b1f58f936a851511cd085e2597d3422c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PokePHP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dan Rovito",
+                    "email": "danrovito@gmail.com"
+                }
+            ],
+            "description": "Pokeapi PHP Wrapper",
+            "keywords": [
+                "php",
+                "pokeapi",
+                "pokemon"
+            ],
+            "time": "2016-07-17 03:28:10"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
