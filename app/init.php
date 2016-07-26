@@ -11,6 +11,7 @@ require_once('app/fn.helper.php');
 require_once('app/fn.html.php');
 require_once('app/fn.bootstrap.php');
 require_once('app/fn.log.php');
+require_once('app/fn.sql.php');
 
 // =================== Basic Globals
 
