@@ -1,9 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Rudenko
- * Date: 25/07/2016
- * Time: 19:03
- */
-
-include 'app/import.php';
+include_once('app/init.php');
+include_once('app/preHTML.php');
+include_once('html.0head.php');
+include_once( MODULE::$currMod == 'public'
+    ? 'html.1body-public.php'
+    : 'html.1body-private.php'
+);
+include_once('html.1body-xfinalize.html');
