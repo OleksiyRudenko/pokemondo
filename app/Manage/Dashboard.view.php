@@ -13,3 +13,6 @@ print
 print alert(
     'Enter every module under Manage things to populate database.','warning'
 );
+?>
+<h2>Database Status</h2>
+

@@ -35,3 +35,9 @@ function sqlSanitizeRecordSet(&$data) {
     foreach ($data as $i=>$record)
         sqlSanitizeRecord($data[$i]);
 }
+
+function sqlTableExists($tbname) {
+    global $DBH;
+    if ($DBH->real_query('SHOW TABLES LIKE `'.$tbname.'`')->num_rows==0) return false;
+    return true;
+}
