@@ -31,8 +31,8 @@ class dbTable {
         return $this->DBH->query($this->mkStatementCreate());
     }
 
-    public function drop() {
-        return $this->DBH->query('DROP TABLE `'.$this->name.'`');
+    public function drop($ifexists=false) {
+        return $this->DBH->query('DROP TABLE '.($ifexists?' IF EXISTS':'').'`'.$this->name.'`');
     }
 
     public function insert($valueset,$fdlist=false) {
