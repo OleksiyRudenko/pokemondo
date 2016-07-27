@@ -48,6 +48,7 @@ foreach ($genderset as $gender) {
     while ($row=$qr->fetch_assoc()) {
         $recset[] = 'gender='.$row['gender'].'; pokeid='.$row['pokeid'];
     }
+    $qr->free();
     $col[$gender]=implode('<br/>',$recset);
 }
 
@@ -109,7 +110,8 @@ function pokegenderPopulate($tbh) {
         $valueset = [];
         foreach ($pokemons as $id=>$name)
             $valueset[] = [$id,$gender];
-        $tbh->insert($valueset);
+        $qr=$tbh->insert($valueset);
+        $qr->free();
     }
 
     print alert('TABLE pokegender populated','success');

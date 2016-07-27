@@ -42,7 +42,11 @@ function sqlTableExists($tbname) {
     /* print $qres
         ? varExport($qres)
         : sqlError(); */
-    if (!$qres || !$qres->num_rows) return false;
+    if (!$qres || !$qres->num_rows) {
+        @$qres->free();
+        return false;
+    }
+    @$qres->free();
     return true;
 }
 
