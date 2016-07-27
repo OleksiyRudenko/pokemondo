@@ -13,3 +13,7 @@ function alert($msg,$type='danger') { // success, info, warning, danger
 function varExport(&$v,$name=false) {
     return alert(($name?'<strong>'.$name.'</strong> =<br/>':'').pre(var_export($v,true)),'info');
 }
+
+function ahref($url,$view) {
+    return htmlElement('a',$view,['href'=>$url]);
+}
