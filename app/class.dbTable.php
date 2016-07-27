@@ -55,7 +55,7 @@ class dbTable {
      * component array = [
      *      prefix      => 'e.g. DISTINCT',
      *      fs          => [append-to-fields-list,...],
-     *      join        => [ [ JOIN-PREDICATE, table-as, JOIN-CLAUSE], ... ],
+     *      join        => [ [ JOIN-PREDICATE, table-as, JOIN-CLAUSE], ... ], -- can be not nested
      *      WHERE       => 'where clause'
      *      GROUP BY    => 'group-by clause',
      *      HAVING      => 'having clause',
@@ -80,8 +80,11 @@ class dbTable {
         $statement[]=implode(',',$field);
         $statement[]='FROM '.$this->name.(isset($component['join'])?' AS t1':'');
         if (isset($component['join'])) {
-            foreach ($component['join'] as $join)
-                $statement[] = implode(' ',$join);
+            if (!is_array($component['join'][0]))
+                $statement[] = implode(' ',$component['join']);
+            else
+                foreach ($component['join'] as $join)
+                    $statement[] = implode(' ',$join);
         }
         foreach (self::$SELECT_CLAUSES as $clause)
             if (isset($component[$clause]))
