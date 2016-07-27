@@ -23,6 +23,9 @@ if (!$tbPokedex->exists()) {
     print alert('DB TABLE `pokedex` doesn\'t exist');
 }
 
+print unlogMessage('Pokedex');
+print varExport($_POST);
+
 if ($dbtbDependeciesExist) {
     // proceed only if dependencies exist
     ?>

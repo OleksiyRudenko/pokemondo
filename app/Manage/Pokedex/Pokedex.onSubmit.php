@@ -16,7 +16,15 @@ if (isset($_POST['action'])) {
 
     switch ($_POST['action']) {
         case 'Build':
-
+            $tbPokedex->drop(true); // if exists
+            $tbPokedex->create();
+            // get pokeids
+            $valueset = [];
+            if ($qr = $tbPokegender->select('pokeid',['prefix'=>'DISTINCT'])->num_rows) {
+                $row = $qr->fetch_all(MYSQLI_ASSOC);
+                $qr->free();
+            }
+            logMessage('Pokedex',varExport($row));
             break;
     }
 }
