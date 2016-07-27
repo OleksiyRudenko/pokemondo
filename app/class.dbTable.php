@@ -73,26 +73,30 @@ class dbTable {
         if (!is_array($component)) $component['ending']=$component; // convert string into ending=>
 
         $statement[] = 'SELECT';
-        if (isset($component['prefix']))
-            $statement[]=$component['prefix'];
-        if (isset($component['fs']))
-            $field=array_merge($field,$component['fs']);
+        if (count($component)) {
+            if (isset($component['prefix']))
+                $statement[]=$component['prefix'];
+            if (isset($component['fs']))
+                $field=array_merge($field,$component['fs']);
+        }
         $statement[]=implode(',',$field);
         $statement[]='FROM '.$this->name.(isset($component['join'])?' AS t1':'');
-        if (isset($component['join'])) {
-            if (!is_array($component['join'][0]))
-                $statement[] = implode(' ',$component['join']);
-            else
-                foreach ($component['join'] as $join)
-                    $statement[] = implode(' ',$join);
+        if (count($component)) {
+            if (isset($component['join'])) {
+                if (!is_array($component['join'][0]))
+                    $statement[] = implode(' ', $component['join']);
+                else
+                    foreach ($component['join'] as $join)
+                        $statement[] = implode(' ', $join);
+            }
+            foreach (self::$SELECT_CLAUSES as $clause)
+                if (isset($component[$clause]))
+                    $statement[] = $clause
+                        . ' '
+                        . $component[$clause];
+            if (isset($component['ending']))
+                $statement[] = $component['ending'];
         }
-        foreach (self::$SELECT_CLAUSES as $clause)
-            if (isset($component[$clause]))
-                $statement[] = $clause
-                    . ' '
-                    .$component[$clause];
-        if (isset($component['ending']))
-            $statement[]=$component['ending'];
 
         return $this->DBH->query(implode(' ',$statement));
     }
