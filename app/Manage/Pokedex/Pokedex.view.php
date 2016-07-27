@@ -38,6 +38,7 @@ if ($dbtbDependeciesExist) {
             print alert('Cannot access `pokedex`!');
         } else {
             // show paginated data
+            include 'app/Manage/Pokedex/Pokedex.view.browse.php';
 
         }
     }
