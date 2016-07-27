@@ -24,7 +24,7 @@ if (!$tbPokedex->exists()) {
 }
 
 print unlogMessage('Pokedex');
-print varExport($_POST);
+// print varExport($_POST);
 
 if ($dbtbDependeciesExist) {
     // proceed only if dependencies exist
@@ -37,3 +37,7 @@ if ($dbtbDependeciesExist) {
 
     }
 }
+
+// show paginated data
+
+$qr=$tbPokedex->count();

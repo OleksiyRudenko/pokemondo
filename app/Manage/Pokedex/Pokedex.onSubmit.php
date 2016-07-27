@@ -19,12 +19,22 @@ if (isset($_POST['action'])) {
             $tbPokedex->drop(true); // if exists
             $tbPokedex->create();
             // get pokeids
-            $valueset = [];
-            if ($qr = $tbPokegender->select('pokeid',['prefix'=>'DISTINCT'])->num_rows) {
+            $qr = $tbPokegender->select('pokeid',['prefix'=>'DISTINCT']);
+            if ($qr && $qr->num_rows) {
                 $row = $qr->fetch_all(MYSQLI_ASSOC);
                 $qr->free();
+                // prepare data add 4 zeros to denote we've got noting imported yet
+                $merger = [0,0,0,0];
+                foreach ($row as $n=>$rec)
+                    $row[$n] = array_merge($rec,$merger);
+                // insert
+                if (!$qinsert = $tbPokedex->insert($row))
+                    logMessage('Pokedex',sqlError(),'danger');
+                logMessage('Pokedex','Table Populated','success');
+            } else {
+                logMessage('Pokedex',sqlError(),'danger');
             }
-            logMessage('Pokedex',varExport($row));
+            // logMessage('Pokedex',varExport($row));
             break;
     }
 }
