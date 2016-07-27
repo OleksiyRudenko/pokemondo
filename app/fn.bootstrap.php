@@ -65,15 +65,19 @@ function buttonSubmit($value='submit', $view='Submit', $style="primary", $size="
  * < 1 2 3 4 ... 10 ... 20 ... 25 > // every=10
  */
 function paginator($aria, $page, $pages, $s=[
-    'minN' => 20,
-    'edgeN' => 1,
-    'aroundN' => 2,
-    'prevnext' => true,
-    'everyNth'    => true,
+    'minN'      => 20,    // if $pages<minN then full range
+    'edgeN'     => 1,     // count of pgBttns at both edges
+    'aroundN'   => 2,     // count of pgBttns at around $page
+    'prevnext'  => true,  // show prev/next?
+    'everyNth'  => true,  // show interim pgBttns every 10/100/1000th..?
+    'optimN'    => 15,    // if count(pgBttns)>optimN then stop adding pgBttns but add input field (if input=true)
+    'input'     => 'l',   // use input field? if so then in position: f - first, l - last, p - in place of $page
+    'pgname'    => 'pg',  // GET parameter name for input field
 ]) {
     $rwff = false; // fastForward/fastRewind buttons false|integer depending on $pages scale
     if ($pages<1) return '';
     $pageno = [];
+    $populationStopped = false; // true when population with pgBttn stopped as optimN criteria met
     if ($pages<=$s['minN']) {
         for ($i=1;$i<=$pages;$i++) $pageno[$i]=$i;
     } else {
@@ -81,6 +85,20 @@ function paginator($aria, $page, $pages, $s=[
         for ($i=0;$i<$s['edgeN'];$i++) {
             if ($i+1<=$pages) $pageno[$i+1]=$i+1;
             if ($pages-$i>0) $pageno[$pages-$i]=$pages-$i;
+        }
+        // place $page
+        if ($page>0 && $page<=$pages) {
+            $pageno[$page]=$page;
+            // place around
+            for ($i=0;$i<$s['aroundN'];$i++) {
+                if (count($pageno)>$s['optimN']) {
+                    $populationStopped = true;
+                    break;
+                } else {
+                    if ($page-$i-1>0) $pageno[$page-$i-1]=$page-$i-1;
+                    if ($page+$i+1>0) $pageno[$page+$i+1]=$page+$i+1;
+                }
+            }
         }
         // place everyNth
         if ($s['everyNth']) {
@@ -93,25 +111,19 @@ function paginator($aria, $page, $pages, $s=[
              * pages> every 100'000th within 1'000'000 around page + every 1'000'000th
              */
             for ($l=100;$l<PHP_INT_MAX;$l*=10) {
-                paginatorPopulate($pageno,$page,$pages,$l);
-                if ($l>$pages) break;
+                if (count($pageno)>$s['optimN']) {
+                    $populationStopped = true;
+                    break;
+                } else {
+                    paginatorPopulate($pageno, $page, $pages, $l);
+                    if ($l > $pages) break;
+                }
             }
-
-
             /* for ($i=$s['every'];$i<$pages;$i+=$s['every'])
                 $pageno[$i] = $i; */
         }
         if ($pages>200)
             $rwff = round($pages/5,-1);
-        // place $page
-        if ($page>0 && $page<=$pages) {
-            $pageno[$page]=$page;
-            // place around
-            for ($i=0;$i<$s['aroundN'];$i++) {
-                if ($page-$i-1>0) $pageno[$page-$i-1]=$page-$i-1;
-                if ($page+$i+1>0) $pageno[$page+$i+1]=$page+$i+1;
-            }
-        }
         // fill gaps wisely
         $ingap = false;
         for ($i=1;$i<=$pages;$i++) {
@@ -145,6 +157,18 @@ function paginator($aria, $page, $pages, $s=[
         if (($pgFastForward=$page+$rwff)>$pages) $pgFastForward=$pages;
     }
 
+    // make input field
+    $form['head'] = $form['end'] = '';
+    $input['f']=$input['l']=$input['p']='';
+    if ($populationStopped && $s['input']) {
+        $form['head'] = '<form method="GET">';
+        $form['end'] = '</form>';
+        $width = strlen($page)+1;
+        $input[$s['input']] = '<li>Jump to:<INPUT TYPE="text" name="'
+            .$s['pgname']
+            .'" aria-label="Jump to page" class="form-control" style="min-width:0;width:'.$width.'em;display:inline;background-color:#337ab7;color:#fff;" VALUE="'.$page.'"></li>';
+    }
+
     // convert $pageno into list items
     $li =[];
     foreach ($pageno as $pgno) {
@@ -152,15 +176,18 @@ function paginator($aria, $page, $pages, $s=[
         if ($notclickable) {
             $class = ($page==$pgno) ? 'active':'disabled';
         }
-
-        $li[]='<li'.($notclickable?' class="'.$class.'"':'').'>'
+        $li[]=($page==$pgno && $input['p'])
+            ? $input['p']
+            :'<li'.($notclickable?' class="'.$class.'"':'').'>'
             .($notclickable?'<span>':'<a href="?pg='.$pgno.'" aria-label="'.$pgno.'">')
             .$pgno
             .($notclickable?'<span class="sr-only">(current)</span></span>':'</a>')
-            .'</li>';
+            .'</li>'
+            ;
     }
 
-    return '<nav aria-label="'.$aria.'"><ul class="pagination">'
+    return '<nav aria-label="'.$aria.'">'.$form['head'].'<ul class="pagination">'
+        .$input['f']
         .($rwff
             ? '<li'.($page==1?' class="disabled"':'').'>'
                 .($page==1?'<span>':'<a href="?pg='.$pgRewind.'" aria-label="Rewind">')
@@ -190,7 +217,8 @@ function paginator($aria, $page, $pages, $s=[
                 .($page==$pages?'</span>':'</a>')
                 .'</li>'
             :'')
-    .'</ul></nav>';
+        .$input['l']
+    .'</ul>'.$form['end'].'</nav>';
 }
 
 function paginatorPopulate(&$pglist,$page,$pages,$l) {
@@ -208,6 +236,9 @@ function paginatorPopulate(&$pglist,$page,$pages,$l) {
 }
 
 /* Paginator tests & examples:
+
+positions 'f' and 'p' do not work properly. They float to the right end of first row.
+
 print paginator('Browse pokedex',1,26);
 print paginator('Browse pokedex',5,26);
 print paginator('Browse pokedex',9,26);

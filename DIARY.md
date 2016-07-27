@@ -1,8 +1,8 @@
 # DIARY
 ```
-TOTAL =19.4
-      = 3.4
-160727  1.6 - fn.boostrap::paginator()
+TOTAL =20.4
+      = 4.4
+160727  2.6 - fn.boostrap::paginator()
 160727  1.8 - Module::Pokedex
       =16.0
 160727  1.5 - Module::FetchGender complete
