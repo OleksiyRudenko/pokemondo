@@ -6,21 +6,24 @@
  * Time: 17:38
  */
 
-
-$pathtree =    [   // MODULE::pathtree
+// MODULE::$pathtree
+// NB! If a module refers to sub-modules, there is no way to access it via menu (unless it is first in the list)
+$pathtree =    [
         // 'public' => 0,
         'manage-pokemons' =>   [
-            'fetch-genders'  => 0,
-            'fetch-pokemons'  => 0,
+            'fetch-genders'     => 0,
+            'pokedex'           => 0,
+            'fetch-pokemons'    => 0,
             'bind-pokemon-gender'   => 0,
-            'import-imagery' => 0,
-            'view-DataBase'  => 0,
+            'import-imagery'    => 0,
+            'view-DataBase'     => 0,
         ],
         'users' =>  0,
         'public' => 0,
 ];
 
-$settings = [   // MODULE::$setting
+// MODULE::$settings
+$settings = [
         'manage-pokemons'        =>  [
             'basepath'  => 'Manage/Dashboard',
             'navmenu'   => 'Manage things',
@@ -30,6 +33,12 @@ $settings = [   // MODULE::$setting
             'basepath'  => 'Manage/fetchGender/FetchGender',
             'navmenu'   => 'Fetch Gender Data',
             'heading'   => 'Fetch Pokemon Gender Data',
+        ],
+        'pokedex'  => [
+            'basepath'  => 'Manage/Pokedex/Pokedex',
+            'navmenu'   => 'Manage Pokedex',
+            'heading'   => 'Manage Pokedex',
+            'onSubmit'  =>  ['Build'],
         ],
         'fetch-pokemons'  => [
             'basepath'  => 'Manage/fetchPokemon/FetchPokemon',
