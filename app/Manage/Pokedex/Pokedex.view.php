@@ -12,13 +12,27 @@ include_once('app/dbSpec/db.tables.php');
 $tbPokegender = new dbTable($DBH,'pokegender',$DBT['pokegender']);
 $tbPokedex = new dbTable($DBH,'pokedex',$DBT['pokedex']);
 
-$dbtbDependeciesExists = true;
-$dbtbTargetExists = true;
+$dbtbDependeciesExist = true;
+$dbtbMainExists = true;
 if (!$tbPokegender->exists()) {
+    $dbtbDependeciesExist = false;
     print alert('Required table `pokegender` doesn\'t exist. Please, complete '. ahref(MODULE::getSetting('url','fetch-genders'),'Fetch Gender Data'));
 }
 if (!$tbPokedex->exists()) {
-    $populate = true;
-    $tbPokegender->create();
-    print alert('Create TABLE pokegender','info');
+    $dbtbMainExists = false;
+    print alert('DB TABLE `pokedex` doesn\'t exist');
+}
+
+if ($dbtbDependeciesExist) {
+    // proceed only if dependencies exist
+    ?>
+    <form method="POST">
+        <BUTTON TYPE="SUBMIT" NAME="action" value="Build">
+            <?=($dbtbMainExists?'ReBuild':'CREATE')?>
+        </BUTTON>
+    </form>
+    <?php
+    if ($dbtbMainExists) {
+        
+    }
 }
