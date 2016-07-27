@@ -23,6 +23,7 @@ $pathtree =    [
 ];
 
 // MODULE::$settings
+// onSubmit is invoked if set and $_POST['action']==any of action list
 $settings = [
         'manage-pokemons'        =>  [
             'basepath'  => 'Manage/Dashboard',

@@ -8,4 +8,8 @@
 
 // =================== User Form Submissions Processing
 if (MODULE::currSetting('onSubmit'))
-    MODULE::loadOnSubmit();
+    foreach (MODULE::currSetting('onSubmit') as $action)
+        if ($_POST['action']==$action) {
+            MODULE::loadOnSubmit();
+            break;
+        }
