@@ -6,24 +6,25 @@
  * Time: 19:42
  */
 
-print
-    alert(
-        'When ready make "public" route first in app/config.modules.php.<br/>You can revert to these pages via /manage route.','warning');
+if (array_keys(MODULE::$pathtree)[0]!=='public')
+    print alert(
+        'When ready, make "public" route first in app/config.modules.php.<br/>You can revert to these pages via /manage route.','warning');
 
-print alert(
-    'Enter every module under Manage things to populate database.','warning'
-);
-?>
-<h2>Database Status</h2>
-<?php
-    include_once('app/class.dbTable.php');
-    include_once('app/dbSpec/db.tables.php');
-    $status = [
-        strong('DB TABLES status:')
-    ];
-    foreach ($DBT as $tbname=>$spec) {
-        $status[] = $tbname.': '.(sqlTableExists($tbname)?'OK':'inexistent!');
+include_once('app/class.dbTable.php');
+include_once('app/dbSpec/db.tables.php');
+$status = [
+    strong('Following TABLES do not exist:')
+];
+$ok=true;
+foreach ($DBT as $tbname=>$spec) {
+    if (!sqlTableExists($tbname)) {
+        $status[] = $tbname;
+        $ok=false;
     }
-    echo alert(implode('<br/>',$status),'info');
+}
+if (!$ok) {
+    $status[] = strong('Please, enter relevant management sections to complete the database.');
+    echo alert(implode('<br/>',$status));
+}
 
 ?>
