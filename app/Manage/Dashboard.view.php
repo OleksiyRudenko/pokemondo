@@ -15,4 +15,15 @@ print alert(
 );
 ?>
 <h2>Database Status</h2>
+<?php
+    include_once('app/class.dbTable.php');
+    include_once('app/dbSpec/db.tables.php');
+    $status = [
+        strong('DB TABLES status:')
+    ];
+    foreach ($TBH as $tbname=>$spec) {
+        $status[] = $tbname.': '.sqlTableExists($tbname);
+    }
+    echo alert(implode('<br/>',$status),'info');
 
+?>
