@@ -22,6 +22,20 @@ function strong($html) {
     return htmlElement('strong',$html);
 }
 
-function htmlElement($el,$inner='') {
-    return '<'.$el.'>'.$inner.'</'.$el.">\n";
+/**
+ * @param $el
+ * @param string $inner
+ * @param mixed $attr : [ attr=>value,...]
+ * @return string
+ */
+function htmlElement($el, $inner='', $attr='') {
+    if ($attr) {
+        $alist=[];
+        if (!is_array($attr))
+            $attr=[$attr=>''];
+        foreach ($attr as $a=>$v)
+            $alist[]= $a.($v?'="'.$v.'"':'');
+        $attr = (count($alist)?' ':'').implode(' ',$alist);
+    }
+    return '<'.$el.$attr.'>'.$inner.'</'.$el.">\n";
 }
