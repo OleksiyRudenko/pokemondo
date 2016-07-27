@@ -1,6 +1,7 @@
 # DIARY
 ```
 TOTAL= 14.0
+160727 00.6 - fn.boostrap::paginator()
 160727 01.8 - Module::Pokedex
 160727 01.5 - Module::FetchGender complete
 160727 02.0 - basic DB management support; data fetching & caching into DB 
