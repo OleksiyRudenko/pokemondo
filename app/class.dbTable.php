@@ -25,11 +25,11 @@ class dbTable {
             return false;
         if ($exists && $dropifexists)
             $this->drop();
-        return $this->DBH->real_query($this->mkStatementCreate());
+        return $this->DBH->query($this->mkStatementCreate());
     }
 
     public function drop() {
-        return $this->DBH->real_query('DROP TABLE `'.$this->name.'`');
+        return $this->DBH->query('DROP TABLE `'.$this->name.'`');
     }
 
     public function insert($valueset,$fdlist=false) {
@@ -42,7 +42,7 @@ class dbTable {
         $statement = $this->mkStatementInsert_prefix($fdlist) // make 'INSERT... (fields...) VALUES '
             . $this->mkStatementInsert_ValueSet($valueset)
             . ';';
-        return $this->DBH->real_query($statement);
+        return $this->DBH->query($statement);
     }
 
     /**
