@@ -18,14 +18,20 @@ $populate=false;
 if (!$tbPokegender->exists()) {
     $populate = true;
     $tbPokegender->create();
+    print alert('Create TABLE pokegender','info');
 } else {
     // check if there any data
-
+    $qr = $tbPokegender->select('COUNT(pokeid) AS cnt');
+    if (!$qr->fetch_assoc()['cnt']) {
+        $populate = true;
+    }
 }
 
 // populate if required
-if ($populate)
+if ($populate) {
+    print alert('Populate TABLE pokegender','info');
     pokegenderPopulate($tbPokegender);
+}
 
 // show data
 
@@ -76,4 +82,6 @@ function pokegenderPopulate($tbh) {
     echo varExport($glist);
 
     //
+
+    print alert('TABLE pokegender populated','success');
 }
