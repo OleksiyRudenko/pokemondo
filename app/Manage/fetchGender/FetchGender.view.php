@@ -8,15 +8,33 @@
 
 include_once('app/class.dbTable.php');
 include_once('app/dbSpec/db.tables.php');
+$tbPokegender = new dbTable($DBH,'pokegender',$DBT['pokegender']);
 
-if (sqlTableExists('pokegender')) {
-    // show pokegender data
+include_once('vendor/danrovito/pokephp/src/PokeApi.php');
+use PokePHP\PokeApi; // https://github.com/danrovito/pokephp
 
+$populate=false;
+// create if inexistent
+if (!$tbPokegender->exists()) {
+    $populate = true;
+    $tbPokegender->create();
 } else {
-    // populate pokegender from pokeapi.co
+    // check if there any data
 
-    include_once('vendor/danrovito/pokephp/src/PokeApi.php');
-    use PokePHP\PokeApi; // https://github.com/danrovito/pokephp
+}
+
+// populate if required
+if ($populate)
+    pokegenderPopulate($tbPokegender);
+
+// show data
+
+
+// =================================================================================================
+
+
+function pokegenderPopulate($tbh) {
+    // populate pokegender from pokeapi.co
     $api = new PokeApi;
 
     $genderlist = ['female','male','genderless'];
@@ -56,4 +74,6 @@ if (sqlTableExists('pokegender')) {
     foreach ($gender['genderless'] as $id=>$name)
         $glist['n'][$id] = $name;
     echo varExport($glist);
+
+    //
 }
