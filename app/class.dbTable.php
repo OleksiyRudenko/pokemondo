@@ -88,7 +88,9 @@ class dbTable {
         }
         foreach (self::$SELECT_CLAUSES as $clause)
             if (isset($component[$clause]))
-                $statement.= $clause . ' ' .$component[$clause];
+                $statement[] = $clause
+                    . ' '
+                    .$component[$clause];
         if (isset($component['ending']))
             $statement[]=$component['ending'];
 
