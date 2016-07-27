@@ -38,6 +38,11 @@ class MODULE {
             : false;
     }
 
+    public static function getSetting($stng,$module=false) {
+        if (!$module) $module = self::$currMod;
+        return self::$settings[$module][$stng];
+    }
+
     public static function load($component) {
         include_once('app/'.MODULE::currSetting('basepath').'.'.$component.'.php');
     }
