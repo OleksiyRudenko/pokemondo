@@ -34,10 +34,11 @@ if ($dbtbDependeciesExist) {
     </form>
     <?php
     if ($dbtbMainExists) {
+        if (($rowCount=$tbPokedex->countRows('pokeid'))===false) {
+            print alert('Cannot access `pokedex`!');
+        } else {
+            // show paginated data
 
+        }
     }
 }
-
-// show paginated data
-
-$qr=$tbPokedex->count();
