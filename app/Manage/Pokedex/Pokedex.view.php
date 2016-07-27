@@ -15,7 +15,7 @@ $tbPokedex = new dbTable($DBH,'pokedex',$DBT['pokedex']);
 $dbtbDependeciesExists = true;
 $dbtbTargetExists = true;
 if (!$tbPokegender->exists()) {
-    print alert('Required table `pokegender` doesn\'t exist. Please, complete Fetch Gender Data');
+    print alert('Required table `pokegender` doesn\'t exist. Please, complete '. ahref(MODULE::getSetting('url','fetch-genders'),'Fetch Gender Data'));
 }
 if (!$tbPokedex->exists()) {
     $populate = true;
