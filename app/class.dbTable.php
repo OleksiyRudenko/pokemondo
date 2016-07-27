@@ -98,6 +98,20 @@ class dbTable {
     }
 
     /**
+     * @param string $field : field to count by
+     * @param mixed $component : optional selection statements
+     * @return mixed : false on error; int on success
+     */
+    public function countRows($field,$component=false) {
+        $qr = $this->select('COUNT('.$field.') AS cnt',$component);
+        if (!$qr || !$qr->num_rows) return false;
+        $row = $qr->fetch_assoc();
+        $qr->free();
+        $count = $row['cnt'];
+        return $count;
+    }
+
+    /**
      * @param $valueset
      * @return string : ('value','value'), ('value','value')...
      */
