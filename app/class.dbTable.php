@@ -11,7 +11,6 @@ class dbTable {
     public $spec;
     public $DBH;
 
-
     function __construct($dbh,$tbname,$tbspec) {
         $this->name = $tbname;
         $this->spec = $tbspec;
@@ -26,24 +25,47 @@ class dbTable {
             return false;
         if ($exists && $dropifexists)
             $this->drop();
-
+        return $this->DBH->real_query($this->mkStatementCreate());
     }
 
     public function drop() {
-        $this->DBH->real_query('DROP TABLE `'.$this->name.'`');
+        return $this->DBH->real_query('DROP TABLE `'.$this->name.'`');
     }
 
-    public function insert($values,$fdlist) {
-
+    public function insert($valueset,$fdlist=false) {
+        if (!is_array($valueset))
+            $valueset = [$valueset]; // make array
+        if (!is_array($valueset[0]))
+            $valueset=[$valueset];  // make arra of arrays - valueset
+        if (!$fdlist)
+            $fdlist = array_keys($this->spec['f']); // take fieldlist from spec
+        $statement = $this->mkStatementInsert_prefix($fdlist) // make 'INSERT... (fields...) VALUES '
+            . $this->mkStatementInsert_ValueSet($valueset)
+            . ';';
+        return $this->DBH->real_query($statement);
     }
 
-    public function insertRecord($values) {
-
+    /**
+     * @param $valueset
+     * @return string : ('value','value'), ('value','value')...
+     */
+    public function mkStatementInsert_ValueSet($valueset) {
+        $spec = [];
+        foreach ($valueset as $record)
+            $spec [] = $this->mkStatementInsert_Values($record);
+        return implode(',',$spec);
     }
 
-    public function insertRecordSet($values) {
-
+    /**
+     * @desc generates sanitized VALUES set for a single record
+     * @param $values
+     * @return string : ('value','value'...)
+     */
+    public function mkStatementInsert_Values($values) {
+        sqlSanitizeRecord($values);
+        return '(\''.implode('\',\'',$values).'\')';
     }
+
 
     public function mkStatementCreate() {
         $statement = 'CREATE TABLE IF NOT EXISTS `'.$this->name.'` (';
@@ -52,7 +74,7 @@ class dbTable {
             $flist [] = $fd.' '.$spec;
         foreach ($this->spec['fx'] as $fd=>$spec)
             $flist [] = (is_numeric($fd)?'':$fd.' ').$spec;
-        $statement .= implode(',',$flist).')';
+        $statement .= implode(',',$flist).');';
         return $statement;
     }
 

@@ -6,6 +6,14 @@
  * Time: 10:41
  */
 
+/*
+[
+    tablename => [ f=>[field-name=>field-spec,...],
+                    fx=>[optional-key=>constraint|index-spec,...],
+                   ]
+]
+*/
+
 $DBT = [
     'pokegender' => [
         'f'     =>  [   // field list
