@@ -96,7 +96,7 @@ function paginator($aria, $page, $pages, $s=[
                     break;
                 } else {
                     if ($page-$i-1>0) $pageno[$page-$i-1]=$page-$i-1;
-                    if ($page+$i+1>0) $pageno[$page+$i+1]=$page+$i+1;
+                    if ($page+$i+1<=$pages) $pageno[$page+$i+1]=$page+$i+1;
                 }
             }
         }
