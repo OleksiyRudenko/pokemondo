@@ -18,6 +18,10 @@ function pre($html) {
     return htmlElement('pre',$html);
 }
 
+function strong($html) {
+    return htmlElement('strong',$html);
+}
+
 function htmlElement($el,$inner='') {
     return '<'.$el.'>'.$inner.'</'.$el.">\n";
 }
