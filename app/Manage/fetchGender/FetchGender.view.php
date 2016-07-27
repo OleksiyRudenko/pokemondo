@@ -6,6 +6,7 @@
  * Time: 21:05
  */
 
+global $DBH, $DBT;
 include_once('app/class.dbTable.php');
 include_once('app/dbSpec/db.tables.php');
 $tbPokegender = new dbTable($DBH,'pokegender',$DBT['pokegender']);
@@ -34,6 +35,18 @@ if ($populate) {
 }
 
 // show data
+$genderset = ['m','f','x','n'];
+
+foreach ($genderset as $gender) {
+    $clauses = [
+        'WHERE'     => 'gender=\''.$gender.'\'',
+        'ORDER BY'  => 'pokeid',
+    ];
+    $qr=$tbPokegender->select('*',$clauses);
+    while ($row=$qr->fetch_assoc()) {
+
+    }
+}
 
 
 // =================================================================================================
@@ -81,7 +94,13 @@ function pokegenderPopulate($tbh) {
         $glist['n'][$id] = $name;
     echo varExport($glist);
 
-    //
+    // prepare values
+    foreach ($glist as $gender=>$pokemons) {
+        $valueset = [];
+        foreach ($pokemons as $id=>$name)
+            $valueset[] = [$id,$gender];
+        $tbh->insert($valueset);
+    }
 
     print alert('TABLE pokegender populated','success');
 }
