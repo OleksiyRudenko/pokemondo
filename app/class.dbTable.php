@@ -10,6 +10,9 @@ class dbTable {
     public $name;
     public $spec;
     public $DBH;
+    private static $SELECT_CLAUSES = [
+        'WHERE','GROUP BY','HAVING','ORDER BY','LIMIT'
+    ];
 
     function __construct($dbh,$tbname,$tbspec) {
         $this->name = $tbname;
@@ -43,6 +46,50 @@ class dbTable {
             . $this->mkStatementInsert_ValueSet($valueset)
             . ';';
         return $this->DBH->query($statement);
+    }
+
+    /**
+     * @param mixed $field : false=*|array
+     * @param mixed $component : false=none|string append after 'FROM tbname'|array
+     *
+     * component array = [
+     *      prefix      => 'e.g. DISTINCT',
+     *      fs          => [append-to-fields-list,...],
+     *      join        => [ [ JOIN-PREDICATE, table-as, JOIN-CLAUSE], ... ],
+     *      WHERE       => 'where clause'
+     *      GROUP BY    => 'group-by clause',
+     *      HAVING      => 'having clause',
+     *      ORDER BY    => 'order-by clause',
+     *      LIMIT       => 'limit clause',
+     *      ending      => 'appended to the end of clause',
+     * ]
+     * NB! If join component present then principal table aliased as t1.
+     * Allcaps keywords added automatically
+     */
+    public function select($field=false, $component=false) {
+        if (!$field) $field='*';
+        if (!is_array($field)) $field=[$field];
+        if (!$component) $component = [];
+        if (!is_array($component)) $component['ending']=$component; // convert string into ending=>
+
+        $statement[] = 'SELECT';
+        if (isset($component['prefix']))
+            $statement[]=$component['prefix'];
+        if (isset($component['fs']))
+            $field=array_merge($field,$component['fs']);
+        $statement[]=implode(',',$field);
+        $statement[]='FROM '.$this->name.(isset($component['join'])?' AS t1':'');
+        if (isset($component['join'])) {
+            foreach ($component['join'] as $join)
+                $statement[] = implode(' ',$join);
+        }
+        foreach (self::$SELECT_CLAUSES as $clause)
+            if (isset($component[$clause]))
+                $statement.= $clause . ' ' .$component[$clause];
+        if (isset($component['ending']))
+            $statement[]=$component['ending'];
+
+        return $this->DBH->query(implode(' ',$statement));
     }
 
     /**
