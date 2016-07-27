@@ -1,12 +1,14 @@
 # DIARY
 ```
-TOTAL= 14.0
-160727 00.6 - fn.boostrap::paginator()
-160727 01.8 - Module::Pokedex
-160727 01.5 - Module::FetchGender complete
-160727 02.0 - basic DB management support; data fetching & caching into DB 
-160726 04.5 - basic CMS functionality
-160725 04.0 - research on pokeapi.co, pokemondb; repo set-up
-160723 01.0 - media collection 
-160722 03.0 - research on pokemon related resources 
+TOTAL =19.4
+      = 3.4
+160727  1.6 - fn.boostrap::paginator()
+160727  1.8 - Module::Pokedex
+      =16.0
+160727  1.5 - Module::FetchGender complete
+160727  2.0 - basic DB management support; data fetching & caching into DB 
+160726  4.5 - basic CMS functionality
+160725  4.0 - research on pokeapi.co, pokemondb; repo set-up
+160723  1.0 - media collection 
+160722  3.0 - research on pokemon related resources 
 ```

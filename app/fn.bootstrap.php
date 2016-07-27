@@ -134,13 +134,63 @@ function paginator($aria, $page, $pages, $s=[
     }
     ksort($pageno);
 
-    return alert($page.'/'.$pages.varExport($pageno).'rwff='.$rwff,'info');
+    // return alert($page.'/'.$pages.varExport($pageno).'rwff='.$rwff,'info');
 
-    /* return '<nav aria-label="'.$aria.'"><ul class="pagination">'
-        .($s['prevnext']
-            ?
+    if ($s['prevnext']) {
+        if (($pgPrev=$page-1)<1) $pgPrev=1;
+        if (($pgNext=$page+1)>$pages) $pgNext=$pages;
+    }
+    if ($rwff) {
+        if (($pgRewind=$page-$rwff)<1) $pgRewind=1;
+        if (($pgFastForward=$page+$rwff)>$pages) $pgFastForward=$pages;
+    }
+
+    // convert $pageno into list items
+    $li =[];
+    foreach ($pageno as $pgno) {
+        $notclickable = ($page==$pgno || $pgno=='&hellip;') ? true : false;
+        if ($notclickable) {
+            $class = ($page==$pgno) ? 'active':'disabled';
+        }
+
+        $li[]='<li'.($notclickable?' class="'.$class.'"':'').'>'
+            .($notclickable?'<span>':'<a href="?pg='.$pgno.'" aria-label="'.$pgno.'">')
+            .$pgno
+            .($notclickable?'<span class="sr-only">(current)</span></span>':'</a>')
+            .'</li>';
+    }
+
+    return '<nav aria-label="'.$aria.'"><ul class="pagination">'
+        .($rwff
+            ? '<li'.($page==1?' class="disabled"':'').'>'
+                .($page==1?'<span>':'<a href="?pg='.$pgRewind.'" aria-label="Rewind">')
+                .'<span aria-hidden="true">&laquo;</span>'
+                .($page==1?'</span>':'</a>')
+                .'</li>'
             :'')
-        .'</ul></nav>'; */
+        .($s['prevnext']
+            ? '<li'.($page==1?' class="disabled"':'').'>'
+                .($page==1?'<span>':'<a href="?pg='.$pgPrev.'" aria-label="Previous">')
+                .'<span aria-hidden="true">&lsaquo;</span>'
+                .($page==1?'</span>':'</a>')
+                .'</li>'
+            :'')
+        .implode("\n",$li)
+        .($s['prevnext']
+            ? '<li'.($page==$pages?' class="disabled"':'').'>'
+                .($page==$pages?'<span>':'<a href="?pg='.$pgNext.'" aria-label="Previous">')
+                .'<span aria-hidden="true">&rsaquo;</span>'
+                .($page==$pages?'</span>':'</a>')
+                .'</li>'
+            :'')
+        .($rwff
+            ? '<li'.($page==$pages?' class="disabled"':'').'>'
+                .($page==$pages?'<span>':'<a href="?pg='.$pgFastForward.'" aria-label="Fast forward">')
+                .'<span aria-hidden="true">&raquo;</span>'
+                .($page==$pages?'</span>':'</a>')
+                .'</li>'
+            :'')
+    .'</ul></nav>';
 }
 
 function paginatorPopulate(&$pglist,$page,$pages,$l) {
@@ -149,10 +199,28 @@ function paginatorPopulate(&$pglist,$page,$pages,$l) {
     $step = $l/10;
     // roundup $begin to nearest $begin%$step=0
     // rounddown $end to nearest $end%$step=0
-    $begin = round($begin,-(strlen($step)-1));
-    $end = round($end,-(strlen($step)-1));
+    if (($begin = round($begin,-(strlen($step)-1)))<1) $begin=1;
+    if (($end = round($end,-(strlen($step)-1)))>$pages) $end=$pages;
 
     for ($i=$begin;$i<$end;$i+=$step) {
         $pglist[$i]=$i;
     }
 }
+
+/* Paginator tests & examples:
+print paginator('Browse pokedex',1,26);
+print paginator('Browse pokedex',5,26);
+print paginator('Browse pokedex',9,26);
+print paginator('Browse pokedex',14,26);
+print paginator('Browse pokedex',24,26);
+print paginator('Browse pokedex',25,26);
+print paginator('Browse pokedex',26,26);
+print paginator('Browse pokedex',28,26);
+print paginator('Browse pokedex',101,300);
+print paginator('Browse pokedex',542,900);
+print paginator('Browse pokedex',542,1000);
+print paginator('Browse pokedex',542,1100);
+print paginator('Browse pokedex',542,1200);
+print paginator('Browse pokedex',5428,12000);
+print paginator('Browse pokedex',54285,120000);
+print paginator('Browse pokedex',542850,1200000); */
