@@ -38,6 +38,15 @@ function sqlSanitizeRecordSet(&$data) {
 
 function sqlTableExists($tbname) {
     global $DBH;
-    if ($DBH->real_query('SHOW TABLES LIKE `'.$tbname.'`')->num_rows==0) return false;
+    $qres=$DBH->query('SHOW TABLES LIKE \''.$tbname.'\'');
+    /* print $qres
+        ? varExport($qres)
+        : sqlError(); */
+    if (!$qres || !$qres->num_rows) return false;
     return true;
+}
+
+function sqlError() {
+    global $DBH;
+    return alert(strong('DB error: ').$DBH->error);
 }

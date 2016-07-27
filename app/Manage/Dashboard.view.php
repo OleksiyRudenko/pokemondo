@@ -21,8 +21,8 @@ print alert(
     $status = [
         strong('DB TABLES status:')
     ];
-    foreach ($TBH as $tbname=>$spec) {
-        $status[] = $tbname.': '.sqlTableExists($tbname);
+    foreach ($DBT as $tbname=>$spec) {
+        $status[] = $tbname.': '.(sqlTableExists($tbname)?'OK':'inexistent!');
     }
     echo alert(implode('<br/>',$status),'info');
 
