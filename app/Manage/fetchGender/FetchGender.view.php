@@ -34,19 +34,29 @@ if ($populate) {
     pokegenderPopulate($tbPokegender);
 }
 
-// show data
+// select data
 $genderset = ['m','f','x','n'];
 
+$col = [];
 foreach ($genderset as $gender) {
     $clauses = [
         'WHERE'     => 'gender=\''.$gender.'\'',
         'ORDER BY'  => 'pokeid',
     ];
     $qr=$tbPokegender->select('*',$clauses);
+    $recset = [ strong($gender).'('.$qr->num_rows.')' ];
     while ($row=$qr->fetch_assoc()) {
-
+        $recset[] = 'gender='.$row['gender'].'; pokeid='.$row['pokeid'];
     }
+    $col[$gender]=implode('<br/>',$recset);
 }
+
+// show data
+print '<h2>Pokemons by gender</h2><table class="table table-condensed"><thead><tr>';
+foreach ($genderset as $gender)
+    print '<td>'.$gender.'</td>';
+print '</tr></thead><tbody><tr><td>'.implode('</td><td>',$col).'</td></tr>';
+print '</tbody></table>';
 
 
 // =================================================================================================
@@ -92,7 +102,7 @@ function pokegenderPopulate($tbh) {
             $glist[(isset($gender['female'][$id])?'x':'m')][$id] = $name;
     foreach ($gender['genderless'] as $id=>$name)
         $glist['n'][$id] = $name;
-    echo varExport($glist);
+    // echo varExport($glist);
 
     // prepare values
     foreach ($glist as $gender=>$pokemons) {
