@@ -29,4 +29,21 @@ for ($i=0;$i<3;$i++) {
         $gender[$genderlist[$i]][$id] = $go['pokemon_species']['name'];
     }
 }
-print '<pre>'.var_export($gender,true).'</pre>';
+// print '<pre>'.var_export($gender,true).'</pre>';
+
+// build gender lists: f - female only, m - male only, x - either, n - neither
+
+$glist = [
+    'f' => [],
+    'm' => [],
+    'x' => [],
+    'n' => [],
+];
+
+foreach ($gender['female'] as $id=>$name)
+        $glist[(isset($gender['male'][$id])?'x':'f')][$id] = $name;
+foreach ($gender['male'] as $id=>$name)
+        $glist[(isset($gender['female'][$id])?'x':'m')][$id] = $name;
+foreach ($gender['genderless'] as $id=>$name)
+    $glist['n'][$id] = $name;
+echo varExport($glist);
