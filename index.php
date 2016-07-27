@@ -7,3 +7,4 @@ include_once( MODULE::$currMod == 'public'
     : 'html.1body-private.php'
 );
 include_once('html.1body-xfinalize.html');
+include_once('app/postHTML.php');
