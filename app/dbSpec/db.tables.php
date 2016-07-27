@@ -15,6 +15,7 @@
 */
 
 $DBT = [
+
     'pokegender' => [
         'f'     =>  [   // field list
             'pokeid'    => 'SMALLINT UNSIGNED NOT NULL DEFAULT \'0\'',
@@ -24,5 +25,19 @@ $DBT = [
             'UNIQUE (pokeid,gender)',
         ],
     ], // pokegender
+
+    'pokedex'   => [
+        'f'     => [
+            'pokeid'        => 'SMALLINT UNSIGNED NOT NULL DEFAULT \'0\'',
+            'localdata'     => 'TINYINT UNSIGNED NOT NULL DEFAULT \'0\'', // data imported from pokeapi.co
+            'localsprite'   => 'TINYINT UNSIGNED NOT NULL DEFAULT \'0\'', // sprites imported from pokemondb.net/sprites/*
+            'localani'      => 'TINYINT UNSIGNED NOT NULL DEFAULT \'0\'', // animated sprites imported from pokemondb.net/sprites/*
+            'localimg'      => 'TINYINT UNSIGNED NOT NULL DEFAULT \'0\'', // bigger image imported from bulbapedia.
+        ],
+        'fx'    => [
+            'UNIQUE (pokeid)',
+        ]
+
+    ],
 
 ];
