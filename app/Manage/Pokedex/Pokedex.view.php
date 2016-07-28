@@ -1,3 +1,4 @@
+<p class="lead">Create `pokedex`. Grab images.</p>
 <?php
 /**
  * Created by PhpStorm.
