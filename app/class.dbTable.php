@@ -39,7 +39,7 @@ class dbTable {
         if (!is_array($valueset))
             $valueset = [$valueset]; // make array
         if (!is_array($valueset[0]))
-            $valueset=[$valueset];  // make arra of arrays - valueset
+            $valueset=[$valueset];  // make array of arrays - valueset
         if (!$fdlist)
             $fdlist = array_keys($this->spec['f']); // take fieldlist from spec
         $statement = $this->mkStatementInsert_prefix($fdlist) // make 'INSERT... (fields...) VALUES '
@@ -100,6 +100,46 @@ class dbTable {
         }
 
         return $this->DBH->query(implode(' ',$statement));
+    }
+
+    /**
+     * @param $values : string|[value,...]|[field=>value,...]
+     * @param bool $fdlist : if false then either keys from $values or from spec['f']
+     * @param string $where : WHERE clause
+     * @return mixed
+     */
+    public function update($values, $fdlist=false, $where='') {
+        if (!is_array($values))
+            $values = [$values]; // make array
+        if ($fdlist) {
+            $nv=[];
+            $i=0;
+            foreach ($values as $k=>$v)
+                $nv[$fdlist[$i++]]=$v;
+            $values=$nv;
+        }
+        $vk = array_keys($values);
+        if (is_numeric($vk[0])) {
+            $fdlist = array_keys($this->spec['f']);
+            $nv=[];
+            $i=0;
+            foreach ($values as $k=>$v)
+                $nv[$fdlist[$i++]]=$v;
+            $values=$nv;
+        }
+        // now we should have $values = [ field=>value,...]
+        sqlSanitizeRecord($values);
+        $rv = [];
+        // make pairs
+        foreach ($values as $k=>$v) {
+            $rv[]=$k.'=\''.$v.'\'';
+        }
+        $values = implode(',',$rv);
+
+        $statement = 'UPDATE '.$this->name.' SET '
+            .$values
+            .($where?' WHERE '.$where:'');
+        return $this->DBH->query($statement);
     }
 
     /**
