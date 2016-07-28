@@ -26,28 +26,30 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
 
     // inquire table
     $clauses = [
-        'join'      => 'JOIN pokename AS t2 ON t1.pokeid=t2.pokeid',
+        'join'      => 'LEFT OUTER JOIN pokename AS t2 ON t1.pokeid=t2.pokeid',
         'ORDER BY'  => 't1.pokeid',
         'LIMIT'     => (($page-1) * $limit).','.$limit,
     ];
-    if (!$qr = $tbPokedex->select('*',$clauses))
+    if (!$qr = $tbPokedex->select('t1.*, t2.pokename, t2.pokename_ru',$clauses))
         logMessage('Pokedex',sqlError());
 
-    print unlogMessage('DBH');
+    // print unlogMessage('DBH');
     print unlogMessage('Pokedex');
 
     // show data
     $paginator=paginator('Browse data',$page,$pages);
     print $paginator;
-    $headers = ['pokeid','data','local sprite','remote sprite','local anim','remote anim','local ava','remote ava'];
+    $headers = ['pokeid','pokename','data','local sprite','remote sprite','local anim','remote anim','local ava','remote ava'];
     print '<table class="table table-hover table-responsive"><thead><tr><td>'
         . tr($headers)
         .'</td></tr></thead><tbody>';
     $view='shiny';
     while ($row=$qr->fetch_assoc()) {
         $poke=new Pokemon($row);
+        // logMessage('Pokedex',varExport($row));
         $tr=[];
         $tr[]=$row['pokeid'];
+        $tr[]=$row['pokename'].'/'.$row['pokename_ru'];
         $tr[]=$row['localdata'];
         $localdata = $row['localdata'];
 
@@ -64,6 +66,7 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
     }
     print '</tbody></table>'.$paginator;
 
+    // print unlogMessage('Pokedex');
 
 }
 
