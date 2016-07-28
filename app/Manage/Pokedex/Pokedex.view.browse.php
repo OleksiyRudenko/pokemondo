@@ -26,6 +26,7 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
 
     // inquire table
     $clauses = [
+        'join'      => 'JOIN pokename AS t2 ON t1.pokeid=t2.pokeid',
         'ORDER BY'  => 'pokeid',
         'LIMIT'     => (($page-1) * $limit).','.$limit,
     ];
@@ -50,7 +51,7 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
         $tr[]=$row['localani'].($localdata?$poke->imageUrl('local','sprite','anim',$view):'');
         $tr[]=$poke->imageUrl('bulbapedia','sprite','anim',$view);
         $tr[]=$row['localimg'].($localdata?$poke->imageUrl('local','avatar','static',$view):'');
-        $tr[]=$poke->imageUrl('bulbapedia','avatar','static',$view);
+        $tr[]='No source for avatar';// $poke->imageUrl('bulbapedia','avatar','static',$view);
         print tr($tr);
     }
     print '</tbody></table>'.$paginator;
