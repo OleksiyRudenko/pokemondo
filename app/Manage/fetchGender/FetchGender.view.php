@@ -1,4 +1,4 @@
-<p class="lead">Create `pokegender`.</p>
+<p class="lead">Create and populate `pokegender`.</p>
 <?php
 /**
  * Created by PhpStorm.
