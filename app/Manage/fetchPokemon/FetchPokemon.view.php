@@ -40,7 +40,7 @@ foreach (array_keys($dbTbMain) as $i=>$tbname) {
         print alert('Creating table `'.$tbname.'`.','info');
     }
 }
-
+$dbtbMainExists=true;
 foreach (array_keys($dbTbMain) as $i=>$tbname) {
     if (!$dbTbMain[$tbname]->exists()) {
         $dbtbMainExists = false;
@@ -56,11 +56,15 @@ if ($dbtbDependeciesExist && $dbtbMainExists) {
         // show form
         ?>
         <form method="GET">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">Pokemon id</span>
-                <input type="text" class="form-control" id="pokeid" name="pokeid" aria-describedby="basic-addon1">
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Pokemon id</span>
+                    <input type="text" class="form-control" id="pokeid" name="pokeid" aria-describedby="basic-addon1">
+                </div>
             </div>
-            <?=buttonSubmit('Fetch','Fetch')?>
+            <div class="form-group">
+                <?=buttonSubmit('Fetch','Fetch')?>
+            </div>
         </form>
         <?php
     } else {
