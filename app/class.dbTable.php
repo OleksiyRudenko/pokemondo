@@ -65,6 +65,7 @@ class dbTable {
      * ]
      * NB! If join component present then principal table aliased as t1.
      * Allcaps keywords added automatically
+     * TODO: implement optional t1.*, t2.*...
      */
     public function select($field=false, $component=false) {
         if (!$field) $field='*';
