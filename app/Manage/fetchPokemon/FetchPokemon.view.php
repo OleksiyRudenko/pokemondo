@@ -1,3 +1,4 @@
+<p class="lead">Create and populate `pokename` and `poketype`. Update `pokedex`.</p>
 <?php
 /**
  * Created by PhpStorm.
