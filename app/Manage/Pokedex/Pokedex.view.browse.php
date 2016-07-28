@@ -12,6 +12,41 @@ include_once('app/dbSpec/db.tables.php');
 // $tbPokegender = new dbTable($DBH,'pokegender',$DBT['pokegender']);
 $tbPokedex = new dbTable($DBH,'pokedex',$DBT['pokedex']);
 
+if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
+    alert('Database is empty');
+} else {
+    if (!isset($_GET['pg'])) $_GET['pg']=1;
+    $limit = 10;
+    $page = $_GET['pg'];
+    $pages = ceil($reccount/$limit);
+    if ($page<1) $page = 1;
+    if ($page>$pages) $page=$pages;
+
+
+    // inquire table
+    $clauses = [
+        'ORDER BY'  => 'pokeid',
+        'LIMIT'     => (($page-1) * $limit).','.$limit,
+    ];
+    $qr = $tbPokedex->select('*',$clauses);
+
+    // show data
+    $paginator=paginator('Browse data',$page,$pages);
+    print $paginator;
+    $headers = ['pokeid',''];
+    print '<table class="table table-condensed"><thead><tr><td>'
+        . tr($tbPokedex->fields())
+        .'</td></tr></thead><tbody>';
+    while ($row=$qr->fetch_assoc()) {
+        print tr($row);
+    }
+    print '</tbody></table>'.$paginator;
+
+
+}
+
+
+
 /* print paginator('Browse pokedex',1,26);
 print paginator('Browse pokedex',5,26);
 print paginator('Browse pokedex',9,26);

@@ -115,6 +115,10 @@ class dbTable {
         return $count;
     }
 
+    public function fields() {
+        return array_keys($this->spec['f']);
+    }
+
     /**
      * @param $valueset
      * @return string : ('value','value'), ('value','value')...
