@@ -17,6 +17,10 @@ class Pokemon {
                         'urlbase'   =>  '/img/pokemon/avatar/static/normal/',
                         'type'      =>  '.png',
                     ],
+                    'shiny'    => [ // same
+                        'urlbase'   =>  '/img/pokemon/avatar/static/normal/',
+                        'type'      =>  '.png',
+                    ],
                 ],
             ],
             'sprite' => [
