@@ -2,7 +2,7 @@
 ```
 TOTAL =20.4
       = 
-160728  1.0 - Module::Pokedex.view.browse; class Pokemon
+160728  1.5 - Module::Pokedex.view.browse; class Pokemon
       = 4.4
 160727  2.6 - fn.boostrap::paginator()
 160727  1.8 - Module::Pokedex

@@ -9,15 +9,28 @@
 global $DBH, $DBT;
 include_once('app/class.dbTable.php');
 include_once('app/dbSpec/db.tables.php');
-$tbPokegender = new dbTable($DBH,'pokegender',$DBT['pokegender']);
-$tbPokedex = new dbTable($DBH,'pokedex',$DBT['pokedex']);
 
+// check if dependecy tables exist
+$dbTb = ['pokegender'=>0,'pokename'=>0];
+$redirect = [
+    'pokegender'=> [ 'url'=>MODULE::getSetting('url','fetch-genders'),
+        'text' => 'fetch Gender Data', ],
+    'pokename'=>    [ 'url'=>MODULE::getSetting('url','fetch-pokemons'),
+        'text' => 'fetch Pokemon Data', ],
+];
 $dbtbDependeciesExist = true;
-$dbtbMainExists = true;
-if (!$tbPokegender->exists()) {
-    $dbtbDependeciesExist = false;
-    print alert('Required table `pokegender` doesn\'t exist. Please, complete '. ahref(MODULE::getSetting('url','fetch-genders'),'Fetch Gender Data'));
+foreach (array_keys($dbTb) as $i=>$tbname) {
+    $dbTb[$tbname] = new dbTable($DBH,$tbname,$DBT[$tbname]);
+    if (!$dbTb[$tbname]->exists()) {
+        $dbtbDependeciesExist = false;
+        print alert('Required table `'.$tbname.'` doesn\'t exist. Please, '
+            .ahref($redirect[$tbname]['url'],$redirect[$tbname]['text']));
+    }
 }
+
+// check if major table exists
+$dbtbMainExists = true;
+$tbPokedex = new dbTable($DBH,'pokedex',$DBT['pokedex']);
 if (!$tbPokedex->exists()) {
     $dbtbMainExists = false;
     print alert('DB TABLE `pokedex` doesn\'t exist');
@@ -26,6 +39,7 @@ if (!$tbPokedex->exists()) {
 print unlogMessage('Pokedex');
 // print varExport($_POST);
 
+// CREATE/ReBuild Button
 if ($dbtbDependeciesExist) {
     // proceed only if dependencies exist
     ?>
