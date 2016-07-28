@@ -34,7 +34,7 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
     $paginator=paginator('Browse data',$page,$pages);
     print $paginator;
     $headers = ['pokeid',''];
-    print '<table class="table table-condensed"><thead><tr><td>'
+    print '<table class="table table-hover table-responsive"><thead><tr><td>'
         . tr($tbPokedex->fields())
         .'</td></tr></thead><tbody>';
     while ($row=$qr->fetch_assoc()) {
@@ -46,8 +46,8 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
 }
 
 
-
-/* print paginator('Browse pokedex',1,26);
+/*
+print paginator('Browse pokedex',1,26);
 print paginator('Browse pokedex',5,26);
 print paginator('Browse pokedex',9,26);
 print paginator('Browse pokedex',14,26);

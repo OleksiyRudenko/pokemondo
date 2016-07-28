@@ -71,7 +71,7 @@ function paginator($aria, $page, $pages, $s=[
     'prevnext'  => true,  // show prev/next?
     'everyNth'  => true,  // show interim pgBttns every 10/100/1000th..?
     'optimN'    => 15,    // if count(pgBttns)>optimN then stop adding pgBttns but add input field (if input=true)
-    'input'     => 'l',   // use input field? if so then in position: f - first, l - last, p - in place of $page
+    'input'     => 'p',   // use input field? if so then in position: f - first, l - last, p - in place of $page
     'pgname'    => 'pg',  // GET parameter name for input field
 ]) {
     $rwff = false; // fastForward/fastRewind buttons false|integer depending on $pages scale
@@ -122,7 +122,7 @@ function paginator($aria, $page, $pages, $s=[
             /* for ($i=$s['every'];$i<$pages;$i+=$s['every'])
                 $pageno[$i] = $i; */
         }
-        if ($pages>200)
+        if ($pages>100)
             $rwff = round($pages/5,-1);
         // fill gaps wisely
         $ingap = false;
@@ -164,9 +164,15 @@ function paginator($aria, $page, $pages, $s=[
         $form['head'] = '<form method="GET">';
         $form['end'] = '</form>';
         $width = strlen($page)+1;
-        $input[$s['input']] = '<li>Jump to:<INPUT TYPE="text" name="'
+        $input[$s['input']] = '<li>'.($s['input']=='p'?'':'Jump to:').'<INPUT TYPE="text" name="'
             .$s['pgname']
-            .'" aria-label="Jump to page" class="form-control" style="min-width:0;width:'.$width.'em;display:inline;background-color:#337ab7;color:#fff;" VALUE="'.$page.'"></li>';
+            .'" aria-label="Jump to page" class="form-control"'
+            .' style="background-color:#337ab7;color:#fff;width:'.$width.'em;'
+            .($s['input']=='p'
+                ?'vertical-align:top;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;height:auto;*height:20px;margin-bottom:0px;border-left-width:0;float:left;min-height:auto;*min-height:20px;'
+                :'min-width:0;display:inline;')
+            .'"'
+            .' VALUE="'.$page.'"></li>';
     }
 
     // convert $pageno into list items
