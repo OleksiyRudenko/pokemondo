@@ -40,6 +40,18 @@ function htmlElement($el, $inner='', $attr='') {
     return '<'.$el.$attr.'>'.$inner.'</'.$el.">\n";
 }
 
+function htmlElementSingle($el, $attr='') {
+    if ($attr) {
+        $alist=[];
+        if (!is_array($attr))
+            $attr=[$attr=>''];
+        foreach ($attr as $a=>$v)
+            $alist[]= $a.($v?'="'.$v.'"':'');
+        $attr = (count($alist)?' ':'').implode(' ',$alist);
+    }
+    return '<'.$el.$attr.' />'.">\n";
+}
+
 function tr($tda) {
     return '<tr><td>'.implode('</td><td>',$tda).'</td></tr>';
 }
