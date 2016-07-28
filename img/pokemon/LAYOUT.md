@@ -3,12 +3,14 @@
 ```
 pokemon
 |-- avatar          -- bigger images
+|   \-- static      --   static
+|       \-- normal  --     regular coloring
 \-- sprite          -- sprites
-    |-- ani         --   animated
-    |   |-- reg     --     regular coloring
+    |-- anim        --   animated
+    |   |-- normal  --     regular coloring
     |   \-- shiny   --     shiny coloring
     \-- static      --   static
-        |-- reg     --     regular coloring
+        |-- normal  --     regular coloring
         \-- shiny   --     shiny coloring
 ```
 
