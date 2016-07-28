@@ -9,10 +9,41 @@
 class Pokemon {
     public $p; // properties
 
-    public static $externalImgTpl = [
+    public static $img = [
+        'local'    => [
+            'avatar' => [
+                'static' => [
+                    'normal'    => [
+                        'urlbase'   =>  '/img/pokemon/avatar/static/normal/',
+                        'type'      =>  '.png',
+                    ],
+                ],
+            ],
+            'sprite' => [
+                'anim' => [
+                    'normal'   =>  [
+                        'urlbase'   => '/img/pokemon/sprite/anim/normal/',
+                        'type'      =>  '.gif'
+                    ],
+                    'shiny'   =>  [
+                        'urlbase'   => '/img/pokemon/sprite/anim/shiny/',
+                        'type'      =>  '.gif'
+                    ],
+                ],
+                'static' => [
+                    'normal'   =>  [
+                        'urlbase'   => '/img/pokemon/sprite/static/normal/',
+                        'type'      =>  '.png',
+                    ],
+                    'shiny'   =>  [
+                        'urlbase'   => '/img/pokemon/sprite/static/shiny/',
+                        'type'      =>  '.png',
+                    ],
+                ],
+            ],
+        ],
         'bulbapedia'    => [
             'sprite' => [
-
                 'anim' => [
                     'normal'   =>  [
                         'urlbase'   => 'https://img.pokemondb.net/sprites/black-white/anim/normal/',
@@ -33,7 +64,6 @@ class Pokemon {
                         'type'      =>  '.png',
                     ],
                 ],
-
             ],
         ],
     ];
@@ -55,12 +85,20 @@ class Pokemon {
     }
 
     /**
-     * @param $source : bulbapedia...
+     * @param $source : local|bulbapedia...
      * @param $class  : avatar|sprite
      * @param $type   : anim|static
      * @param $view   : normal|shiny
      */
-    function externalImageUrl($source='bulbapedia', $class='sprite', $type='anim', $view='shiny') {
-
+    function imageUrl($source='bulbapedia', $class='sprite', $type='anim', $view='shiny') {
+        if (is_array($source)) {
+            $class=$source[1];
+            $type=$source[2];
+            $view=$source[3];
+            $source=$source[0];
+        }
+        return self::$img[$source][$class][$type][$view]['urlbase']
+            .$this->p['pokename']
+            .self::$img[$source][$class][$type][$view]['type'];
     }
 }
