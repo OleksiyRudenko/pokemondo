@@ -1,9 +1,8 @@
 # DIARY
 ```
-TOTAL =20.4
-      = 
-160728  1.5 - Module::Pokedex.view.browse; class Pokemon
-      = 4.4
+TOTAL =25.9
+      = 9.9 
+160728  4.5 - Module::Pokedex.view.browse; class Pokemon; Module::FetchPokemon
 160727  2.6 - fn.boostrap::paginator()
 160727  1.8 - Module::Pokedex
       =16.0
