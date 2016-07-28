@@ -16,7 +16,7 @@ if (isset($_GET['action'])) {
     include_once('app/class.dbTable.php');
     include_once('app/dbSpec/db.tables.php');
     $tbPokename = new dbTable($DBH,'pokename',$DBT['pokename']);
-    $tbPoketype = new dbTable($DBH,'pokename',$DBT['poketype']);
+    $tbPoketype = new dbTable($DBH,'poketype',$DBT['poketype']);
     $tbPokedex = new dbTable($DBH,'pokedex',$DBT['pokedex']);
 
     switch ($_GET['action']) {
@@ -31,6 +31,7 @@ if (isset($_GET['action'])) {
             $pokename = [
                 'pokeid'        => $pokemona['id'],
                 'pokename'      => $pokemona['name'],
+                'pokename_ru'   => '',
                 // 'sprites'   => $pokemona['sprites'],
             ];
             $poketype = [];
@@ -42,10 +43,12 @@ if (isset($_GET['action'])) {
             if ($tbPokename->insert($pokename)) {
                 if ($tbPoketype->insert($poketype)) {
                     // update pokedex
-                    $tbPokedex->update();
+                    if (!$tbPokedex->update(['localdata'=>1],false,'pokeid='.$pokename['pokeid'])) {
+                        logMessage('FetchPokemon','pokedex update: '.sqlError(),'danger');
+                    }
                 } else {
-                    $tbPokename->delete('pokeid='.$pokename['pokeid']);
                     logMessage('FetchPokemon','poketype: '.sqlError(),'danger');
+                    $tbPokename->delete('pokeid='.$pokename['pokeid']);
                 }
             } else {
                 logMessage('FetchPokemon','pokename: '.sqlError(),'danger');

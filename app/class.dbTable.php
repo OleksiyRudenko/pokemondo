@@ -45,6 +45,7 @@ class dbTable {
         $statement = $this->mkStatementInsert_prefix($fdlist) // make 'INSERT... (fields...) VALUES '
             . $this->mkStatementInsert_ValueSet($valueset)
             . ';';
+        // logMessage('DBH',$statement);
         return $this->DBH->query($statement);
     }
 
