@@ -51,23 +51,22 @@ foreach (array_keys($dbTbMain) as $i=>$tbname) {
 print unlogMessage('FetchPokemon');
 
 if ($dbtbDependeciesExist && $dbtbMainExists) {
-    // we expect $_GET['pokeid']
+    // show form
+    ?>
+    <hr>
+    <form method="GET">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Fetch pokemon with id</span>
+                <input type="text" class="form-control" id="pokeid" name="pokeid" aria-describedby="basic-addon1">
+            </div>
+        </div>
+        <div class="form-group">
+            <?=buttonSubmit('Fetch','Fetch')?>
+        </div>
+    </form>
+    <?php
     if (!isset($_GET['pokeid'])) {
-        // show form
-        ?>
-        <form method="GET">
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon1">Pokemon id</span>
-                    <input type="text" class="form-control" id="pokeid" name="pokeid" aria-describedby="basic-addon1">
-                </div>
-            </div>
-            <div class="form-group">
-                <?=buttonSubmit('Fetch','Fetch')?>
-            </div>
-        </form>
-        <?php
-    } else {
         // show pokemon data
         //!...
     }

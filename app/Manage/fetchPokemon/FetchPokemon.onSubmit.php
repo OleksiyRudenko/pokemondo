@@ -15,7 +15,7 @@ if (isset($_GET['action'])) {
     $tbPoketype = new dbTable($DBH,'pokename',$DBT['poketype']);
     $tbPokedex = new dbTable($DBH,'pokedex',$DBT['pokedex']);
 
-    switch ($_POST['action']) {
+    switch ($_GET['action']) {
         case 'Fetch':
             // fetch pokemon: insert pokename, poketype; update pokedex
             $pokemon = json_decode($api->pokemon($_GET['pokeid']));
