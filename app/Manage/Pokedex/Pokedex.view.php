@@ -44,7 +44,7 @@ if ($dbtbDependeciesExist) {
     // proceed only if dependencies exist
     ?>
     <form method="POST">
-        <?=buttonSubmit('Build',($dbtbMainExists?'ReBuild':'CREATE'))?>
+        <?=buttonSubmit('Build',($dbtbMainExists?'ReBuild':'CREATE'),($dbtbMainExists?'danger':'primary'))?>
     </form>
     <?php
     if ($dbtbMainExists) {
