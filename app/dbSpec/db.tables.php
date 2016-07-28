@@ -37,7 +37,29 @@ $DBT = [
         'fx'    => [
             'UNIQUE (pokeid)',
         ]
+    ], // pokedex
 
-    ],
+    'pokename'   => [
+        'f'     => [
+            'pokeid'        => 'SMALLINT UNSIGNED NOT NULL DEFAULT \'0\'',
+            'pokename'      => 'VARCHAR(32) NOT NULL DEFAULT \'\'',
+            'pokename_ru'   => 'VARCHAR(32) NOT NULL DEFAULT \'\'',
+        ],
+        'fx'    => [
+            'UNIQUE (pokeid)',
+        ]
+    ], // pokename
+
+    'poketype'   => [
+        'f'     => [
+            'pokeid'        => 'SMALLINT UNSIGNED NOT NULL DEFAULT \'0\'',
+            'poketype'      => 'VARCHAR(32) NOT NULL DEFAULT \'\'',
+        ],
+        'fx'    => [
+            'UNIQUE (pokeid,type)',
+        ]
+    ], // poketype
+
+
 
 ];
