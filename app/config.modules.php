@@ -39,6 +39,7 @@ $settings = [
             'basepath'  => 'Manage/fetchPokemon/FetchPokemon',
             'navmenu'   => 'Fetch Pokemon Data',
             'heading'   => 'Fetch Pokemon Profiles Data',
+            'onSubmit'  =>  ['Fetch'],
         ],
         'pokedex'  => [
             'basepath'  => 'Manage/Pokedex/Pokedex',

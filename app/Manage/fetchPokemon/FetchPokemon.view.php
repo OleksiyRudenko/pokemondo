@@ -60,6 +60,7 @@ if ($dbtbDependeciesExist && $dbtbMainExists) {
                 <span class="input-group-addon" id="basic-addon1">Pokemon id</span>
                 <input type="text" class="form-control" id="pokeid" name="pokeid" aria-describedby="basic-addon1">
             </div>
+            <?=buttonSubmit('Fetch','Fetch')?>
         </form>
         <?php
     } else {
