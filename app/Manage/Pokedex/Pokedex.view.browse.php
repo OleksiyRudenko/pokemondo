@@ -27,10 +27,14 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
     // inquire table
     $clauses = [
         'join'      => 'JOIN pokename AS t2 ON t1.pokeid=t2.pokeid',
-        'ORDER BY'  => 'pokeid',
+        'ORDER BY'  => 't1.pokeid',
         'LIMIT'     => (($page-1) * $limit).','.$limit,
     ];
-    $qr = $tbPokedex->select('*',$clauses);
+    if (!$qr = $tbPokedex->select('*',$clauses))
+        logMessage('Pokedex',sqlError());
+
+    print unlogMessage('DBH');
+    print unlogMessage('Pokedex');
 
     // show data
     $paginator=paginator('Browse data',$page,$pages);

@@ -73,6 +73,8 @@ class dbTable {
         if (!is_array($field)) $field=[$field];
         if (!$component) $component = [];
         if (!is_array($component)) $component['ending']=$component; // convert string into ending=>
+        if (isset($component['join']) && !is_array($component['join']))
+            $component['join'] = [$component['join']];
 
         $statement[] = 'SELECT';
         if (count($component)) {
@@ -99,6 +101,7 @@ class dbTable {
             if (isset($component['ending']))
                 $statement[] = $component['ending'];
         }
+        // logMessage('DBH',varExport($statement));
 
         return $this->DBH->query(implode(' ',$statement));
     }
