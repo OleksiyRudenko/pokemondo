@@ -103,6 +103,16 @@ class dbTable {
     }
 
     /**
+     * @param $where
+     * @return mixed queryresult
+     */
+    public function delete($where='') {
+        return $this->DBH->query('DELETE FROM '.$this->name
+            .($where?' WHERE '.$where:'')
+        );
+    }
+
+    /**
      * @param string $field : field to count by
      * @param mixed $component : optional selection statements
      * @return mixed : false on error; int on success
@@ -116,6 +126,9 @@ class dbTable {
         return $count;
     }
 
+    /**
+     * @return array FieldList
+     */
     public function fields() {
         return array_keys($this->spec['f']);
     }
