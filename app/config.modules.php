@@ -12,8 +12,8 @@ $pathtree =    [
         // 'public' => 0,
         'manage-pokemons' =>   [
             'fetch-genders'     => 0,
-            'pokedex'           => 0,
             'fetch-pokemons'    => 0,
+            'pokedex'           => 0,
             'bind-pokemon-gender'   => 0,
             'import-imagery'    => 0,
             'view-DataBase'     => 0,
@@ -35,16 +35,16 @@ $settings = [
             'navmenu'   => 'Fetch Gender Data',
             'heading'   => 'Fetch Pokemon Gender Data',
         ],
+        'fetch-pokemons'  => [
+            'basepath'  => 'Manage/fetchPokemon/FetchPokemon',
+            'navmenu'   => 'Fetch Pokemon Data',
+            'heading'   => 'Fetch Pokemon Profiles Data',
+        ],
         'pokedex'  => [
             'basepath'  => 'Manage/Pokedex/Pokedex',
             'navmenu'   => 'Manage Pokedex',
             'heading'   => 'Manage Pokedex',
             'onSubmit'  =>  ['Build'],
-        ],
-        'fetch-pokemons'  => [
-            'basepath'  => 'Manage/fetchPokemon/FetchPokemon',
-            'navmenu'   => 'Fetch Pokemon Data',
-            'heading'   => 'Fetch Pokemon Profiles Data',
         ],
         'bind-pokemon-gender'   => [
             'basepath'  => 'Manage/bindPokeGen/BindPokeGen',
