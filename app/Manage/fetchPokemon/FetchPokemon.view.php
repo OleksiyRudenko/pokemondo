@@ -11,10 +11,6 @@ global $DBH, $DBT;
 include_once('app/class.dbTable.php');
 include_once('app/dbSpec/db.tables.php');
 
-include_once('vendor/danrovito/pokephp/src/PokeApi.php');
-use PokePHP\PokeApi; // https://github.com/danrovito/pokephp
-$api = new PokeApi;
-
 // check if dependecy tables exist
 $dbTbDep = ['pokedex'=>0,];
 $redirect = [
@@ -58,7 +54,9 @@ if ($dbtbDependeciesExist && $dbtbMainExists) {
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Fetch pokemon with id</span>
-                <input type="text" class="form-control" id="pokeid" name="pokeid" aria-describedby="basic-addon1">
+                <input type="text" class="form-control"
+                       id="pokeid" name="pokeid" aria-describedby="basic-addon1"
+                       value="<?=$_GET['pokeid']?>">
             </div>
         </div>
         <div class="form-group">

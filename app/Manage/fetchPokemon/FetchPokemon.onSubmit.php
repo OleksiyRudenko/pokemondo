@@ -6,6 +6,10 @@
  * Time: 21:33
  */
 
+include_once('vendor/danrovito/pokephp/src/PokeApi.php');
+use PokePHP\PokeApi; // https://github.com/danrovito/pokephp
+$api = new PokeApi;
+
 if (isset($_GET['action'])) {
 
     global $DBH, $DBT;
@@ -18,8 +22,34 @@ if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'Fetch':
             // fetch pokemon: insert pokename, poketype; update pokedex
-            $pokemon = json_decode($api->pokemon($_GET['pokeid']));
-            logMessage('FetchPokemon',varExport($pokemon));
+            $pokemona = json_decode($api->pokemon($_GET['pokeid']),true);
+            unset($pokemona['stats']);
+            unset($pokemona['abilities']);
+            unset($pokemona['moves']);
+            unset($pokemona['held_items']);
+            unset($pokemona['game_indices']);
+            $pokename = [
+                'pokeid'        => $pokemona['id'],
+                'pokename'      => $pokemona['name'],
+                // 'sprites'   => $pokemona['sprites'],
+            ];
+            $poketype = [];
+            foreach ($pokemona['types'] as $i=>$a)
+                $poketype[]=[$pokename['pokeid'],$a['type']['name']];
+            logMessage('FetchPokemon','Fetched: '.varExport($pokename).varExport($poketype));
+
+            // create records
+            if ($tbPokename->insert($pokename)) {
+                if ($tbPoketype->insert($poketype)) {
+                    // update pokedex
+                } else {
+                    $tbPokename->delete();
+                    logMessage('FetchPokemon','poketype: '.sqlError(),'danger');
+                }
+            } else {
+                logMessage('FetchPokemon','pokename: '.sqlError(),'danger');
+            }
+
             /*
             $qr = $tbPokegender->select('pokeid',['prefix'=>'DISTINCT']);
             if ($qr && $qr->num_rows) {
