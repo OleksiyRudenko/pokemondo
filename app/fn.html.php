@@ -49,7 +49,7 @@ function htmlElementSingle($el, $attr='') {
             $alist[]= $a.($v?'="'.$v.'"':'');
         $attr = (count($alist)?' ':'').implode(' ',$alist);
     }
-    return '<'.$el.$attr.' />'.">\n";
+    return '<'.$el.$attr.' />'."\n";
 }
 
 function tr($tda) {

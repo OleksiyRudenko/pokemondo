@@ -50,11 +50,15 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
         $tr[]=$row['pokeid'];
         $tr[]=$row['localdata'];
         $localdata = $row['localdata'];
-        $tr[]=$row['localsprite'].($localdata?$poke->imageUrl('local','sprite','static',$view):'');
-        $tr[]=$poke->imageUrl('bulbapedia','sprite','static',$view);
-        $tr[]=$row['localani'].($localdata?$poke->imageUrl('local','sprite','anim',$view):'');
-        $tr[]=$poke->imageUrl('bulbapedia','sprite','anim',$view);
-        $tr[]=$row['localimg'].($localdata?$poke->imageUrl('local','avatar','static',$view):'');
+
+        $tr[]=$row['localsprite']
+            .($localdata?htmlElementSingle('img',['src'=>$poke->imageUrl('local','sprite','static',$view)]):'');
+        $tr[]=htmlElementSingle('img',['src'=>$poke->imageUrl('bulbapedia','sprite','static',$view)]);
+        $tr[]=$row['localani']
+            .($localdata?htmlElementSingle('img',['src'=>$poke->imageUrl('local','sprite','anim',$view)]):'');
+        $tr[]=htmlElementSingle('img',['src'=>$poke->imageUrl('bulbapedia','sprite','anim',$view)]);
+        $tr[]=$row['localimg']
+            .($localdata?htmlElementSingle('img',['src'=>$poke->imageUrl('local','avatar','static',$view)]):'');
         $tr[]='No source for avatar';// $poke->imageUrl('bulbapedia','avatar','static',$view);
         print tr($tr);
     }
