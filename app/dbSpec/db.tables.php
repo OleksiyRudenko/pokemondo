@@ -56,7 +56,7 @@ $DBT = [
             'poketype'      => 'VARCHAR(32) NOT NULL DEFAULT \'\'',
         ],
         'fx'    => [
-            'UNIQUE (pokeid,type)',
+            'UNIQUE (pokeid,poketype)',
         ]
     ], // poketype
 
