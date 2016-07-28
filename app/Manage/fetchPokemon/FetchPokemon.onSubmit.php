@@ -42,8 +42,9 @@ if (isset($_GET['action'])) {
             if ($tbPokename->insert($pokename)) {
                 if ($tbPoketype->insert($poketype)) {
                     // update pokedex
+                    $tbPokedex->update();
                 } else {
-                    $tbPokename->delete();
+                    $tbPokename->delete('pokeid='.$pokename['pokeid']);
                     logMessage('FetchPokemon','poketype: '.sqlError(),'danger');
                 }
             } else {
