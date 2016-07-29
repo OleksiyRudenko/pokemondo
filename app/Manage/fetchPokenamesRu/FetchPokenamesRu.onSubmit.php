@@ -27,7 +27,8 @@ if (isset($_GET['action'])) {
             if ($qr['error']) {
                 logMessage('FetchPokenameRu',alert('<div>' . $qr['error'] . '</div>'));
             } else {
-                print alert('Data fetched', 'success');
+                logMessage('FetchPokenameRu','Data fetched from '.$source,'success');
+                // print alert('Data fetched', 'success');
                 $data = &$qr['data'];
                 // print $data;
                 // extract tables
