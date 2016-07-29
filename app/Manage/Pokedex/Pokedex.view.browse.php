@@ -50,7 +50,10 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
         $tr=[];
         $tr[]=$row['pokeid'];
         $tr[]=$row['pokename'].'/'.$row['pokename_ru'];
-        $tr[]=$row['localdata'];
+        $tr[]=$row['localdata']
+            ? 'OK'
+            :'<a href="'
+            .MODULE::getSetting('url','fetch-pokemons').'?pokeid='.$row['pokeid'].'&action=Fetch">Fetch</a>';
         $localdata = $row['localdata'];
 
         $tr[]=$row['localsprite']
