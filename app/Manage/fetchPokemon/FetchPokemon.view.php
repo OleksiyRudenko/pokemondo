@@ -55,7 +55,7 @@ if ($dbtbDependeciesExist && $dbtbMainExists) {
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Fetch pokemon with id</span>
-                <input type="text" class="form-control"
+                <input type="number" class="form-control"
                        id="pokeid" name="pokeid" aria-describedby="basic-addon1"
                        value="<?=$_GET['pokeid']?>">
             </div>
