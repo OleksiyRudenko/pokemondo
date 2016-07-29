@@ -36,9 +36,10 @@ class dbTable {
     }
 
     public function insert($valueset,$fdlist=false) {
+        // logMessage('DBH',varExport($valueset));
         if (!is_array($valueset))
             $valueset = [$valueset]; // make array
-        if (!is_array($valueset[0]))
+        if (!is_array(current($valueset)))
             $valueset=[$valueset];  // make array of arrays - valueset
         if (!$fdlist)
             $fdlist = array_keys($this->spec['f']); // take fieldlist from spec

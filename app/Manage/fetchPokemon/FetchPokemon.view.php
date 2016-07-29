@@ -49,15 +49,21 @@ print unlogMessage('FetchPokemon');
 
 if ($dbtbDependeciesExist && $dbtbMainExists) {
     // show form
+    if (!isset($_GET['pokecount']))
+        $_GET['pokecount']=1;
     ?>
     <hr>
     <form method="GET">
         <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">Fetch pokemon with id</span>
+                <span class="input-group-addon" id="basic-addon1">Fetch pokemon with id:</span>
                 <input type="number" class="form-control"
                        id="pokeid" name="pokeid" aria-describedby="basic-addon1"
                        value="<?=$_GET['pokeid']?>">
+                <span class="input-group-addon" id="basic-addon2">Count:</span>
+                <input type="number" class="form-control"
+                       id="pokecount" name="pokecount" aria-describedby="basic-addon2"
+                       value="<?=$_GET['pokecount']?>">
             </div>
         </div>
         <div class="form-group">
