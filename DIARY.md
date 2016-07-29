@@ -1,4 +1,7 @@
 # DIARY
+
+Each stage may include minor bugfixes and improvements to unmentioned pieces of code. 
+
 ```
 TOTAL =25.9
 160729  0.5 - Module::FetchPokemon|FetchPokenameRu; fetch 52 pokemons
