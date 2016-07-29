@@ -19,7 +19,8 @@ TOTAL =25.9
 ```
 
 Next steps:
- * Fetch pokemons
+ * Fetch pokemon data (complete)
+ * Add `pokevolution`
  * Add `poketype_ru` types translation
  * Fetch avatars
  * Export/Import DB
