@@ -14,7 +14,7 @@ include_once('app/dbSpec/db.tables.php');
 // check if dependecy tables exist
 $dbTbDep = ['pokename'=>0,];
 $redirect = [
-    'pokename'=> [ 'url'=>MODULE::getSetting('url','pokename'),
+    'pokename'=> [ 'url'=>MODULE::getSetting('url','fetch-pokemons'),
         'text' => 'create Pokename', ],
 ];
 $dbtbDependeciesExist = true;
@@ -30,7 +30,28 @@ foreach (array_keys($dbTbDep) as $i=> $tbname) {
 print unlogMessage('DBH');
 print unlogMessage('FetchPokenameRu');
 
-// offer filename to fetch data from
-$source="https://ru.wikipedia.org/wiki/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA_%D0%BF%D0%BE%D0%BA%D0%B5%D0%BC%D0%BE%D0%BD%D0%BE%D0%B2";
+if ($dbtbDependeciesExist) {
 
-
+    if (!isset($_GET['pokecount']))
+        $_GET['pokecount']=50;
+    ?>
+    <hr>
+    <form method="GET">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Fetch pokemon with id:</span>
+                <input type="number" class="form-control"
+                       id="pokeid" name="pokeid" aria-describedby="basic-addon1"
+                       value="<?=$_GET['pokeid']?>">
+                <span class="input-group-addon" id="basic-addon2">Count:</span>
+                <input type="number" class="form-control"
+                       id="pokecount" name="pokecount" aria-describedby="basic-addon2"
+                       value="<?=$_GET['pokecount']?>">
+            </div>
+        </div>
+        <div class="form-group">
+            <?=buttonSubmit('Fetch','Fetch')?>
+        </div>
+    </form>
+    <?php
+}

@@ -11,10 +11,10 @@
 $pathtree =    [
         // 'public' => 0,
         'manage-pokemons' =>   [
+            'pokedex'           => 0,
             'fetch-genders'     => 0,
             'fetch-pokemons'    => 0,
-            'pokedex'           => 0,
-            'bind-pokemon-gender'   => 0,
+            'fetch-runames'     => 0,
             'import-imagery'    => 0,
             'view-DataBase'     => 0,
         ],
@@ -51,6 +51,7 @@ $settings = [
             'basepath'  => 'Manage/fetchPokenamesRu/FetchPokenamesRu',
             'navmenu'   => 'Add pokenames [ru]',
             'heading'   => 'Add Pokemon Names in Russian',
+            'onSubmit'  =>  ['Fetch'],
         ],
         'import-imagery' => [
             'basepath'  => 'Manage/importImagery/ImportImagery',
