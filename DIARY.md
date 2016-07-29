@@ -1,7 +1,7 @@
 # DIARY
 ```
 TOTAL =25.9
-160729  0.5 - Module::FetchPokemon; fetch 52 pokemons
+160729  0.5 - Module::FetchPokemon|FetchPokenameRu; fetch 52 pokemons
       = 9.9 
 160728  4.5 - Module::Pokedex.view.browse; class Pokemon; Module::FetchPokemon
 160727  2.6 - fn.boostrap::paginator()

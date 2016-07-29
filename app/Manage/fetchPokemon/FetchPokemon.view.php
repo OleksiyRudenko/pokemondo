@@ -44,9 +44,6 @@ foreach (array_keys($dbTbMain) as $i=>$tbname) {
     }
 }
 
-print unlogMessage('DBH');
-print unlogMessage('FetchPokemon');
-
 if ($dbtbDependeciesExist && $dbtbMainExists) {
     // show form
     if (!isset($_GET['pokecount']))
@@ -76,3 +73,6 @@ if ($dbtbDependeciesExist && $dbtbMainExists) {
         //!...
     }
 }
+
+print unlogMessage('DBH');
+print unlogMessage('FetchPokemon');

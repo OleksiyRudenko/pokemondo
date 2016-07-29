@@ -27,9 +27,6 @@ foreach (array_keys($dbTbDep) as $i=> $tbname) {
     }
 }
 
-print unlogMessage('DBH');
-print unlogMessage('FetchPokenameRu');
-
 if ($dbtbDependeciesExist) {
 
     if (!isset($_GET['pokecount']))
@@ -55,3 +52,6 @@ if ($dbtbDependeciesExist) {
     </form>
     <?php
 }
+
+print unlogMessage('DBH');
+print unlogMessage('FetchPokenameRu');
