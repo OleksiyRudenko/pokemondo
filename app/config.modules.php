@@ -47,10 +47,10 @@ $settings = [
             'heading'   => 'Fetch Pokemon Profiles Data',
             'onSubmit'  =>  ['Fetch'],
         ],
-        'bind-pokemon-gender'   => [
-            'basepath'  => 'Manage/bindPokeGen/BindPokeGen',
-            'navmenu'   => 'Bind Gender Data',
-            'heading'   => 'Bind Pokemon Data with Gender Data',
+        'fetch-runames'   => [
+            'basepath'  => 'Manage/fetchPokenamesRu/FetchPokenamesRu',
+            'navmenu'   => 'Add pokenames [ru]',
+            'heading'   => 'Add Pokemon Names in Russian',
         ],
         'import-imagery' => [
             'basepath'  => 'Manage/importImagery/ImportImagery',
