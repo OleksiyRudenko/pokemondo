@@ -3,9 +3,9 @@
 Each stage may include minor bugfixes and improvements to unmentioned pieces of code. 
 
 ```
-TOTAL =25.9
-160729  0.5 - Module::FetchPokemon|FetchPokenameRu; fetch 52 pokemons
-      = 9.9 
+TOTAL =27.3
+     = 11.3 
+160729  2.4 - Module::FetchPokemon|FetchPokenameRu; fetch 52 pokemons
 160728  4.5 - Module::Pokedex.view.browse; class Pokemon; Module::FetchPokemon
 160727  2.6 - fn.boostrap::paginator()
 160727  1.8 - Module::Pokedex
