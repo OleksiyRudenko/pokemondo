@@ -14,3 +14,12 @@ TOTAL =25.9
 160723  1.0 - media collection 
 160722  3.0 - research on pokemon related resources 
 ```
+
+Next steps:
+ * Fetch pokemons
+ * Add `poketype_ru` types translation
+ * Fetch avatars
+ * Export/Import DB
+ * TB: `user`
+ * FB Auth
+ * Public
