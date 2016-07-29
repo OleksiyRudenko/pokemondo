@@ -37,7 +37,6 @@ if (isset($_GET['action'])) {
             $poketype = [];
             foreach ($pokemona['types'] as $i=>$a)
                 $poketype[]=[$pokename['pokeid'],$a['type']['name']];
-            logMessage('FetchPokemon','Fetched: '.varExport($pokename).varExport($poketype));
 
             // create records
             if ($tbPokename->insert($pokename)) {
@@ -53,25 +52,10 @@ if (isset($_GET['action'])) {
             } else {
                 logMessage('FetchPokemon','pokename: '.sqlError(),'danger');
             }
-
-            /*
-            $qr = $tbPokegender->select('pokeid',['prefix'=>'DISTINCT']);
-            if ($qr && $qr->num_rows) {
-                $row = $qr->fetch_all(MYSQLI_ASSOC);
-                $qr->free();
-                // prepare data add 4 zeros to denote we've got noting imported yet
-                $merger = [0,0,0,0];
-                foreach ($row as $n=>$rec)
-                    $row[$n] = array_merge($rec,$merger);
-                // insert
-                if (!$qinsert = $tbPokedex->insert($row))
-                    logMessage('Pokedex',sqlError(),'danger');
-                logMessage('FetchPokemon','Table Populated','success');
-            } else {
-                logMessage('FetchPokemon',sqlError(),'danger');
-            }
-            // logMessage('FetchPokemon',varExport($row));
-            */
+            // log results
+            foreach ($pokemona['types'] as $i=>$a)
+                $pokename['type'][]=$a['type']['name'];
+            logMessage('FetchPokemon','Fetched: '.varExport($pokename));
             break;
     }
 }
