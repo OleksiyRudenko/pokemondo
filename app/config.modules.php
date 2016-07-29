@@ -30,6 +30,12 @@ $settings = [
             'navmenu'   => 'Manage things',
             'heading'   => 'Manage Pokemon DB',
         ],
+        'pokedex'  => [
+            'basepath'  => 'Manage/Pokedex/Pokedex',
+            'navmenu'   => 'Manage Pokedex',
+            'heading'   => 'Manage Pokedex',
+            'onSubmit'  =>  ['Build'],
+        ],
         'fetch-genders'  => [
             'basepath'  => 'Manage/fetchGender/FetchGender',
             'navmenu'   => 'Fetch Gender Data',
@@ -40,12 +46,6 @@ $settings = [
             'navmenu'   => 'Fetch Pokemon Data',
             'heading'   => 'Fetch Pokemon Profiles Data',
             'onSubmit'  =>  ['Fetch'],
-        ],
-        'pokedex'  => [
-            'basepath'  => 'Manage/Pokedex/Pokedex',
-            'navmenu'   => 'Manage Pokedex',
-            'heading'   => 'Manage Pokedex',
-            'onSubmit'  =>  ['Build'],
         ],
         'bind-pokemon-gender'   => [
             'basepath'  => 'Manage/bindPokeGen/BindPokeGen',
