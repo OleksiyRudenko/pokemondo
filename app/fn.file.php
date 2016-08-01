@@ -10,7 +10,7 @@
  * @param $url
  * @return array : [error=>false|'errorMessage', data=>mixed...]
  */
-function curlGet($url) {
+function curlGet($url,$opts=[]) {
     //return $uri;
     $ch = curl_init();
 
@@ -20,6 +20,10 @@ function curlGet($url) {
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    if (count($opts)) {
+        foreach ($opts as $opt=>$v)
+            curl_setopt($ch, $opt, $v);
+    }
     $data = curl_exec($ch);
 
     $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -34,4 +38,11 @@ function curlGet($url) {
     }
 
     return ['error'=>false,'data'=>$data];
+}
+
+function saveUrlAsFile($url,$file) {
+    return curlGet($url,[
+        CURLOPT_FILE=>fopen($file,'w'),
+        CURLOPT_TIMEOUT=>28800,
+    ]);
 }

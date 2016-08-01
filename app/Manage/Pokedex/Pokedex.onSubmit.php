@@ -12,6 +12,7 @@ if (isset($_POST['action'])) {
     include_once('app/class.dbTable.php');
     include_once('app/dbSpec/db.tables.php');
     include_once('app/class.Pokemon.php');
+    include_once('app/fn.file.php');
 
     $tbPokegender = new dbTable($DBH,'pokegender',$DBT['pokegender']);
     $tbPokedex = new dbTable($DBH,'pokedex',$DBT['pokedex']);
@@ -53,7 +54,15 @@ if (isset($_POST['action'])) {
                         logMessage('Pokedex','Pokeid('.$pokeid.').grab '.$remoteUrl.' &gt; '.$localFile);
                         $row->free();
                         // TODO: Implement $remoteUrl > $localFile
-
+                        $result = saveUrlAsFile($remoteUrl,$localFile);
+                        if ($result['error']) {
+                            logMessage('Pokedex','curlGet::'.$result['error'],'danger');
+                        } else {
+                            logMessage('Pokedex','curlGet:: success','success');
+                            // update pokedex
+                            if (!$tbPokedex->update(['localimg'=>1],false,'pokeid='.$pokeid))
+                                logMessage('Pokedex',sqlError(),'danger');
+                        }
                     } else {
                         logMessage('Pokedex',sqlError(),'danger');
                     }
