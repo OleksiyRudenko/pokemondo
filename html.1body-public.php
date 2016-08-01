@@ -1,6 +1,14 @@
 <?php
 global $APPID;
 ?><body>
+<div id="section-public" class="container">
+    <div class="col-lg-10 col-lg-offset-1">
+        <h1><?=MODULE::currSetting('heading')?></h1>
+        <?php
+        MODULE::loadView();
+        ?>
+    </div>
+</div>
 <script>
     // ================== FACEBOOK ==============================
     logInWithFacebook = function() {
@@ -33,11 +41,3 @@ global $APPID;
     }(document, 'script', 'facebook-jssdk'));
 
 </script>
-<div id="section-public" class="container">
-    <div class="col-lg-10 col-lg-offset-1">
-        <h1><?=MODULE::currSetting('heading')?></h1>
-        <?php
-        MODULE::loadView();
-        ?>
-    </div>
-</div>
