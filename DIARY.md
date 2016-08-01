@@ -3,8 +3,9 @@
 Each stage may include minor bugfixes and improvements to unmentioned pieces of code. 
 
 ```
-TOTAL =31.3
-     =  4.0
+TOTAL =32.8
+     =  5.5
+160801  1.5 - Tune-up .htaccess    
 160801  1.3 - Module::Public - FB Auth
 160801  1.0 - Module::PoketypeRu complete
 160801  0.6 - Complete name,name_ru,avatar #317..#501
