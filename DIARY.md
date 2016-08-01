@@ -3,8 +3,8 @@
 Each stage may include minor bugfixes and improvements to unmentioned pieces of code. 
 
 ```
-TOTAL =27.3
-160801  0.5 - Module::Pokedex - grab remote images
+TOTAL =28.3
+160801  1.0 - Module::Pokedex - grab remote images (avatar)
      = 11.3 
 160729  2.4 - Module::FetchPokemon|FetchPokenameRu; fetch 52 pokemons
 160728  4.5 - Module::Pokedex.view.browse; class Pokemon; Module::FetchPokemon
