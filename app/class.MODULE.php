@@ -81,11 +81,11 @@ class MODULE {
 
     public static function exportProperties() {
         return [
-            self::$pathtree,
-            self::$path,
-            self::$currMod,
-            self::$currSetting,
-            self::$settings
+            'pathtree'=>self::$pathtree,
+            'path'=>self::$path,
+            'currMod'=>self::$currMod,
+            'currSetting'=>self::$currSetting,
+            'settings'=>self::$settings,
         ];
     }
 

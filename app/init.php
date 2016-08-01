@@ -14,6 +14,11 @@ require_once('app/fn.bootstrap.php');
 require_once('app/fn.log.php');
 require_once('app/fn.sql.php');
 
+/*logMessage('CORE','SCRIPT_URI: '.varExport($_SERVER['SCRIPT_URI']));
+logMessage('CORE','REQUEST_URI: '.varExport($_SERVER['REQUEST_URI']));
+logMessage('CORE','SCRIPT_FILENAME: '.varExport($_SERVER['SCRIPT_FILENAME'])); */
+
+
 // =================== Basic Globals
 
 

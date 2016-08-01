@@ -1,0 +1,15 @@
+#Options +FollowSymLinks
+RewriteEngine on
+#RewriteBase /
+RewriteCond %{REQUEST_URI} !^/index.php
+RewriteCond %{SCRIPT_FILENAME} !^(index.php|css/|img/|js/|phpmyadmin) [NC]
+RewriteRule ^(.+)$ /index.php/$1 [L,NC]
+
+## Language
+#RewriteCond %{HTTP:Accept-Language} ^.*(de|es|fr|it|ja|ru|en).*$ [NC]
+#RewriteRule ^(.*)$ - [env=prefer-language:%1]
+
+## Prevent hot-linking
+#RewriteCond %{HTTP_REFERER} !^$
+#RewriteCond %{HTTP_REFERER} !^http://(www\.)?askapache\.com/.*$ [NC]
+#RewriteRule \.(gif|jpg|swf|flv|png)$ /feed/ [R=302,L]

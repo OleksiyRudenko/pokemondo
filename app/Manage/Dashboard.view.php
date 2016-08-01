@@ -27,4 +27,6 @@ if (!$ok) {
     echo alert(implode('<br/>',$status));
 }
 
+print unlogMessage('CORE');
+print alert(varExport(MODULE::exportProperties()));
 ?>
