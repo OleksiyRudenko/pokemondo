@@ -23,7 +23,7 @@ if (isset($_POST['action'])) {
             if ($qr && $qr->num_rows) {
                 $row = $qr->fetch_all(MYSQLI_ASSOC);
                 $qr->free();
-                // prepare data add 4 zeros to denote we've got noting imported yet
+                // prepare data add 4 zeros to denote we've got nothing imported yet
                 $merger = [0,0,0,0];
                 foreach ($row as $n=>$rec)
                     $row[$n] = array_merge($rec,$merger);
