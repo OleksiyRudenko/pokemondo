@@ -73,7 +73,7 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
         $tr[]=$row['localimg']
             .($localdata?htmlElementSingle('img',['src'=>$poke->imageUrl('local','avatar','static',$view)]):'');
         $tr[]=$row['localimg']
-            ? '---'
+            ? 'see local'
             : htmlElementSingle('img',['src'=>$poke->imageUrl('pokemonCom','avatar','static',$view)]);
         $tr[]= ($row['localdata'] && !$row['localimg'])
             ? // checkbox to grab remote file locally
