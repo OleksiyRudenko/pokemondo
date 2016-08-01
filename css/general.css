@@ -1,0 +1,75 @@
+.loginFBbttn {
+    min-width: 228px;
+    margin: 21px auto 21px auto;
+    padding: 8px 30px 8px 45px !important;
+    box-shadow: none !important;
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    background-color: #ebedf5;
+    background-image: -moz-linear-gradient(bottom,#3f599d 0%,#4f67a7 100%);
+    background-image: -o-linear-gradient(bottom,#3f599d 0%,#4f67a7 100%);
+    background-image: -webkit-linear-gradient(bottom,#3f599d 0%,#4f67a7 100%);
+    background-image: linear-gradient(bottom,#3f599d 0%,#4f67a7 100%);
+    color: #fff;
+    text-shadow: 0 -2px 0 #425993;
+    font-weight: bold;
+    position: relative;
+    background: -ms-linear-gradient(bottom,#3f599d 0,#4f67a7 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3f599d',endColorstr='#4f67a7');
+}
+.loginFBbttn:before {
+    content: "";
+    background: url('../img/logo-fb.png') no-repeat left top;
+    width: 19px;
+    height: 19px;
+    position: absolute;
+    top: 9px;
+    left: 11px;
+}
+.loginFBbttn:hover {
+    color: #fff;
+    text-decoration: none;
+    background-image: -moz-linear-gradient(bottom,#415EA6 0%,#5774BC 100%);
+    background-image: -o-linear-gradient(bottom,#415EA6 0%,#5774BC 100%);
+    background-image: -webkit-linear-gradient(bottom,#415EA6 0%,#5774BC 100%);
+    background-image: linear-gradient(bottom,#415EA6 0%,#5774BC 100%);
+}
+
+div .overlayContainer {
+    /* border: 1px solid #DDDDDD;
+    width: 200px;
+    height: 200px; */
+    position: relative;
+}
+.overlayElement {
+    float: left;
+    position: absolute;
+    /* left: 350px; */
+    top: 270px;
+    z-index: 100;
+    /* background-color: #92AD40;
+    color: #FFFFFF;
+    font-weight: bold;
+    */
+    padding: 5px;
+}

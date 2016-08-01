@@ -3,6 +3,19 @@ global $APPID;
 ?><body>
 <script>
     // ================== FACEBOOK ==============================
+    logInWithFacebook = function() {
+        FB.login(function(response) {
+            if (response.authResponse) {
+                alert('You are logged in &amp; cookie set!');
+                // Now you can redirect the user or do an AJAX request to
+                // a PHP script that grabs the signed request from the cookie.
+            } else {
+                alert('User cancelled login or did not fully authorize.');
+            }
+        });
+        return false;
+    };
+
     window.fbAsyncInit = function() {
         FB.init({
             appId      : '<?=$APPID['fb']?>',
