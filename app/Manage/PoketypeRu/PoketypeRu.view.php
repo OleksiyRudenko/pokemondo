@@ -10,6 +10,8 @@ global $DBH, $DBT;
 include_once('app/class.dbTable.php');
 include_once('app/dbSpec/db.tables.php');
 
+unlogMessage('PoketypeRu');
+
 // check if dependecy tables exist
 $dbTbDep = ['poketype'=>0,];
 $redirect = [
