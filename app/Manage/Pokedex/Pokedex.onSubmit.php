@@ -36,5 +36,8 @@ if (isset($_POST['action'])) {
             }
             // logMessage('Pokedex',varExport($row));
             break;
+        case 'Grab':
+            logMessage('Pokedex',varExport($_POST['getAvaRemote']));
+            break;
     }
 }

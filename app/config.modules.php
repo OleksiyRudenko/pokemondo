@@ -34,7 +34,7 @@ $settings = [
             'basepath'  => 'Manage/Pokedex/Pokedex',
             'navmenu'   => 'Manage Pokedex',
             'heading'   => 'Manage Pokedex',
-            'onSubmit'  =>  ['Build'],
+            'onSubmit'  =>  ['Build','Grab'],
         ],
         'fetch-genders'  => [
             'basepath'  => 'Manage/fetchGender/FetchGender',
