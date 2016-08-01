@@ -15,9 +15,14 @@
 
 ## Imagery
 
-[Get Animated Sprites here](http://pokemondb.net/sprites/venusaur)
+[Animated Sprites @pokemondb](http://pokemondb.net/sprites/venusaur)
 
-[Get Big Sprites here](http://bulbapedia.bulbagarden.net/wiki/File:131Lapras.png)
+[Big Sprites @bulbapedia](http://bulbapedia.bulbagarden.net/wiki/File:131Lapras.png)
+
+[475x475](https://fevgames.net/pokedex/) (ref: https://fevgames.net/wp-content/uploads/pokemon/003.jpg)
+
+[475x475 & 215x215](http://www.pokemon.com/ru/pokedex/) (475x475: http://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png 
+// 215x215: http://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png)
 
 # FB
 
