@@ -6,6 +6,10 @@
  * Time: 19:26
  */
 
+// =================== Forced preHTML processing
+if (MODULE::currSetting('preHTML'))
+    MODULE::loadPreHTML();
+
 // =================== User Form Submissions Processing
 if (MODULE::currSetting('onSubmit'))
     foreach (MODULE::currSetting('onSubmit') as $action)

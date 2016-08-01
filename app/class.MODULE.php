@@ -49,6 +49,8 @@ class MODULE {
 
     public static function loadOnSubmit() { self::load('onSubmit'); }
 
+    public static function loadPreHTML() { self::load('preHTML'); }
+
     public static function loadView() { self::load('view'); }
 
     private static function buildPath($tree) {

@@ -79,6 +79,7 @@ $settings = [
             'basepath'  => 'Public/Public',
             'navmenu'   => 'Main job',
             'heading'   => 'Какой ты покемон',
+            'preHTML'   => true,
         ],
 ];
 
