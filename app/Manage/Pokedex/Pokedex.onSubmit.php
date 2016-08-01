@@ -11,6 +11,8 @@ if (isset($_POST['action'])) {
     global $DBH, $DBT;
     include_once('app/class.dbTable.php');
     include_once('app/dbSpec/db.tables.php');
+    include_once('app/class.Pokemon.php');
+
     $tbPokegender = new dbTable($DBH,'pokegender',$DBT['pokegender']);
     $tbPokedex = new dbTable($DBH,'pokedex',$DBT['pokedex']);
 
@@ -37,7 +39,26 @@ if (isset($_POST['action'])) {
             // logMessage('Pokedex',varExport($row));
             break;
         case 'Grab':
-            logMessage('Pokedex',varExport($_POST['getAvaRemote']));
+            if (isset($_POST['getAvaRemote'])) {
+                foreach ($_POST['getAvaRemote'] as $pokeid=>$val) {
+                    $clauses = [
+                        'WHERE'=>'pokeid='.$pokeid,
+                    ];
+                    if ($row=$tbPokedex->select('*',$clauses)) {
+                        $data = $row->fetch_assoc();
+                        $poke = new Pokemon($data);
+                        $view = 'normal';
+                        $remoteUrl = $poke->imageUrl('pokemonCom','avatar','static',$view);
+                        $localFile = $poke->imageFileName('avatar','static',$view);
+                        logMessage('Pokedex','Pokeid('.$pokeid.').grab '.$remoteUrl.' &gt; '.$localFile);
+                        $row->free();
+
+                    } else {
+                        logMessage('Pokedex',sqlError(),'danger');
+                    }
+
+                }
+            }
             break;
     }
 }
