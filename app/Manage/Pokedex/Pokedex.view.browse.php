@@ -38,7 +38,9 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
 
     // user input
     print '<form method="POST">';
-    $submit = '<div class="form-group">'.buttonSubmit('Grab','Grab imagery','primary').'</div>';
+    $submit = '<div class="form-group col-xs-12">'
+        .buttonSubmit('Grab','Grab imagery','primary','lg',['class'=>['pull-right']])
+        .'</div>';
     print $submit;
     // show data
     $paginator=paginator('Browse data',$page,$pages);
