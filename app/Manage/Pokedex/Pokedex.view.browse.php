@@ -43,7 +43,7 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
     print '<table class="table table-hover table-responsive"><thead><tr><td>'
         . tr($headers)
         .'</td></tr></thead><tbody>';
-    $view='shiny';
+    $view='normal';
     while ($row=$qr->fetch_assoc()) {
         $poke=new Pokemon($row);
         // logMessage('Pokedex',varExport($row));
@@ -64,7 +64,7 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
         $tr[]=htmlElementSingle('img',['src'=>$poke->imageUrl('bulbapedia','sprite','anim',$view)]);
         $tr[]=$row['localimg']
             .($localdata?htmlElementSingle('img',['src'=>$poke->imageUrl('local','avatar','static',$view)]):'');
-        $tr[]='No source for avatar';// $poke->imageUrl('bulbapedia','avatar','static',$view);
+        $tr[]=htmlElementSingle('img',['src'=>$poke->imageUrl('pokemonCom','avatar','static',$view)]);
         print tr($tr);
     }
     print '</tbody></table>'.$paginator;

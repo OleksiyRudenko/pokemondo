@@ -15,10 +15,12 @@ class Pokemon {
                 'static' => [
                     'normal'    => [
                         'urlbase'   =>  '/img/pokemon/avatar/static/normal/',
+                        'id'        => 'pokeid000',
                         'type'      =>  '.png',
                     ],
                     'shiny'    => [ // same
                         'urlbase'   =>  '/img/pokemon/avatar/static/normal/',
+                        'id'        => 'pokeid000',
                         'type'      =>  '.png',
                     ],
                 ],
@@ -27,20 +29,24 @@ class Pokemon {
                 'anim' => [
                     'normal'   =>  [
                         'urlbase'   => '/img/pokemon/sprite/anim/normal/',
+                        'id'        => 'pokename',
                         'type'      =>  '.gif'
                     ],
                     'shiny'   =>  [
                         'urlbase'   => '/img/pokemon/sprite/anim/shiny/',
+                        'id'        => 'pokename',
                         'type'      =>  '.gif'
                     ],
                 ],
                 'static' => [
                     'normal'   =>  [
                         'urlbase'   => '/img/pokemon/sprite/static/normal/',
+                        'id'        => 'pokename',
                         'type'      =>  '.png',
                     ],
                     'shiny'   =>  [
                         'urlbase'   => '/img/pokemon/sprite/static/shiny/',
+                        'id'        => 'pokename',
                         'type'      =>  '.png',
                     ],
                 ],
@@ -51,29 +57,52 @@ class Pokemon {
                 'anim' => [
                     'normal'   =>  [
                         'urlbase'   => 'https://img.pokemondb.net/sprites/black-white/anim/normal/',
+                        'id'        => 'pokename',
                         'type'      =>  '.gif'
                     ],
                     'shiny'   =>  [
                         'urlbase'   => 'https://img.pokemondb.net/sprites/black-white/anim/shiny/',
+                        'id'        => 'pokename',
                         'type'      =>  '.gif'
                     ],
                 ],
                 'static' => [
                     'normal'   =>  [
                         'urlbase'   => 'https://img.pokemondb.net/sprites/black-white/normal/',
+                        'id'        => 'pokename',
                         'type'      =>  '.png',
                     ],
                     'shiny'   =>  [
                         'urlbase'   => 'https://img.pokemondb.net/sprites/black-white/shiny/',
+                        'id'        => 'pokename',
                         'type'      =>  '.png',
                     ],
                 ],
             ],
         ],
-    ];
+        'pokemonCom'    => [
+            'avatar' => [
+                'static' => [
+                    'normal'    => [
+                        'urlbase'   =>  'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/',
+                        'id'        => 'pokeid000',
+                        'type'      =>  '.png',
+                    ],
+                    'shiny'    => [ // same
+                        'urlbase'   =>  'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/',
+                        'id'        => 'pokeid000',
+                        'type'      =>  '.png',
+                    ],
+                ],
+            ],
+        ], // pokemonCom
+
+        ];
 
     function __construct($p) {
         $this->p = $p;
+        // make pokeid000
+        $this->p['pokeid000'] = str_pad($this->p['pokeid'],3,'0',STR_PAD_LEFT);
     }
 
     function name($skipGender=true) {
@@ -101,8 +130,10 @@ class Pokemon {
             $view=$source[3];
             $source=$source[0];
         }
-        return self::$img[$source][$class][$type][$view]['urlbase']
-            .$this->p['pokename']
-            .self::$img[$source][$class][$type][$view]['type'];
+        $props = &self::$img[$source][$class][$type][$view];
+
+        return $props['urlbase']
+            .$this->p[$props['id']]
+            .$props['type'];
     }
 }
