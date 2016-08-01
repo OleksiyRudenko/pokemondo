@@ -3,7 +3,9 @@
 Each stage may include minor bugfixes and improvements to unmentioned pieces of code. 
 
 ```
-TOTAL =29.0
+TOTAL =31.3
+     =  4.0
+160801  1.3 - Module::Public - FB Auth
 160801  1.0 - Module::PoketypeRu complete
 160801  0.6 - Complete name,name_ru,avatar #317..#501
 160801  0.1 - Complete name,name_ru,avatar ..#316
