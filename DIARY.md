@@ -4,6 +4,7 @@ Each stage may include minor bugfixes and improvements to unmentioned pieces of 
 
 ```
 TOTAL =29.0
+160801  1.0 - Module::PoketypeRu complete
 160801  0.6 - Complete name,name_ru,avatar #317..#501
 160801  0.1 - Complete name,name_ru,avatar ..#316
 160801  1.0 - Module::Pokedex - grab remote images (avatar)
