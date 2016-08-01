@@ -79,7 +79,7 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
             ? // checkbox to grab remote file locally
                 '<div class="checkbox"><label><input type="checkbox" name="getAvaRemote['
                 .$row['pokeid']
-                .']" value="1" />grab remote avatar</label></div>'
+                .']" value="1" CHECKED />grab remote avatar</label></div>'
             : '';
 
         print tr($tr);
