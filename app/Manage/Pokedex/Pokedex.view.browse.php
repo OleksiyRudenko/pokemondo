@@ -36,10 +36,14 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
     // print unlogMessage('DBH');
     print unlogMessage('Pokedex');
 
+    // user input
+    print '<form method="POST">';
+    $submit = '<div class="form-group">'.buttonSubmit('Grab','Grab imagery','primary').'</div>';
+    print $submit;
     // show data
     $paginator=paginator('Browse data',$page,$pages);
     print $paginator;
-    $headers = ['pokeid','pokename','data','local sprite','remote sprite','local anim','remote anim','local ava','remote ava'];
+    $headers = ['pokeid','pokename','data','local sprite','remote sprite','local anim','remote anim','local ava','remote ava','grab remote ava'];
     print '<table class="table table-hover table-responsive"><thead><tr><td>'
         . tr($headers)
         .'</td></tr></thead><tbody>';
@@ -59,15 +63,28 @@ if (($reccount=$tbPokedex->countRows('pokeid'))==0) {
         $tr[]=$row['localsprite']
             .($localdata?htmlElementSingle('img',['src'=>$poke->imageUrl('local','sprite','static',$view)]):'');
         $tr[]=htmlElementSingle('img',['src'=>$poke->imageUrl('bulbapedia','sprite','static',$view)]);
+
         $tr[]=$row['localani']
             .($localdata?htmlElementSingle('img',['src'=>$poke->imageUrl('local','sprite','anim',$view)]):'');
         $tr[]=htmlElementSingle('img',['src'=>$poke->imageUrl('bulbapedia','sprite','anim',$view)]);
+
         $tr[]=$row['localimg']
             .($localdata?htmlElementSingle('img',['src'=>$poke->imageUrl('local','avatar','static',$view)]):'');
-        $tr[]=htmlElementSingle('img',['src'=>$poke->imageUrl('pokemonCom','avatar','static',$view)]);
+        $tr[]=$row['localimg']
+            ? '---'
+            : htmlElementSingle('img',['src'=>$poke->imageUrl('pokemonCom','avatar','static',$view)]);
+        $tr[]= ($row['localdata'] && !$row['localimg'])
+            ? // checkbox to grab remote file locally
+                '<div class="checkbox"><label><input type="checkbox" name="getAvaRemote['
+                .$row['pokeid']
+                .']" value="" />grab remote avatar</label></div>'
+            : '';
+
         print tr($tr);
     }
     print '</tbody></table>'.$paginator;
+
+    print $submit.'</form>';
 
     // print unlogMessage('Pokedex');
 
