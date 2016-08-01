@@ -15,6 +15,7 @@ class Pokemon {
                 'static' => [
                     'normal'    => [
                         'urlbase'   =>  '/img/pokemon/avatar/static/normal/',
+                        'filebase'   =>  'img/pokemon/avatar/static/normal/',
                         'id'        => 'pokeid000',
                         'type'      =>  '.png',
                     ],
@@ -136,4 +137,14 @@ class Pokemon {
             .$this->p[$props['id']]
             .$props['type'];
     }
+
+    function imageFileName($class='sprite', $type='anim', $view='normal') {
+        $source = 'local';
+        $props = &self::$img[$source][$class][$type][$view];
+
+        return $props['filebase']
+        .$this->p[$props['id']]
+        .$props['type'];
+    }
+
 }
