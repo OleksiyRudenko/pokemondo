@@ -16,8 +16,8 @@ $pathtree =    [
             'fetch-pokemons'    => 0,
             'fetch-runames'     => 0,
             'poketype-ru'       => 0,
-            'import-imagery'    => 0,
-            'view-DataBase'     => 0,
+//            'import-imagery'    => 0,
+//            'view-DataBase'     => 0,
         ],
         'users' =>  0,
         'public' => 0,
@@ -60,7 +60,7 @@ $settings = [
             'heading'   => 'Add Pokemon Types in Russian',
             'onSubmit'  =>  ['Update'],
         ],
-        'import-imagery' => [
+/*        'import-imagery' => [
             'basepath'  => 'Manage/importImagery/ImportImagery',
             'navmenu'   => 'Import Imagery',
             'heading'   => 'Import Pokemon Imagery Locally',
@@ -69,7 +69,7 @@ $settings = [
             'basepath'  => 'Manage/viewDB/ViewDB',
             'navmenu'   => 'View Pokemons',
             'heading'   => 'View Pokemon Data From DB',
-        ],
+        ], */
         'users'         =>  [
             'basepath'  => 'Users/Users',
             'navmenu'   => 'Users',
