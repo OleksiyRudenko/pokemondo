@@ -66,6 +66,36 @@ if ($dbtbDependeciesExist && $dbtbMainExists) {
     unlogMessage('PoketypeRu');
 
     // get all `poketype_ru`; allow editing poketype_ru
+    $clauses=[
+        'ORDER BY'=>'poketype',
+    ];
+    $submit='<div class="form-group col-xs-12">'
+        .buttonSubmit('Update','Update translations','primary','lg',['class'=>['pull-right']])
+        .'</div>';
+    if ($qr=$dbTbMain['poketype_ru']->select('*',$clauses)) {
+        ?>
+        <form method="POST"><table class="table table-hover table-responsive"><thead><tr><th>poketype</th><th>poketype_ru</th></tr></thead><tbody>
+        <?php
+        print $submit;
+        $tr=[];
+        while ($row=$qr->fetch_assoc()) {
+            $tr[]=tr([
+                $row['poketype'],
+                '<INPUT class="form-control" TYPE="TEXT" NAME="poketype_ru['.$row['poketype'].']" VALUE="'.$row['poketype_ru'].'" />'
+            ]);
+        }
+        print implode("\n",$tr);
+        ?></tbody></table>
+        <?=$submit?>
+        </form>
+        <?php
+
+    } else {
+        logMessage('PoketypeRu',sqlError(),'danger');
+    }
+
+
+    unlogMessage('PoketypeRu');
 
 
 
