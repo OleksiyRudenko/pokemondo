@@ -52,6 +52,7 @@ if (isset($_POST['action'])) {
                         $localFile = $poke->imageFileName('avatar','static',$view);
                         logMessage('Pokedex','Pokeid('.$pokeid.').grab '.$remoteUrl.' &gt; '.$localFile);
                         $row->free();
+                        // TODO: Implement $remoteUrl > $localFile
 
                     } else {
                         logMessage('Pokedex',sqlError(),'danger');
