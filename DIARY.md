@@ -1,6 +1,6 @@
 # DIARY
 
-Each stage may include minor bugfixes and improvements to unmentioned pieces of code.
+Each stage may include minor bugfixes and improvements to unmentioned pieces of code. 
 
 ```
 TOTAL =38.8
@@ -31,13 +31,11 @@ TOTAL =38.8
 ```
 
 Next steps:
- * [ ] Profile
- * [ ] Profile: add pokemons with not elemental type gender-wisely
- * [ ] Export/Import DB
- * [X] Fetch pokemon data (complete)
- * [ ] ~~Add pokevolution~~
- * [X] Add `poketype_ru` types translation
- * [X] Fetch avatars
- * [ ] TB: `user`
- * [ ] Public
- * [ ] Public->FB Auth
+ * Fetch pokemon data (complete)
+ * Add `pokevolution`
+ * Add `poketype_ru` types translation
+ * Fetch avatars
+ * Export/Import DB
+ * TB: `user`
+ * FB Auth
+ * Public
