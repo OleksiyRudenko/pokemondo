@@ -2,16 +2,21 @@
     $presets = [
         'userid'        =>  1,
         'gender'        =>  'x',
-        'birthmonth'    =>  5,
+        'username'      =>  'Александр',
+        'birthdate'    =>   '01/31/2000', // MM/DD/YYYY
     ];
-    assignRequestPresets($_GET,$presets);
+    assignRequestPresets($_POST,$presets);
 ?>
-    <FORM METHOD="GET">
-    <div class="form-group col-xs-4">
+    <FORM METHOD="POST">
+    <div class="form-group col-xs-3">
         <label for="userid">User ID:</label>
-        <INPUT type="number" name="userid" class="form-control" id="userid" value="<?=$_GET['userid']?>" />
+        <INPUT type="number" name="userid" class="form-control" id="userid" value="<?=@$_POST['userid']?>" />
     </div>
-    <div class="form-group col-xs-4">
+    <div class="form-group col-xs-3">
+        <label for="username">User name:</label>
+        <INPUT type="text" name="username" class="form-control" id="username" value="<?=@$_POST['username']?>" />
+    </div>
+    <div class="form-group col-xs-3">
         <label for="gender">Gender:</label>
         <select name="gender" class="form-control" id="gender">
             <?php
@@ -21,19 +26,13 @@
                 'x' =>  'Either',
                 'n' =>  'Neutral',
             ];
-            print selectOptions($options,@$_GET['gender']);
+            print selectOptions($options,@$_POST['gender']);
             ?>
         </select>
     </div>
-    <div class="form-group col-xs-4">
-        <label for="birthmonth">Birth month:</label>
-        <select name="birthmonth" class="form-control" id="birthmonth">
-            <?php
-            $options = [];
-            for ($i=1;$i<=12;$i++) $options[$i]=$i;
-            print selectOptions($options,@$_GET['birthmonth']);
-            ?>
-        </select>
+    <div class="form-group col-xs-3">
+        <label for="birthmonth">Birth date (MM/DD/YYYY):</label>
+        <INPUT type="text" name="birthdate" class="form-control" id="birthdate" value="<?=@$_POST['birthdate']?>" />
     </div>
     <div class="form-group">
         <?=buttonSubmit('Process','Process')?>

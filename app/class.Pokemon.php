@@ -10,9 +10,9 @@ class Pokemon {
     public $p; // properties
 
     public static $poketypeclass = [
-        'element'   =>  'Стихия',
-        'origin'    =>  'Тип',
-        'quality'   =>  'Качество',
+        'element'   =>  'Стихия',   // 9
+        'origin'    =>  'Тип',      // 4
+        'quality'   =>  'Качество', // 5
     ];
 
     public static $img = [

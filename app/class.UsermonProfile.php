@@ -16,17 +16,22 @@ class UsermonProfile {
     private $u = [
         'id'            =>  0,
         'gender'        => 'x',
-        'birthmonth'    => '1',
+        'birthdate'     => '01/31/2000', // MM/DD/YYYY
     ];
 
-    function __construct($userid,$gender='',$birthmonth='') {
+    function __construct($userid,$gender='',$birthdate='') {
         $this->u = is_array($userid)
             ? $userid
             : [
                 'id'            =>  $userid,
                 'gender'        =>  $gender,
-                'birthmonth'    =>  $birthmonth,
+                'birthdate'    =>  $birthdate,
               ];
+    }
+
+
+    function selectPokemons() {
+
     }
 
     /*
