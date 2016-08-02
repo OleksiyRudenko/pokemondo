@@ -170,7 +170,7 @@ class UsermonProfile {
         // save $img
         imagealphablending($img, false);
         imagesavealpha($img, true);
-        if (!imagepng($img,$this->getUserProfileImagename(),9)) {
+        if (!imagejpeg($img,$this->getUserProfileImagename(),90)) {
             logMessage('UsermonProfile','UsermonProfile::createProfileImg() error saving PROFILEimage '.$this->getUserProfileImagename());
             return false;
         }
@@ -183,6 +183,6 @@ class UsermonProfile {
         return self::$path['useravabase'].$this->u['id'].'.jpg';
     }
     function getUserProfileImagename() {
-        return self::$path['userprofilebase'].$this->u['id'].'.png';
+        return self::$path['userprofilebase'].$this->u['id'].'.jpg';
     }
 }
