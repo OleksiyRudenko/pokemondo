@@ -19,8 +19,9 @@ $pathtree =    [
 //            'import-imagery'    => 0,
 //            'view-DataBase'     => 0,
         ],
-        'users' =>  0,
-        'public' => 0,
+        'users'     =>  0,
+        'public'    =>  0,
+        'profile'   =>  0,
 ];
 
 // MODULE::$settings
@@ -78,8 +79,13 @@ $settings = [
         'public'          =>  [
             'basepath'  => 'Public/Public',
             'navmenu'   => 'Main job',
-            'heading'   => 'Какой ты покемон',
+            'heading'   => 'Какой ты покемон?',
             'preHTML'   => true,
+        ],
+        'profile'          =>  [
+            'basepath'  => 'Profile/Profile',
+            'navmenu'   => 'User Profile',
+            'heading'   => 'Какой ты покемон?',
         ],
 ];
 
