@@ -10,7 +10,7 @@ class UsermonProfile {
     public static $path = [
         'useravabase'       =>  'img/user/ava/',    // id.jpg - user avatar
         'userprofilebase'   =>  'img/user/ava/',    // id.jpg - user result picture for og::
-        'tplimg'            =>  'img/user/tpl.jpg', // template
+        'tplimg'            =>  'img/user/tpl-txt.png', // template
     ];
 
     private $u = [
@@ -44,27 +44,30 @@ class UsermonProfile {
      * Template presets:
      *  userAva-bgRect
      *      margins     8 8 8 3
-     *      loc         ?;?
+     *      loc         90;48
      *      dims        216x211
      *  userAva
      *      loc         userAva-bgRect.loc +(8;8)
      *      dims        200x200
      *  userName-bgRect
      *      margins     8 3 8 8
-     *      loc         userAva-bgRect.loc +(0;211)
+     *      loc         userAva-bgRect.loc +(0;211) = (90;259)
      *      dims        216x43
-     *  userName-prinArea
-     *      loc         userName-bgRect.loc +(8;8)
+     *  userName-printArea
+     *      loc         userName-bgRect.loc +(8;3)
      *      dims        200x32
      *  pokeAva-bgCircle
      *      center      userAva.loc +(?;100)
      *      R           100
+     *  pokeAva
+     *      loc         (494;48)
+     *      dims        215x215
      *  pokeName-bgRect
      *      margins     8 3 8 8
-     *      loc         bgRect.loc +(0;211)
+     *      loc         bgRect.loc +(0;211) = (494;259)
      *      dims        216x43
-     *  pokeName-prinArea
-     *      loc         userName-bgRect.loc +(8;8)
+     *  pokeName-printArea
+     *      loc         userName-bgRect.loc +(8;3)
      *      dims        200x32
      */
 }
