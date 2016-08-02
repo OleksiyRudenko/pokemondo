@@ -3,8 +3,9 @@
 Each stage may include minor bugfixes and improvements to unmentioned pieces of code. 
 
 ```
-TOTAL =32.8
-     =  -.-
+TOTAL =38.8
+     =  6.0
+160802  3.0 - Module::Profile (build profile image)
 160802  1.5 - profile template image & specs
 160802  1.0 - class.UsermonProfile
 160802  0.5 - Fetch data & imagery ##502-721 (NB! #721 has no ava)
