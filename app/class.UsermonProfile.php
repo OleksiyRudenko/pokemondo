@@ -56,7 +56,7 @@ class UsermonProfile {
         $tb = new dbTable($DBH,'poketype',$DBT['poketype']);
         $clauses = [
             'join'  => [
-                'LEFT JOIN pokegender AS t2 ON t2.pokeid=t1.pokeid',// AND t2.gender IN (\''.implode('\',\'',$pokegender).'\')',
+                'RIGHT JOIN pokegender AS t2 ON t2.pokeid=t1.pokeid',// AND t2.gender IN (\''.implode('\',\'',$pokegender).'\')',
                 'LEFT JOIN pokename AS t3 ON t3.pokeid=t1.pokeid'
             ],
             'WHERE' => 't1.poketype=\''.$poketype.'\'',
