@@ -57,8 +57,8 @@ $settings = [
         ],
         'poketype-ru'   => [
             'basepath'  => 'Manage/PoketypeRu/PoketypeRu',
-            'navmenu'   => 'Translate poketypes [ru]',
-            'heading'   => 'Add Pokemon Types in Russian',
+            'navmenu'   => 'Manage poketypes',
+            'heading'   => 'Manage Pokemon Types',
             'onSubmit'  =>  ['Update'],
         ],
 /*        'import-imagery' => [
