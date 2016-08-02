@@ -76,14 +76,22 @@ if ($dbtbDependeciesExist && $dbtbMainExists) {
         .'</div>';
     if ($qr=$dbTbMain['poketype_ru']->select('*',$clauses)) {
         ?>
-        <form method="POST"><table class="table table-hover table-responsive"><thead><tr><th>poketype</th><th>poketype_ru</th></tr></thead><tbody>
+        <form method="POST"><table class="table table-hover table-responsive">
+                <thead><tr>
+                    <th>poketype</th>
+                    <th>poketype_ru</th>
+                    <th>poketypeclass</th>
+                </tr>
+                </thead>
+                <tbody>
         <?php
         print $submit;
         $tr=[];
         while ($row=$qr->fetch_assoc()) {
             $tr[]=tr([
                 $row['poketype'],
-                '<INPUT class="form-control" TYPE="TEXT" NAME="poketype_ru['.$row['poketype'].']" VALUE="'.$row['poketype_ru'].'" />'
+                '<INPUT class="form-control" TYPE="TEXT" NAME="poketype_ru['.$row['poketype'].']" VALUE="'.$row['poketype_ru'].'" />',
+                '<INPUT class="form-control" TYPE="TEXT" NAME="poketypeclass['.$row['poketype'].']" VALUE="'.$row['poketypeclass'].'" />',
             ]);
         }
         print implode("\n",$tr);

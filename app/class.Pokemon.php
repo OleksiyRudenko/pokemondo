@@ -9,6 +9,12 @@
 class Pokemon {
     public $p; // properties
 
+    public static $poketypeclass = [
+        'element'   =>  'Стихия',
+        'origin'    =>  'Тип',
+        'quality'   =>  'Качество',
+    ];
+
     public static $img = [
         'local'    => [
             'avatar' => [

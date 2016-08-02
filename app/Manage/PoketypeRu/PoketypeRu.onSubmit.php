@@ -18,7 +18,12 @@ if (isset($_POST['action'])) {
         case 'Update':
             foreach ($_POST['poketype_ru'] as $poketype=>$poketypeRu) {
                 if (strlen($poketypeRu)) {
-                    if (!$tbPoketypeRu->update(['poketype_ru'=>$poketypeRu],false,'poketype=\''.$poketype.'\''))
+                    if (!$tbPoketypeRu->update(
+                        [
+                            'poketype_ru'=>$poketypeRu,
+                            'poketypeclass'=>$_POST['poketypeclass'][$poketype],
+                        ],
+                        false,'poketype=\''.$poketype.'\''))
                         logMessage('PoketypeRu',sqlError(),'danger');
                 }
             }

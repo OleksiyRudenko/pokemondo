@@ -64,10 +64,12 @@ $DBT = [
         'f'     => [
             'poketype'      => 'VARCHAR(32) NOT NULL DEFAULT \'\'',
             'poketype_ru'      => 'VARCHAR(48) NOT NULL DEFAULT \'\'',
+            'poketypeclass' => 'VARCHAR(16) NOT NULL DEFAULT \'element\'',
         ],
         'fx'    => [
             'UNIQUE (poketype)',
             'INDEX pokename_en_ru (poketype,poketype_ru)',
+            'INDEX (poketypeclass)',
         ]
     ], // poketype_ru
 
