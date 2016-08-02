@@ -1,4 +1,7 @@
 <?php
+    include_once('app/class.Pokemon.php');
+    include_once('app/class.UsermonProfile.php');
+
     $presets = [
         'userid'        =>  1,
         'gender'        =>  'x',

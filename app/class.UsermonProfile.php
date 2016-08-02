@@ -20,6 +20,12 @@ class UsermonProfile {
         'dark', 'ice', 'grass', 'ground', 'steel', 'fire', 'rock', 'water', 'electric',
     ];
 
+    public static $font = [
+        // source: http://www.fonts2u.com/
+        'username'  =>  'ttf/FreeSerif.ttf', // 'ttf/DejaVuSansMono-Bold.ttf',
+        'pokename'  =>  'ttf/fancyserif.ttf', // 'ttf/Ozme.TTF',
+    ];
+
     public static $pokemonList = [];
 
     private $u = [
@@ -124,9 +130,6 @@ class UsermonProfile {
      *      loc         userName-bgRect.loc +(8;3)
      *      dims        200x32
      */
-    function a() {
-
-    }
 
     /**
      * @desc  Create profile image
@@ -162,10 +165,40 @@ class UsermonProfile {
             return false;
         }
         imagedestroy($imgPoke);
+        // detect text color
+        $textcolor=-1;
+        for ($i=3;$i<20 && $textcolor==-1;$i++)
+            $textcolor=imagecolorexact($img,$i,$i,$i);
         // add user name
-
+        $tdims=$this->textSize('username',$this->u['name'],200,30);
+        $dx = (200-$tdims[0])/2;
+        $dy = (32-$tdims[1])/2;
+        imagefttext(
+            $img,
+            $tdims[2],
+            0,
+            98+$dx,
+            259+3+$dy+$tdims[1]-3,
+            $textcolor,
+            $this->getFontFilename('username'),
+            $this->u['name']
+        );
 
         // add avatar name
+        $tdims=$this->textSize('pokename',$pokemon->p['pokename_ru'],200,32);
+        $dx = (200-$tdims[0])/2;
+        $dy = (32-$tdims[1])/2;
+        imagefttext(
+            $img,
+            $tdims[2],
+            0,
+            494+8+$dx,
+            259+3+$dy+$tdims[1]-3,
+            $textcolor,
+            $this->getFontFilename('pokename'),
+            $pokemon->p['pokename_ru']
+        );
+
 
         // save $img
         imagealphablending($img, false);
@@ -184,5 +217,32 @@ class UsermonProfile {
     }
     function getUserProfileImagename() {
         return self::$path['userprofilebase'].$this->u['id'].'.jpg';
+    }
+
+    /**
+     * @param $fontid : which font to use
+     * @param $text
+     * @param $maxwidth
+     * @param $maxheight
+     * @return array [width,height,size]
+     */
+    function textSize($fontid, $text, $maxwidth, $maxheight) {
+        $size=32;
+        do {
+            $size-=2;
+            $bbox=imageftbbox($size,0,$this->getFontFilename($fontid),$text); // llx,lly, lrx,lry, urx,ury, ulx,uly
+            $width = $bbox[2]-$bbox[0];
+            $height = $bbox[3]-$bbox[5];
+        } while ($size>5 && ($bbox[4]>$maxwidth || $bbox[3]>$maxheight));
+        $rdims = [
+          $width,$height,$size,
+            $bbox
+        ];
+        logMessage('UsermonProfile','UsermonProfile::textSize('.$fontid.','.$text.')='.varExport($rdims));
+        return $rdims;
+    }
+
+    function getFontFilename($fontid) {
+        return self::$font[$fontid];
     }
 }
