@@ -16,14 +16,16 @@ class UsermonProfile {
     private $u = [
         'id'            =>  0,
         'gender'        => 'x',
-        'birthmonth'    =>  '1',
+        'birthmonth'    => '1',
     ];
 
-    function __construct($userid,$gender,$birthmonth) {
-        $this->u = [
-            'id'            =>  $userid,
-            'gender'        =>  $gender,
-            'birthmonth'    =>  $birthmonth,
-        ];
+    function __construct($userid,$gender='',$birthmonth='') {
+        $this->u = is_array($userid)
+            ? $userid
+            : [
+                'id'            =>  $userid,
+                'gender'        =>  $gender,
+                'birthmonth'    =>  $birthmonth,
+              ];
     }
 }
