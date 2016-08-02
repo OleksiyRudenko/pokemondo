@@ -7,6 +7,7 @@
  */
 
 include_once('app/class.Pokemon.php');
+include_once('app/fn.gd.php');
 
 class UsermonProfile {
     public static $path = [
@@ -132,26 +133,50 @@ class UsermonProfile {
      * @param $pokemon Pokemon
      */
     function createProfileImg($pokemon) {
+        logMessage('UsermonProfile','UsermonProfile::createProfileImg().entered');
         // load template
-        $img = imagecreatefrompng(self::$path['tplimg']);
+        if (!$img = imagecreatefrompng(self::$path['tplimg'])) {
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading TEMPLATE '.self::$path['tplimg']);
+            return false;
+        }
+
         // load user avatar
-        $imgAva = imagecreatefromjpeg($this->getUserAvaFilename());
+        if (!$imgAva = imagecreatefromjpeg($this->getUserAvaFilename())) {
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading USERavatar '.$this->getUserAvaFilename());
+            return false;
+        }
         // merge user avatar
-        imagecopymerge($img,$imgAva,98,56,0,0,200,200,0);
+        if (!imagecopy($img,$imgAva,98,56,0,0,200,200)) {
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error merging USERavatar '.$this->getUserAvaFilename());
+            return false;
+        }
         imagedestroy($imgAva);
         // load pokemon avatar
-        $imgPoke = imagecreatefrompng($pokemon->imageFilename('avatar','static','normal'));
+        if (!$imgPoke = imagecreatefrompng($pokemon->imageFilename('avatar','static','normal'))) {
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading POKEMONavatar '.$pokemon->imageFilename('avatar','static','normal'));
+            return false;
+        }
         // merge pokemon avatar
-        imagecopymerge($img,$imgPoke,494,48,0,0,215,215,0);
+        if (!imagecopy($img,$imgPoke,494,48,0,0,215,215)) {
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error merging POKEMONavatar '.$this->getUserAvaFilename());
+            return false;
+        }
         imagedestroy($imgPoke);
+        // add user name
 
+
+        // add avatar name
 
         // save $img
         imagealphablending($img, false);
         imagesavealpha($img, true);
-        imagepng($img,$this->getUserProfileImagename(),9);
+        if (!imagepng($img,$this->getUserProfileImagename(),9)) {
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error saving PROFILEimage '.$this->getUserProfileImagename());
+            return false;
+        }
         // free resource
         imagedestroy($img);
+        logMessage('UsermonProfile','UsermonProfile::createProfileImg().complete');
     }
 
     function getUserAvaFilename() {
