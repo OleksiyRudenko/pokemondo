@@ -28,5 +28,6 @@ if (!$ok) {
 }
 
 print unlogMessage('CORE');
-print alert(varExport(MODULE::exportProperties()));
+$moduleProps=MODULE::exportProperties();
+print alert(varExport($moduleProps));
 ?>

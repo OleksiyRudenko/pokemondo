@@ -10,9 +10,10 @@ class ARGV {
     public static $a;
 
     public static function initialize() {
+        $uria =  explode('?',$_SERVER['REQUEST_URI']);
         self::$a=
             // array_slice(
-            explode_notnull('/',$_SERVER['REQUEST_URI'])
+            explode_notnull('/',$uria[0])
             //,2)
         ;
         // echo '<pre>'.var_export(self::$a,true).'</pre>';
