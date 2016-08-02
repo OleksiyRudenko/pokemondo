@@ -4,6 +4,8 @@ Each stage may include minor bugfixes and improvements to unmentioned pieces of 
 
 ```
 TOTAL =32.8
+     =  -.-
+160802  0.3 - Fetch data & imagery ##502-602
      =  5.5
 160801  1.5 - Tune-up .htaccess    
 160801  1.3 - Module::Public - FB Auth
