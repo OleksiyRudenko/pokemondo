@@ -15,3 +15,13 @@ function assignCookie($cookiename,$cookievalue,$lifespan=false) {
 function redirect($url=false) {
 
 }
+
+/**
+ * @param $request : $_GET|POST|REQUEST
+ * @param $var : [ key=>value,...]
+ */
+function assignRequestPresets(&$request, $var) {
+    foreach ($var as $k=>$v)
+        if (!isset($request[$k]))
+            $request[$k]=$v;
+}
