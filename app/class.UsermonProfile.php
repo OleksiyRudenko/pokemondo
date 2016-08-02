@@ -11,7 +11,7 @@ include_once('app/class.Pokemon.php');
 class UsermonProfile {
     public static $path = [
         'useravabase'       =>  'img/user/ava/',    // id.jpg - user avatar
-        'userprofilebase'   =>  'img/user/ava/',    // id.jpg - user result picture for og::
+        'userprofilebase'   =>  'img/user/profile/',    // id.jpg - user result picture for og::
         'tplimg'            =>  'img/user/tpl-txt.png', // template
     ];
 
@@ -123,4 +123,41 @@ class UsermonProfile {
      *      loc         userName-bgRect.loc +(8;3)
      *      dims        200x32
      */
+    function a() {
+
+    }
+
+    /**
+     * @desc  Create profile image
+     * @param $pokemon Pokemon
+     */
+    function createProfileImg($pokemon) {
+        // load template
+        $img = imagecreatefrompng(self::$path['tplimg']);
+        // load user avatar
+        $imgAva = imagecreatefromjpeg($this->getUserAvaFilename());
+        // merge user avatar
+        imagecopymerge($img,$imgAva,98,56,0,0,200,200,0);
+        imagedestroy($imgAva);
+        // load pokemon avatar
+        $imgPoke = imagecreatefrompng($pokemon->imageFilename('avatar','static','normal'));
+        // merge pokemon avatar
+        imagecopymerge($img,$imgPoke,494,48,0,0,215,215,0);
+        imagedestroy($imgPoke);
+
+
+        // save $img
+        imagealphablending($img, false);
+        imagesavealpha($img, true);
+        imagepng($img,$this->getUserProfileImagename(),9);
+        // free resource
+        imagedestroy($img);
+    }
+
+    function getUserAvaFilename() {
+        return self::$path['useravabase'].$this->u['id'].'.jpg';
+    }
+    function getUserProfileImagename() {
+        return self::$path['userprofilebase'].$this->u['id'].'.png';
+    }
 }

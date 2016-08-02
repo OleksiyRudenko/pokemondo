@@ -17,15 +17,17 @@ if (isset($_POST['action'])) {
     switch ($_POST['action']) {
         case 'Process':
             $uprofile = new UsermonProfile($_POST['userid'],$_POST['username'],$_POST['gender'],$_POST['birthdate']);
-            $list = $uprofile->selectPokemons();
+            $pokelist = $uprofile->selectPokemons();
             // remove pokemons randomly until count()=4
-            $ini = count($list)-1;
-            while (count($list)>4) {
-                unset($list[rand(0,$ini)]);
+            $ini = count($pokelist)-1;
+            while (count($pokelist)>4) {
+                unset($pokelist[rand(0,$ini)]);
             }
-
-
-            UsermonProfile::$pokemonList = $list;
+            // create image based on tpl
+            $pokeMain = array_pop($pokelist);
+            $uprofile->createProfileImg($pokeMain);
+            // save remaining pokemons
+            UsermonProfile::$pokemonList = $pokelist;
             // logMessage('Profile',varExport($u->selectPokemons()));
             break;
     }
