@@ -86,6 +86,7 @@ $settings = [
             'basepath'  => 'Profile/Profile',
             'navmenu'   => 'User Profile',
             'heading'   => 'Какой ты покемон?',
+            'onSubmit'  =>  ['Process'],
         ],
 ];
 

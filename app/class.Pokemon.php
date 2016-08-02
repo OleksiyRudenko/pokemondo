@@ -130,7 +130,7 @@ class Pokemon {
      * @param $type   : anim|static
      * @param $view   : normal|shiny
      */
-    function imageUrl($source='bulbapedia', $class='sprite', $type='anim', $view='shiny') {
+    function imageUrl($source='bulbapedia', $class='sprite', $type='anim', $view='normal') {
         if (is_array($source)) {
             $class=$source[1];
             $type=$source[2];

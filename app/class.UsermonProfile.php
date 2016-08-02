@@ -6,6 +6,8 @@
  * Time: 13:06
  */
 
+include_once('app/class.Pokemon.php');
+
 class UsermonProfile {
     public static $path = [
         'useravabase'       =>  'img/user/ava/',    // id.jpg - user avatar
@@ -13,25 +15,71 @@ class UsermonProfile {
         'tplimg'            =>  'img/user/tpl-txt.png', // template
     ];
 
+    public static $poketypeclassElement = [
+        'dark', 'ice', 'grass', 'ground', 'steel', 'fire', 'rock', 'water', 'electric',
+    ];
+
+    public static $pokemonList = [];
+
     private $u = [
         'id'            =>  0,
         'gender'        => 'x',
+        'name'          => '',
         'birthdate'     => '01/31/2000', // MM/DD/YYYY
     ];
 
-    function __construct($userid,$gender='',$birthdate='') {
+    function __construct($userid,$username,$gender='',$birthdate='') {
         $this->u = is_array($userid)
             ? $userid
             : [
                 'id'            =>  $userid,
+                'name'          =>  $username,
                 'gender'        =>  $gender,
-                'birthdate'    =>  $birthdate,
+                'birthdate'     =>  $birthdate,
               ];
     }
 
 
+    /**
+     * @desc   Gets pokemons that meet user criteria
+     * @return array : [class.Pokemon,...]
+     */
     function selectPokemons() {
+        global $DBH, $DBT;
+        $pokelist = [];
+        // allowed genders
+        $pokegender = ['x', 'n'];
+        if ($this->u['gender']=='f' || $this->u['gender']=='m')
+            $pokegender[]=$this->u['gender'];
 
+        $poketype=$this->getElement();
+        $tb = new dbTable($DBH,'poketype',$DBT['poketype']);
+        $clauses = [
+            'join'  => [
+                'LEFT JOIN pokegender AS t2 ON t2.pokeid=t1.pokeid',// AND t2.gender IN (\''.implode('\',\'',$pokegender).'\')',
+                'LEFT JOIN pokename AS t3 ON t3.pokeid=t1.pokeid'
+            ],
+            'WHERE' => 't1.poketype=\''.$poketype.'\'',
+            // 't1.pokegender in (\''.implode('\',\'',$pokegender).'\')',
+        ];
+        if ($qr=$tb->select('*',$clauses)) {
+            while ($row=$qr->fetch_assoc()) {
+                $pokelist[] = new Pokemon($row);
+            }
+        } else {
+            logMessage('UsermonProfile','UsermonProfile::selectPokemons(): '.sqlError());
+            return $pokelist;
+        }
+        return $pokelist;
+    }
+
+    function getElement() {
+        $poketypeNr=0;
+        if (strlen($this->u['birthdate'])>4) {
+            $DOY=round((substr($this->u['birthdate'],0,2)-1)*30.4+substr($this->u['birthdate'],3,2));
+            $poketypeNr=floor($DOY/46)+1;
+        }
+        return self::$poketypeclassElement[$poketypeNr];
     }
 
     /*

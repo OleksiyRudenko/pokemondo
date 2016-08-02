@@ -46,4 +46,18 @@
  * Time: 12:40
  */
 
+print unlogMessage('UsermonProfile');
+print unlogMessage('Profile');
+
+
+// show pokemons from UsermonProfile::$pokemonList
+
+foreach (UsermonProfile::$pokemonList as $poke) {
+    print '<div class="col-xs-3">'
+        .htmlElementSingle('img',
+            ['src'=>$poke->imageUrl('local','avatar','static','normal')]
+        )
+        .p($poke->p['pokename_ru'])
+        .'</div>';
+}
 
