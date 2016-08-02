@@ -5,6 +5,7 @@ Each stage may include minor bugfixes and improvements to unmentioned pieces of 
 ```
 TOTAL =32.8
      =  -.-
+160802  1.0 - class.UsermonProfile
 160802  0.5 - Fetch data & imagery ##502-721 (NB! #721 has no ava)
      =  5.5
 160801  1.5 - Tune-up .htaccess    
