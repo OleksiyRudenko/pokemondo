@@ -55,3 +55,11 @@ function htmlElementSingle($el, $attr='') {
 function tr($tda) {
     return '<tr><td>'.implode('</td><td>',$tda).'</td></tr>';
 }
+
+function selectOptions($options,$selected='') {
+    $opt = [];
+    foreach ($options as $v=>$t) {
+        $opt[] = '<option value="'.$v.'"'.($v==$selected?' SELECTED':'').'>'.$t.'</option>';
+    }
+    return implode("\n",$opt);
+}
