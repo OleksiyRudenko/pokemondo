@@ -3,8 +3,9 @@
 Each stage may include minor bugfixes and improvements to unmentioned pieces of code.
 
 ```
-TOTAL =38.8
-     =  -.-
+TOTAL= 40.8
+     =  2.0
+160803  1.0 - Server maintenance issues incl. .htaccess, favicon     
 160803  1.0 - Module::Profile (include non-elemental pokemons)
      =  6.0
 160802  3.0 - Module::Profile (build profile image)
@@ -23,7 +24,7 @@ TOTAL =38.8
 160728  4.5 - Module::Pokedex.view.browse; class Pokemon; Module::FetchPokemon
 160727  2.6 - fn.boostrap::paginator()
 160727  1.8 - Module::Pokedex
-      =16.0
+     = 16.0
 160727  1.5 - Module::FetchGender complete
 160727  2.0 - basic DB management support; data fetching & caching into DB 
 160726  4.5 - basic CMS functionality
