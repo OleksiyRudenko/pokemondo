@@ -27,6 +27,7 @@ class UsermonProfile {
     ];
 
     public static $pokemonList = [];
+    public static $currentProfile;
 
     private $u = [
         'id'            =>  0,
@@ -44,6 +45,10 @@ class UsermonProfile {
                 'gender'        =>  $gender,
                 'birthdate'     =>  $birthdate,
               ];
+    }
+
+    function profileImgTag() {
+        return htmlElementSingle('img',['src'=>$this->getUserProfileImagename()]);
     }
 
 

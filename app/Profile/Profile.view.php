@@ -52,9 +52,12 @@
 print unlogMessage('UsermonProfile');
 print unlogMessage('Profile');
 
+// show profileImage
+print '<div class="col-xs-12">'
+    .UsermonProfile::$currentProfile->profileImgTag()
+    .'</div>';
 
 // show pokemons from UsermonProfile::$pokemonList
-
 foreach (UsermonProfile::$pokemonList as $poke) {
     print '<div class="col-xs-3">'
         .htmlElementSingle('img',
