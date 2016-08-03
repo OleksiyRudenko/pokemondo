@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- ****** faviconit.com favicons ****** -->
+    <!-- force refreshment technique <link rel="shortcut icon" href="favicon.ico?v=<\?php echo filemtime('favicon.ico') \?\>" /> -->
     <link rel="shortcut icon" href="/favicon.ico?v">
     <link rel="icon" sizes="16x16 32x32 64x64" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="196x196" href="/favicon-192.png">
