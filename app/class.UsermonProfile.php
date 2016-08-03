@@ -27,6 +27,7 @@ class UsermonProfile {
     ];
 
     public static $pokemonList = [];
+    public static $currentProfile;
 
     private $u = [
         'id'            =>  0,
@@ -46,24 +47,29 @@ class UsermonProfile {
               ];
     }
 
+    function profileImgTag() {
+        return htmlElementSingle('img',['src'=>$this->getUserProfileImagename()]);
+    }
+
 
     /**
      * @desc   Gets pokemons that meet user criteria
      * @return array : [class.Pokemon,...]
      */
-    function selectPokemons() {
+    function selectPokemons($addNonElemental=true) {
         global $DBH, $DBT;
         $pokelist = [];
         // allowed genders
         $pokegender = ['x', 'n'];
         if ($this->u['gender']=='f' || $this->u['gender']=='m')
             $pokegender[]=$this->u['gender'];
+        $genderlist = '(\''.implode('\',\'',$pokegender).'\')';
 
         $poketype=$this->getElement();
         $tb = new dbTable($DBH,'poketype',$DBT['poketype']);
         $clauses = [
             'join'  => [
-                'RIGHT JOIN pokegender AS t2 ON t2.pokeid=t1.pokeid',// AND t2.gender IN (\''.implode('\',\'',$pokegender).'\')',
+                'RIGHT JOIN pokegender AS t2 ON t2.pokeid=t1.pokeid AND t2.gender IN '.$genderlist,
                 'LEFT JOIN pokename AS t3 ON t3.pokeid=t1.pokeid'
             ],
             'WHERE' => 't1.poketype=\''.$poketype.'\'',
@@ -74,9 +80,51 @@ class UsermonProfile {
                 $pokelist[] = new Pokemon($row);
             }
         } else {
-            logMessage('UsermonProfile','UsermonProfile::selectPokemons(): '.sqlError());
+            logMessage('UsermonProfile','UsermonProfile::selectPokemons(): '.sqlError(),'danger');
             return $pokelist;
         }
+        // logMessage('UsermonProfile','UsermonProfile::selectPokemons().list.pass1: '.varExport($pokelist));
+
+
+        if ($addNonElemental) {
+            /*
+             *  SELECT * FROM
+                    (SELECT t1.*, t2.gender, t3.pokename, t3.pokename_ru FROM
+                        (SELECT t21.*, t22.poketypeclass, t22.poketype_ru FROM `poketype` AS t21
+                        JOIN `poketype_ru` AS t22 on t21.poketype=t22.poketype
+                        ORDER BY t22.poketypeclass) as t1
+                    RIGHT JOIN `pokegender` AS t2 ON t1.pokeid=t2.pokeid AND t2.gender IN ('x','n','f')
+                    LEFT JOIN `pokename` AS t3 ON t1.pokeid=t3.pokeid
+                    GROUP BY t1.pokeid
+                    HAVING t1.poketypeclass<>'element') AS supert
+                ORDER BY RAND()
+                LIMIT 5
+             *
+             */
+
+            global $DBH;
+            if ($qr=$DBH->query(
+                'SELECT * FROM'
+                    .' (SELECT t1.*, t2.gender, t3.pokename, t3.pokename_ru FROM'
+                        .' (SELECT t21.*, t22.poketypeclass, t22.poketype_ru FROM `poketype` AS t21'
+                        .' JOIN `poketype_ru` AS t22 on t21.poketype=t22.poketype'
+                        .' ORDER BY t22.poketypeclass) as t1'
+                    .' RIGHT JOIN `pokegender` AS t2 ON t1.pokeid=t2.pokeid AND t2.gender IN '.$genderlist
+                    .' LEFT JOIN `pokename` AS t3 ON t1.pokeid=t3.pokeid'
+                    .' GROUP BY t1.pokeid'
+                    .' HAVING t1.poketypeclass<>\'element\') AS supert'
+                .' ORDER BY RAND() LIMIT 5'
+                )) {
+                while ($row=$qr->fetch_assoc()) {
+                    $pokelist[] = new Pokemon($row);
+                }
+            } else {
+                logMessage('UsermonProfile','UsermonProfile::selectPokemons().extra: '.sqlError(),'danger');
+                return $pokelist;
+            }
+        }
+        // logMessage('UsermonProfile','UsermonProfile::selectPokemons().list.pass2: '.varExport($pokelist));
+
         return $pokelist;
     }
 
@@ -139,29 +187,29 @@ class UsermonProfile {
         logMessage('UsermonProfile','UsermonProfile::createProfileImg().entered');
         // load template
         if (!$img = imagecreatefrompng(self::$path['tplimg'])) {
-            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading TEMPLATE '.self::$path['tplimg']);
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading TEMPLATE '.self::$path['tplimg'],'danger');
             return false;
         }
 
         // load user avatar
         if (!$imgAva = imagecreatefromjpeg($this->getUserAvaFilename())) {
-            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading USERavatar '.$this->getUserAvaFilename());
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading USERavatar '.$this->getUserAvaFilename(),'danger');
             return false;
         }
         // merge user avatar
         if (!imagecopy($img,$imgAva,98,56,0,0,200,200)) {
-            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error merging USERavatar '.$this->getUserAvaFilename());
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error merging USERavatar '.$this->getUserAvaFilename(),'danger');
             return false;
         }
         imagedestroy($imgAva);
         // load pokemon avatar
         if (!$imgPoke = imagecreatefrompng($pokemon->imageFilename('avatar','static','normal'))) {
-            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading POKEMONavatar '.$pokemon->imageFilename('avatar','static','normal'));
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading POKEMONavatar '.$pokemon->imageFilename('avatar','static','normal'),'danger');
             return false;
         }
         // merge pokemon avatar
         if (!imagecopy($img,$imgPoke,494,48,0,0,215,215)) {
-            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error merging POKEMONavatar '.$this->getUserAvaFilename());
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error merging POKEMONavatar '.$this->getUserAvaFilename(),'danger');
             return false;
         }
         imagedestroy($imgPoke);
@@ -204,7 +252,7 @@ class UsermonProfile {
         imagealphablending($img, false);
         imagesavealpha($img, true);
         if (!imagejpeg($img,$this->getUserProfileImagename(),90)) {
-            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error saving PROFILEimage '.$this->getUserProfileImagename());
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error saving PROFILEimage '.$this->getUserProfileImagename(),'danger');
             return false;
         }
         // free resource
@@ -238,7 +286,7 @@ class UsermonProfile {
           $width,$height,$size,
             $bbox
         ];
-        logMessage('UsermonProfile','UsermonProfile::textSize('.$fontid.','.$text.')='.varExport($rdims));
+        // logMessage('UsermonProfile','UsermonProfile::textSize('.$fontid.','.$text.')='.varExport($rdims));
         return $rdims;
     }
 

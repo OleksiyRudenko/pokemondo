@@ -49,18 +49,21 @@
  * Time: 12:40
  */
 
-print unlogMessage('UsermonProfile');
-print unlogMessage('Profile');
+print unlogMessage('UsermonProfile','danger');
+print unlogMessage('Profile','danger');
 
+// show profileImage
+print '<div class="col-xs-12">'
+    .UsermonProfile::$currentProfile->profileImgTag()
+    .'</div>';
 
 // show pokemons from UsermonProfile::$pokemonList
-
 foreach (UsermonProfile::$pokemonList as $poke) {
-    print '<div class="col-xs-3">'
+    print '<div class="col-xs-4 text-center">'
         .htmlElementSingle('img',
             ['src'=>$poke->imageUrl('local','avatar','static','normal')]
         )
-        .p($poke->p['pokename_ru'])
+        .'<p class="lead text-center">'.$poke->p['pokename_ru'].'</p>'
         .'</div>';
 }
 
