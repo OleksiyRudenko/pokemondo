@@ -51,19 +51,20 @@ class UsermonProfile {
      * @desc   Gets pokemons that meet user criteria
      * @return array : [class.Pokemon,...]
      */
-    function selectPokemons() {
+    function selectPokemons($addNonElemental=true) {
         global $DBH, $DBT;
         $pokelist = [];
         // allowed genders
         $pokegender = ['x', 'n'];
         if ($this->u['gender']=='f' || $this->u['gender']=='m')
             $pokegender[]=$this->u['gender'];
+        $genderlist = '(\''.implode('\',\'',$pokegender).'\')';
 
         $poketype=$this->getElement();
         $tb = new dbTable($DBH,'poketype',$DBT['poketype']);
         $clauses = [
             'join'  => [
-                'RIGHT JOIN pokegender AS t2 ON t2.pokeid=t1.pokeid',// AND t2.gender IN (\''.implode('\',\'',$pokegender).'\')',
+                'RIGHT JOIN pokegender AS t2 ON t2.pokeid=t1.pokeid AND t2.gender IN '.$genderlist,
                 'LEFT JOIN pokename AS t3 ON t3.pokeid=t1.pokeid'
             ],
             'WHERE' => 't1.poketype=\''.$poketype.'\'',
@@ -77,6 +78,46 @@ class UsermonProfile {
             logMessage('UsermonProfile','UsermonProfile::selectPokemons(): '.sqlError());
             return $pokelist;
         }
+
+
+        if ($addNonElemental) {
+            /*
+             *  SELECT * FROM
+                    (SELECT t1.*, t2.gender, t3.pokename, t3.pokename_ru FROM
+                        (SELECT t21.*, t22.poketypeclass, t22.poketype_ru FROM `poketype` AS t21
+                        JOIN `poketype_ru` AS t22 on t21.poketype=t22.poketype
+                        ORDER BY t22.poketypeclass) as t1
+                    RIGHT JOIN `pokegender` AS t2 ON t1.pokeid=t2.pokeid AND t2.gender IN ('x','n','f')
+                    LEFT JOIN `pokename` AS t3 ON t1.pokeid=t3.pokeid
+                    GROUP BY t1.pokeid
+                    HAVING t1.poketypeclass<>'element') AS supert
+                ORDER BY RAND()
+                LIMIT 5
+             *
+             */
+
+            global $DBH;
+            if ($qr=$DBH->query(
+                'SELECT * FROM'
+                    .' (SELECT t1.*, t2.gender, t3.pokename, t3.pokename_ru FROM'
+                        .' (SELECT t21.*, t22.poketypeclass, t22.poketype_ru FROM `poketype` AS t21'
+                        .' JOIN `poketype_ru` AS t22 on t21.poketype=t22.poketype'
+                        .' ORDER BY t22.poketypeclass) as t1'
+                    .' RIGHT JOIN `pokegender` AS t2 ON t1.pokeid=t2.pokeid AND t2.gender IN '.$genderlist
+                    .' LEFT JOIN `pokename` AS t3 ON t1.pokeid=t3.pokeid'
+                    .' GROUP BY t1.pokeid'
+                    .' HAVING t1.poketypeclass<>\'element\') AS supert'
+                .' ORDER BY RAND() LIMIT 5'
+                )) {
+                while ($qr->fetch_assoc()) {
+                    $pokelist[] = new Pokemon($row);
+                }
+            } else {
+                logMessage('UsermonProfile','UsermonProfile::selectPokemons().extra: '.sqlError());
+                return $pokelist;
+            }
+        }
+
         return $pokelist;
     }
 
