@@ -2,7 +2,7 @@
 RewriteEngine on
 #RewriteBase /
 RewriteCond %{REQUEST_URI} !^/index.php
-RewriteCond %{REQUEST_URI} !^/(index.php|css/|img/|js/|phpmyadmin) [NC]
+RewriteCond %{REQUEST_URI} !^/(favicon.ico|index.php|css/|img/|js/|phpmyadmin) [NC]
 RewriteRule ^(.+)$ /index.php/$1 [L,NC]
 
 ## Language
