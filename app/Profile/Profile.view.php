@@ -53,7 +53,7 @@ print unlogMessage('UsermonProfile','danger');
 print unlogMessage('Profile','danger');
 
 // show profileImage
-print '<div class="col-xs-12">'
+print '<div class="col-xs-12 text-center">'
     .UsermonProfile::$currentProfile->profileImgTag()
     .'</div>';
 
