@@ -49,8 +49,8 @@
  * Time: 12:40
  */
 
-print unlogMessage('UsermonProfile');
-print unlogMessage('Profile');
+print unlogMessage('UsermonProfile','danger');
+print unlogMessage('Profile','danger');
 
 // show profileImage
 print '<div class="col-xs-12">'
