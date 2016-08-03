@@ -180,29 +180,29 @@ class UsermonProfile {
         logMessage('UsermonProfile','UsermonProfile::createProfileImg().entered');
         // load template
         if (!$img = imagecreatefrompng(self::$path['tplimg'])) {
-            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading TEMPLATE '.self::$path['tplimg']);
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading TEMPLATE '.self::$path['tplimg'],'danger');
             return false;
         }
 
         // load user avatar
         if (!$imgAva = imagecreatefromjpeg($this->getUserAvaFilename())) {
-            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading USERavatar '.$this->getUserAvaFilename());
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading USERavatar '.$this->getUserAvaFilename(),'danger');
             return false;
         }
         // merge user avatar
         if (!imagecopy($img,$imgAva,98,56,0,0,200,200)) {
-            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error merging USERavatar '.$this->getUserAvaFilename());
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error merging USERavatar '.$this->getUserAvaFilename(),'danger');
             return false;
         }
         imagedestroy($imgAva);
         // load pokemon avatar
         if (!$imgPoke = imagecreatefrompng($pokemon->imageFilename('avatar','static','normal'))) {
-            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading POKEMONavatar '.$pokemon->imageFilename('avatar','static','normal'));
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error reading POKEMONavatar '.$pokemon->imageFilename('avatar','static','normal'),'danger');
             return false;
         }
         // merge pokemon avatar
         if (!imagecopy($img,$imgPoke,494,48,0,0,215,215)) {
-            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error merging POKEMONavatar '.$this->getUserAvaFilename());
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error merging POKEMONavatar '.$this->getUserAvaFilename(),'danger');
             return false;
         }
         imagedestroy($imgPoke);
@@ -245,7 +245,7 @@ class UsermonProfile {
         imagealphablending($img, false);
         imagesavealpha($img, true);
         if (!imagejpeg($img,$this->getUserProfileImagename(),90)) {
-            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error saving PROFILEimage '.$this->getUserProfileImagename());
+            logMessage('UsermonProfile','UsermonProfile::createProfileImg() error saving PROFILEimage '.$this->getUserProfileImagename(),'danger');
             return false;
         }
         // free resource
@@ -279,7 +279,7 @@ class UsermonProfile {
           $width,$height,$size,
             $bbox
         ];
-        logMessage('UsermonProfile','UsermonProfile::textSize('.$fontid.','.$text.')='.varExport($rdims));
+        // logMessage('UsermonProfile','UsermonProfile::textSize('.$fontid.','.$text.')='.varExport($rdims));
         return $rdims;
     }
 
