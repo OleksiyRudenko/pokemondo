@@ -25,10 +25,11 @@ if (isset($_POST['action'])) {
             }
             // create image based on tpl
             $pokeMain = array_pop($pokelist);
+            // logMessage('Profile',varExport($pokeMain));
             $uprofile->createProfileImg($pokeMain);
             // save remaining pokemons
             UsermonProfile::$pokemonList = $pokelist;
-            // logMessage('Profile',varExport($u->selectPokemons()));
+            // logMessage('Profile',varExport(UsermonProfile::$pokemonList));
             break;
     }
 

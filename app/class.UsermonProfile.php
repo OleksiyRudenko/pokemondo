@@ -75,9 +75,10 @@ class UsermonProfile {
                 $pokelist[] = new Pokemon($row);
             }
         } else {
-            logMessage('UsermonProfile','UsermonProfile::selectPokemons(): '.sqlError());
+            logMessage('UsermonProfile','UsermonProfile::selectPokemons(): '.sqlError(),'danger');
             return $pokelist;
         }
+        // logMessage('UsermonProfile','UsermonProfile::selectPokemons().list.pass1: '.varExport($pokelist));
 
 
         if ($addNonElemental) {
@@ -109,14 +110,15 @@ class UsermonProfile {
                     .' HAVING t1.poketypeclass<>\'element\') AS supert'
                 .' ORDER BY RAND() LIMIT 5'
                 )) {
-                while ($qr->fetch_assoc()) {
+                while ($row=$qr->fetch_assoc()) {
                     $pokelist[] = new Pokemon($row);
                 }
             } else {
-                logMessage('UsermonProfile','UsermonProfile::selectPokemons().extra: '.sqlError());
+                logMessage('UsermonProfile','UsermonProfile::selectPokemons().extra: '.sqlError(),'danger');
                 return $pokelist;
             }
         }
+        // logMessage('UsermonProfile','UsermonProfile::selectPokemons().list.pass2: '.varExport($pokelist));
 
         return $pokelist;
     }
