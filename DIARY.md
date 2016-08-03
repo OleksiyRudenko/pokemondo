@@ -4,6 +4,8 @@ Each stage may include minor bugfixes and improvements to unmentioned pieces of 
 
 ```
 TOTAL =38.8
+     =  -.-
+160803  1.0 - Module::Profile (include non-elemental pokemons)
      =  6.0
 160802  3.0 - Module::Profile (build profile image)
 160802  1.5 - profile template image & specs
