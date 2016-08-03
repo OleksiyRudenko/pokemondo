@@ -1,8 +1,13 @@
 #Options +FollowSymLinks
 RewriteEngine on
 #RewriteBase /
-RewriteCond %{REQUEST_URI} !^/index.php
-RewriteCond %{REQUEST_URI} !^/(favicon.ico|index.php|css/|img/|js/|phpmyadmin) [NC]
+#RewriteCond %{REQUEST_URI} !^/index.php
+
+#RewriteCond %{REQUEST_URI} ^/favicon.ico [NC]
+#RewriteCond %{HTTP_HOST} (.+)
+#RewriteRule ^(.*)favicon\.ico$ http://%1/favicon.ico [L]
+
+RewriteCond %{REQUEST_URI} !^/(favicon|index.php|css/|img/|js/|phpmyadmin) [NC]
 RewriteRule ^(.+)$ /index.php/$1 [L,NC]
 
 ## Language
@@ -13,3 +18,7 @@ RewriteRule ^(.+)$ /index.php/$1 [L,NC]
 #RewriteCond %{HTTP_REFERER} !^$
 #RewriteCond %{HTTP_REFERER} !^http://(www\.)?askapache\.com/.*$ [NC]
 #RewriteRule \.(gif|jpg|swf|flv|png)$ /feed/ [R=302,L]
+
+## See also
+# http://stackoverflow.com/questions/2408110/htaccess-redirect-favicon
+# http://htaccess.mwl.be/ -- test rules
