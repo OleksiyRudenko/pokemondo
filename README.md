@@ -25,6 +25,8 @@ Installation instructions*:
       language specific collation should your textual content be in a single
       language and relevant collation provided by DB engine)
     * Import data from `_bup` if any.
+ 1. Use `dist` branch to publish app on web-site. See `webhook.git.php`
+    for details.
  
 *) Striked-out instructions stay for retrospection reasons. These aren't 
 required to set-up the project anymore.

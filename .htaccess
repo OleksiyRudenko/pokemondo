@@ -7,7 +7,7 @@ RewriteEngine on
 #RewriteCond %{HTTP_HOST} (.+)
 #RewriteRule ^(.*)favicon\.ico$ http://%1/favicon.ico [L]
 
-RewriteCond %{REQUEST_URI} !^/(favicon|index.php|css/|img/|js/|phpmyadmin) [NC]
+RewriteCond %{REQUEST_URI} !^/(webhook.git.php|favicon|index.php|css/|img/|js/|phpmyadmin) [NC]
 RewriteRule ^(.+)$ /index.php/$1 [L,NC]
 
 ## Language
