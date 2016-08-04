@@ -1,3 +1,10 @@
+# The Purpose
+
+This application is a sandbox created by author to learn
+Facebook Graph API and some features from PHP like GD functions.
+
+The theme (pokemons) was chosen to have some practical fun.
+
 # Installation
 
 Installation instructions*:
