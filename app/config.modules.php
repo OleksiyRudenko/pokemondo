@@ -25,7 +25,8 @@ $pathtree =    [
 ];
 
 // MODULE::$settings
-// onSubmit is invoked if set and $_POST['action']==any of action list
+// ModuleName.onSubmit.php is loaded if onSubmit property is set and $_POST['action']==any of action list
+// ModuleName.preHTML.php is loaded if preHTML property is set
 $settings = [
         'manage-pokemons'        =>  [
             'basepath'  => 'Manage/Dashboard',
