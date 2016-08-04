@@ -22,6 +22,10 @@ $pathtree =    [
         'users'     =>  0,
         'public'    =>  0,
         'profile'   =>  0,
+        'legal'     =>  [
+            'privacy-policy'    => 0,
+            'terms-of-service'        => 0,
+        ],
 ];
 
 // MODULE::$settings
@@ -89,6 +93,22 @@ $settings = [
             'heading'   => 'Какой ты покемон?',
             'onSubmit'  =>  ['Process'],
         ],
+        'legal'          =>  [
+            'basepath'  => 'Legal/Legal',
+            'navmenu'   => 'Legal matters',
+            'heading'   => 'Legal matters',
+        ],
+        'privacy-policy'  =>  [
+            'basepath'  => 'Legal/PolicyPrivacy',
+            'navmenu'   => 'Privacy Policy',
+            'heading'   => 'Privacy Policy',
+        ],
+        'terms-of-service'  =>  [
+            'basepath'  => 'Legal/TOS',
+            'navmenu'   => 'Terms of Service',
+            'heading'   => 'Terms of Service',
+        ],
+
 ];
 
 MODULE::initialize($pathtree,$settings);
