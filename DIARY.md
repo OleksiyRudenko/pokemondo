@@ -4,6 +4,8 @@ Each stage may include minor bugfixes and improvements to unmentioned pieces of 
 
 ```
 TOTAL= 40.8
+     =  -.-
+160804  1.3 - Add legal sections 
      =  2.0
 160803  1.0 - Server maintenance issues incl. .htaccess, favicon     
 160803  1.0 - Module::Profile (include non-elemental pokemons)
@@ -35,10 +37,10 @@ TOTAL= 40.8
 
 Next steps:
  * [ ] Profile
- * [ ] Profile: add pokemons with not elemental type gender-wisely
+ * [X] Profile: add pokemons with not elemental type gender-wisely
  * [ ] Export/Import DB
  * [X] Fetch pokemon data (complete)
- * [ ] ~~Add pokevolution~~
+ * [-] ~~Add pokevolution~~
  * [X] Add `poketype_ru` types translation
  * [X] Fetch avatars
  * [ ] TB: `user`
