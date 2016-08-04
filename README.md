@@ -17,29 +17,55 @@ Installation instructions*:
       your web-server
  1. Check `php.ini` on your web-server has timezone set: e.g. `date.timezone = Europe/Kiev`
  1. ~~Tune-up `httpd.conf` (see below)~~
+ 1. You may want to set-up virtual host for development purposes (see below)
  1. Create `pokedata` database
     * Use `root`/`usbw` credentials to access MySQL.
     * Please, change these via DB admin panel and in `app/config.db.php`.
     * Create database `pokedata` with collation `utf8mb4_unicode_520_ci` (choose different,
       language specific collation should your textual content be in a single
       language and relevant collation provided by DB engine)
+    * Import data from `_bup` if any.
  
 *) Striked-out instructions stay for retrospection reasons. These aren't 
 required to set-up the project anymore.
  
  
-## `httpd.conf`
- 
- NB! Ignore this section. Tuning replaced with `.htaccess` rules.
- 
- Check that `mod_rewrite` is allowed. 
- 
- Add as a last section:
- ```
- <IfModule rewrite_module>
-     RewriteEngine on
-     RewriteCond %{SCRIPT_FILENAME} !^/(css/|img/|js/|phpmyadmin) [NC]
-     RewriteRule ^(.+)$ /index.php/$1 [L]
- </IfModule>
- ```
- 
+
+## Server Request URI Rewrite Rules
+
+**NB!** Based on **USB Webserver** configuration.
+
+In `settings/httpd.conf` check that `mod_rewrite` is allowed.
+
+Rewrite rules are described in root `.htaccess`.
+
+## Virtual Host
+
+Facebook Graph API doesn't allow registering applications
+on top-level domains. So, `localhost` doesn't fit the rule.
+
+**1. Provide virtual host resolution on OS level**
+
+Under Windows: add line `127.0.0.1 pokemondo.loc` 
+to `%WINDIR%\System32\drivers\etc\hosts`
+  
+**2. Declare virtual host in web-server config**
+
+Add following section at the end of `settings/httpd.conf`
+
+```
+<VirtualHost localhost:{port}>
+    ServerAdmin webmaster@pokemondo.loc
+    DocumentRoot "{rootdir}"
+    ServerName pokemondo.loc
+    ErrorLog "logs/pokemondo.loc-error.log"
+    CustomLog "logs/pokemondo.loc-access.log" common
+</VirtualHost>
+```
+
+Relaunch web-server for the changes to take effect. 
+
+**Result**
+
+Now your web-site is accessible locally 
+at [pokemondo.loc:8080](http://pokemondo.loc:8080/).
