@@ -9,7 +9,7 @@
 // MODULE::$pathtree
 // NB! If a module refers to sub-modules, there is no way to access it via menu (unless it is first in the list)
 $pathtree =    [
-        // 'public' => 0,
+        'public' => 0,
         'manage-pokemons' =>   [
             'pokedex'           => 0,
             'fetch-genders'     => 0,
@@ -20,7 +20,7 @@ $pathtree =    [
 //            'view-DataBase'     => 0,
         ],
         'users'     =>  0,
-        'public'    =>  0,
+        // 'public'    =>  0,
         'profile'   =>  0,
         'legal'     =>  [
             'privacy-policy'    => 0,
