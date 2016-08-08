@@ -10,7 +10,7 @@
 // NB! If a module refers to sub-modules, there is no way to access it via menu (unless it is first in the list)
 $pathtree =    [
         'public' => 0,
-        'manage-pokemons' =>   [
+        'manage' =>   [
             'pokedex'           => 0,
             'fetch-genders'     => 0,
             'fetch-pokemons'    => 0,
@@ -32,7 +32,7 @@ $pathtree =    [
 // ModuleName.onSubmit.php is loaded if onSubmit property is set and $_POST['action']==any of action list
 // ModuleName.preHTML.php is loaded if preHTML property is set
 $settings = [
-        'manage-pokemons'        =>  [
+        'manage'        =>  [
             'basepath'  => 'Manage/Dashboard',
             'navmenu'   => 'Manage things',
             'heading'   => 'Manage Pokemon DB',
