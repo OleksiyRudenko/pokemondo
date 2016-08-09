@@ -3,9 +3,9 @@
 Each stage may include minor bugfixes and improvements to unmentioned pieces of code.
 
 ```
-TOTAL= 40.8
-     =  -.-
-160809  1.6 - class.MODULE|USER: basic authorization
+TOTAL= 45.8
+     =  5.0
+160809  2.1 - class.MODULE|USER: basic authorization
 160809  1.0 - class.MODULE: viewSchema, umask
 160808  0.6 - Design splash image
 160804  1.3 - Add legal sections 
