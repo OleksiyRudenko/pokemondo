@@ -13,6 +13,8 @@
 [(ru)pokeliga](http://pokeliga.com/dex/dex.php?poke=1.00)
 [(ru)pokeliga.wiki](http://pokeliga.com/pokewiki.php#%D0%91%D1%83%D0%BB%D1%8C%D0%B1%D0%B0%D0%B7%D0%B0%D0%B2%D1%80)
 
+[(ru)incomplete yet!](http://gogopokemon.ru/pokedex/)
+
 ## Imagery
 
 [Animated Sprites @pokemondb](http://pokemondb.net/sprites/venusaur)
