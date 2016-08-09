@@ -76,7 +76,7 @@ class MODULE {
         foreach ($tree as $k=>$a) {
             if (ARGV::$a[0]==$k) {
                 self::$path[]=array_shift(ARGV::$a);
-                if (is_array($a))
+                if (isset($a['child']))
                     self::buildPath($a['child']);
                 break;
             }
@@ -158,7 +158,7 @@ class MODULE {
     private static function makeNavList($tree) {
         $ret = [];
         foreach ($tree as $k=>$a) {
-            $isa = is_array($a);
+            $isa = is_array($a['child']);
             $ret[] = '<li'.($isa?' class="dropdown"':'').'>'
                 . '<a'.($isa?' class="dropdown-toggle" data-toggle="dropdown"':'')
                     .' href="'
@@ -170,7 +170,7 @@ class MODULE {
                 . '</a>'
                 . ($isa
                     ?'<ul class="dropdown-menu">'
-                        . self::makeNavList($a)
+                        . self::makeNavList($a['child'])
                         . '</ul>'
                     :'')
                 . '</li>'
