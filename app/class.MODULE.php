@@ -44,18 +44,25 @@ class MODULE {
     }
 
     public static function currSetting($stng) {
-        return isset(self::$currSetting[$stng])
+        /* return isset(self::$currSetting[$stng])
             ? self::$currSetting[$stng]
+            : false; */
+        return isset(self::$currTreeProps[$stng])
+            ? self::$currTreeProps[$stng]
             : false;
     }
 
     public static function getSetting($stng,$module=false) {
         if (!$module) $module = self::$currMod;
+        // traverse tree
+        // self::traverse(self::$treepath,'');
         return self::$settings[$module][$stng];
     }
 
     public static function load($component) {
-        include_once('app/'.MODULE::currSetting('basepath').'.'.$component.'.php');
+        include_once('app/'
+            .MODULE::currSetting('basepath')
+            .'.'.$component.'.php');
     }
 
     public static function loadOnSubmit() { self::load('onSubmit'); }
@@ -108,7 +115,7 @@ class MODULE {
      * @param $node
      * @param $parentNode
      */
-    private static function pathtreeComplete(&$node, $nodeid, &$parentNode) {
+    private static function pathtreeComplete(&$node, $nodeid, &$parentNode, $callbackParams) {
         // inherit [umask] from parent unless isset
         if (!isset($node['umask']))
             $node['umask'] = ($parentNode)?$parentNode['umask']:UMASK_GUEST;
@@ -128,11 +135,12 @@ class MODULE {
     /**
      * @desc  Traverse tree represented with array
      * @param $tree
-     * @param $callback
+     * @param $callback : static MODULE method to call
+     * @param array $callbackParams : callaback params array
      * @param null $parentNode
      * @param string $subtreecontainer
      */
-    private static function traverse(&$tree, $callback, &$parentNode=NULL, $subtreecontainer='child') {
+    private static function traverse(&$tree, $callback, $callbackParams=NULL, &$parentNode=NULL, $subtreecontainer='child') {
         foreach ($tree as $nodeid=>$a) {
             if (!is_array($a)) {
                 $tree[$nodeid] = [ $subtreecontainer=>0 ];
@@ -140,7 +148,7 @@ class MODULE {
             if (!isset($tree[$nodeid][$subtreecontainer])) {
                 $tree[$nodeid][$subtreecontainer]=0;
             }
-            MODULE::$callback($tree[$nodeid],$nodeid,$parentNode);
+            MODULE::$callback($tree[$nodeid],$nodeid,$parentNode,$callbackParams);
             if ($tree[$nodeid][$subtreecontainer])
                 self::traverse($tree[$nodeid][$subtreecontainer],$callback,$tree[$nodeid]);
         }
