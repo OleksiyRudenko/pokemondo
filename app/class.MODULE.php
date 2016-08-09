@@ -108,6 +108,11 @@ class MODULE {
 
     }
 
+    private static function findSetting(&$node, $nodeid, &$parentNode, $callbackParams) {
+
+
+    }
+
     // ====================================
 
     /**
