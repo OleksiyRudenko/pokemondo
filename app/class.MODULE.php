@@ -167,6 +167,8 @@ class MODULE {
     private static function makeNavList($tree) {
         $ret = [];
         foreach ($tree as $k=>$a) {
+            if (!(USER::$u['upowers']&$a['umask'])) // skip
+                continue;
             $isa = is_array($a['child']);
             $ret[] = '<li'.($isa?' class="dropdown"':'').'>'
                 . '<a'.($isa?' class="dropdown-toggle" data-toggle="dropdown"':'')
