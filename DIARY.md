@@ -5,6 +5,7 @@ Each stage may include minor bugfixes and improvements to unmentioned pieces of 
 ```
 TOTAL= 40.8
      =  -.-
+160809  1.0 - class.MODULE: viewSchema, umask
 160808  0.6 - Design splash image
 160804  1.3 - Add legal sections 
      =  2.0

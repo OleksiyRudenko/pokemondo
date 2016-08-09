@@ -43,6 +43,10 @@ $pathtree =    [
                 'terms-of-service'        => 0,
             ],
         ],
+        'login'     =>  [
+            'umask' =>  UMASK_GUEST,
+            'viewSchema'    =>  'viewPublic',
+        ],
 ];
 
 // MODULE::$settings
@@ -124,6 +128,12 @@ $settings = [
             'basepath'  => 'Legal/TOS',
             'navmenu'   => 'Terms of Service',
             'heading'   => 'Terms of Service',
+        ],
+        'login'  =>  [
+            'basepath'  => 'Auth/Auth',
+            'navmenu'   => 'Login',
+            'heading'   => 'Get Authorized',
+            'onSubmit'  =>  ['Login'],
         ],
 
 ];

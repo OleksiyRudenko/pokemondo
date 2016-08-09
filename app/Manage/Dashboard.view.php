@@ -30,4 +30,5 @@ if (!$ok) {
 print unlogMessage('CORE');
 $moduleProps=MODULE::exportProperties();
 print alert(varExport($moduleProps));
+// phpinfo();
 ?>

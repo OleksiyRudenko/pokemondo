@@ -12,8 +12,9 @@ function assignCookie($cookiename,$cookievalue,$lifespan=false) {
     $_COOKIE[$cookiename]=$cookievalue;
 }
 
-function redirect($url=false) {
-
+function redirectLocal($uri) {
+    header('Location: '.getFullServerName().($uri[0]=='/'?'':'/').$uri);
+    exit;
 }
 
 /**
@@ -24,4 +25,10 @@ function assignRequestPresets(&$request, $var) {
     foreach ($var as $k=>$v)
         if (!isset($request[$k]))
             $request[$k]=$v;
+}
+
+function getFullServerName() {
+    return $_SERVER["REQUEST_SCHEME"].'://'.$_SERVER["SERVER_NAME"]
+    .($_SERVER["SERVER_PORT"]?':'.$_SERVER["SERVER_PORT"]:'')
+    ;
 }
