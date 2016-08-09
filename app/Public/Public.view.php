@@ -6,8 +6,7 @@
 </div>
 <?php
 
-$tmp=MODULE::exportProperties();
-print alert(varExport($tmp),'info');
+// $tmp=MODULE::exportProperties(); print alert(varExport($tmp),'info');
 /**
  * Created by PhpStorm.
  * User: Rudenko
