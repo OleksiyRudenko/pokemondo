@@ -9,14 +9,13 @@
 class MODULE {
     // initial settings
     public static $pathtree;
-    public static $settings;
+    public static $settings;        // data imported (overwriting) into $pathtree
     public static $viewSchema;
 
     // computed derivative settings
     public static $path = [];
 
     // current module property references
-    public static $currSetting;
     public static $currTreeProps;
     public static $currMod;         // current module name
 
@@ -25,8 +24,6 @@ class MODULE {
         self::$settings = &$stngs;
         self::$viewSchema = &$views;
 
-        // supplement settings with urls for navigation
-        self::makeUrls(self::$pathtree);
         // build-up pathtree
         self::traverse(self::$pathtree,'pathtreeComplete');
         // prepend ARGV with default module unless defined
@@ -39,8 +36,6 @@ class MODULE {
         // find current module
         self::buildPath(self::$pathtree);
         self::$currMod = self::$path[count(self::$path)-1];
-        // make reference to current module setting
-        self::$currSetting = &self::$settings[self::$currMod];
     }
 
     public static function currSetting($stng) {
@@ -53,10 +48,14 @@ class MODULE {
     }
 
     public static function getSetting($stng,$module=false) {
-        if (!$module) $module = self::$currMod;
-        // traverse tree
-        // self::traverse(self::$treepath,'');
-        return self::$settings[$module][$stng];
+        if (!$module) return isset(self::$currTreeProps[$stng])
+            ? self::$currTreeProps[$stng]
+            : false;
+        if ($node=self::findNode(self::$pathtree,$module)) {
+            return $node
+                ? (isset($node[$stng])?$node[$stng]:false)
+                : false;
+        }
     }
 
     public static function load($component) {
@@ -77,7 +76,7 @@ class MODULE {
             include($viewFile);
     }
 
-    private static function buildPath($tree) {
+    private static function buildPath(&$tree) {
         if (!count(ARGV::$a)) return;
         // logMessage('DEBUG',varExport($tree,'MODULE::buildPath() tree'));
         // logMessage('DEBUG',varExport(ARGV::$a,'MODULE::buildPath() ARGV'));
@@ -91,26 +90,11 @@ class MODULE {
                 // build up
                 self::$path[]=array_shift(ARGV::$a);
                 self::$currTreeProps=&$tree[$k];
-                if (isset($a['child']))
+                if (isset($a['child']) && $a['child'] && count($a['child']))
                     self::buildPath($a['child']);
                 break;
             }
         }
-    }
-
-    private static function makeUrls($tree,$path='') {
-        foreach ($tree as $k=>$a) {
-            self::$settings[$k]['url'] = $path.'/'.$k;
-            if (isset($a['child']) && is_array($a['child'])) {
-                self::makeUrls($a['child'],$path . '/' . $k);
-            }
-        }
-
-    }
-
-    private static function findSetting(&$node, $nodeid, &$parentNode, $callbackParams) {
-
-
     }
 
     // ====================================
@@ -137,6 +121,19 @@ class MODULE {
 
     // ==================================== secondary services
 
+    private static function findNode(&$tree, $targetnodeid, $subtreecontainer='child') {
+        foreach ($tree as $nodeid=>$va) {
+            if ($nodeid==$targetnodeid) {
+                return $tree[$nodeid];
+            }
+            if (isset($va[$subtreecontainer]) && $va[$subtreecontainer] && count($va[$subtreecontainer]))
+                if (@$result=&self::findNode($tree[$nodeid][$subtreecontainer],$targetnodeid, $subtreecontainer))
+                    return $result;
+        }
+        return NULL;
+    }
+
+
     /**
      * @desc  Traverse tree represented with array
      * @param $tree
@@ -155,7 +152,7 @@ class MODULE {
             }
             MODULE::$callback($tree[$nodeid],$nodeid,$parentNode,$callbackParams);
             if ($tree[$nodeid][$subtreecontainer])
-                self::traverse($tree[$nodeid][$subtreecontainer],$callback,$tree[$nodeid]);
+                self::traverse($tree[$nodeid][$subtreecontainer],$callback,$callbackParams,$tree[$nodeid]);
         }
     }
 
@@ -205,9 +202,5 @@ class MODULE {
         }
         return implode("\n",$ret);
     }
-
-/*     private static function makeHref($mod) {
-
-    } */
 
 }
