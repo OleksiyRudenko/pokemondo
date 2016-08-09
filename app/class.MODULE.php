@@ -176,10 +176,10 @@ class MODULE {
             $ret[] = '<li'.($isa?' class="dropdown"':'').'>'
                 . '<a'.($isa?' class="dropdown-toggle" data-toggle="dropdown"':'')
                     .' href="'
-                    . (MODULE::$currMod == $k ? ($isa?'#':'#section-'.$k) : MODULE::$settings[$k]['url'])
+                    . (MODULE::$currMod == $k ? ($isa?'#':'#section-'.$k) : $a['uri']) // MODULE::$settings[$k]['url'])
                     // current module refer to as '#' -- to make toggling available
                     .'">'
-                . MODULE::$settings[$k]['navmenu']
+                . $a['navmenu'] //MODULE::$settings[$k]['navmenu']
                 . ($isa?'<span class="caret"></span>':'')
                 . '</a>'
                 . ($isa
