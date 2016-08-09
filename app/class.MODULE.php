@@ -117,7 +117,7 @@ class MODULE {
             $node['viewSchema'] = ($parentNode)?$parentNode['viewSchema']:'private';
         // build-up [uri] using parentNode[uri]
         if (!isset($node['uri']))
-            $node['uri'] = (($parentNode)?$parentNode['uri'].'/':'').$nodeid;
+            $node['uri'] = ($parentNode?$parentNode['uri']:'').'/'.$nodeid;
     }
 
     // ==================================== secondary services
