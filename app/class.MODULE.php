@@ -66,7 +66,8 @@ class MODULE {
 
 
     public static function showView() {
-
+        foreach (self::$viewSchema[self::$currTreeProps['viewSchema']] as $viewFile)
+            include($viewFile);
     }
 
     private static function buildPath($tree) {
@@ -76,6 +77,7 @@ class MODULE {
         foreach ($tree as $k=>$a) {
             if (ARGV::$a[0]==$k) {
                 self::$path[]=array_shift(ARGV::$a);
+                self::$currTreeProps=&$tree[$k];
                 if (isset($a['child']))
                     self::buildPath($a['child']);
                 break;
@@ -86,8 +88,8 @@ class MODULE {
     private static function makeUrls($tree,$path='') {
         foreach ($tree as $k=>$a) {
             self::$settings[$k]['url'] = $path.'/'.$k;
-            if (is_array($a)) {
-                self::makeUrls($a,$path . '/' . $k);
+            if (is_array($a['child'])) {
+                self::makeUrls($a['child'],$path . '/' . $k);
             }
         }
 
@@ -144,6 +146,7 @@ class MODULE {
             'PATH'=>self::$path,
             'CURRMOD'=>self::$currMod,
             'CURRSETTING'=>self::$currSetting,
+            'CURRTREEPROPS'=>self::$currTreeProps,
             'SETTINGS'=>self::$settings,
         ];
     }
