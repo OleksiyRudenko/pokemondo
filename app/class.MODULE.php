@@ -7,15 +7,23 @@
  */
 
 class MODULE {
+    // initial settings
     public static $pathtree;
-    public static $path = [];
     public static $settings;
-    public static $currSetting;
-    public static $currMod;
+    public static $viewSchema;
 
-    public static function initialize(&$ptree,&$stngs) {
-        self::$pathtree = $ptree;
-        self::$settings = $stngs;
+    // computed derivative settings
+    public static $path = [];
+
+    // current module property references
+    public static $currSetting;
+    public static $currTreeProps;
+    public static $currMod;         // current module name
+
+    public static function initialize(&$ptree,&$stngs,&$views) {
+        self::$pathtree = &$ptree;
+        self::$settings = &$stngs;
+        self::$viewSchema = &$views;
 
         // build-up pathtree
         self::traverse(self::$pathtree,'pathtreeComplete');
@@ -55,6 +63,11 @@ class MODULE {
     public static function loadPreHTML() { self::load('preHTML'); }
 
     public static function loadView() { self::load('view'); }
+
+
+    public static function showView() {
+
+    }
 
     private static function buildPath($tree) {
         if (!count(ARGV::$a)) return;

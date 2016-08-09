@@ -11,11 +11,11 @@
 $pathtree =    [
         'public' => [
             'umask' =>  UMASK_GUEST,
-            'viewSchema'    =>  'public',
+            'viewSchema'    =>  'viewPublic',
         ],
         'manage' =>   [
             'umask' =>  UMASK_ADMIN,
-            'viewSchema'    =>  'private',
+            'viewSchema'    =>  'viewPrivate',
             'child' =>  [
                 'pokedex'           => 0,
                 'fetch-genders'     => 0,
@@ -28,16 +28,16 @@ $pathtree =    [
         ],
         'users'     =>  [
             'umask' =>  UMASK_ROOT,
-            'viewSchema'    =>  'private',
+            'viewSchema'    =>  'viewPrivate',
         ],
         // 'public'    =>  0,
         'profile'   =>  [
             'umask' =>  UMASK_REGISTERED,
-            'viewSchema'    =>  'public',
+            'viewSchema'    =>  'viewPublic',
         ],
         'legal'     =>  [
             'umask' =>  UMASK_GUEST,
-            'viewSchema'    =>  'public',
+            'viewSchema'    =>  'viewPublic',
             'child' =>  [
                 'privacy-policy'    => 0,
                 'terms-of-service'        => 0,
@@ -128,4 +128,17 @@ $settings = [
 
 ];
 
-MODULE::initialize($pathtree,$settings);
+$viewSchema = [
+    'viewPublic' => [
+        'html.0head.php',
+        'html.1body-public.php',
+        'html.1body-xfinalize.html',
+    ],
+    'viewPrivate' => [
+        'html.0head.php',
+        'html.1body-private.php',
+        'html.1body-xfinalize.html',
+    ],
+];
+
+MODULE::initialize($pathtree,$settings,$viewSchema);
