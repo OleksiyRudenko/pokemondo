@@ -14,8 +14,9 @@ define('UMASK_ROOT',128);
 class USER {
     public static $u;
     public static $uri = [
-        'onFailure' =>  0,
-        'onSuccess' =>  '/manage',
+        'onFailure'     =>  0,
+        'onSuccess'     =>  '/manage',
+        'authRequired'  =>  '/login',
     ];
 
     public static function initialize() {
