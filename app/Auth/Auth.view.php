@@ -3,7 +3,7 @@
     <div class="form-group">
         <label for="login" class="col-sm-2 control-label">Login:</label>
         <div class="col-sm-4">
-            <INPUT type="text" name="login" class="form-control" id="login" />
+            <INPUT type="text" name="login" class="form-control" id="login" autofocus />
         </div>
     </div>
     <div class="form-group">

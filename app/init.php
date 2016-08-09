@@ -24,9 +24,10 @@ logMessage('CORE','SCRIPT_FILENAME: '.varExport($_SERVER['SCRIPT_FILENAME'])); *
 // =================== Classes
 // require_once('app/DateBiz/DateBiz.class.php');
 require_once('app/class.USER.php');
+USER::initialize();
 require_once('app/class.ARGV.php');
 ARGV::initialize();
-logMessage('CORE','ARGV: '.varExport(ARGV::$a));
+logMessage('CORE','Inbound ARGV: '.varExport(ARGV::$a));
 require_once('app/class.MODULE.php');
 
 // =================== Configs

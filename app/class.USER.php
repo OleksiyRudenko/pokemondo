@@ -11,6 +11,11 @@ define('UMASK_REGISTERED',2);
 define('UMASK_ADMIN',4);
 define('UMASK_ROOT',128);
 
+define('USER_GUEST',1);
+define('USER_REGISTERED',3);
+define('USER_ADMIN',7);
+define('USER_ROOT',0xffff);
+
 class USER {
     public static $u;
     public static $uri = [
@@ -25,19 +30,40 @@ class USER {
             $_SESSION['user']=[];
         }
         self::$u = &$_SESSION['user'];
-        if (!isset(self::$u['umask']))
-            self::$u['umask'] = UMASK_GUEST; // guest
+        if (!isset(self::$u['upowers']))
+            self::$u['upowers'] = USER_GUEST; // guest
 
     }
 
     public static function login($login,$password) {
-        if ($login=='orudenko@bigmir.net' && $password=='zaq12wsx') {
-            self::$u['umask'] = UMASK_ROOT; // superuser
-            redirectLocal(self::$uri['onSuccess']);
-            return true;
+        $success = false;
+        if ($login=='admin' && $password=='zaq12wsx') {
+            self::$u['name'] = 'admin';
+            self::$u['upowers'] = USER_ADMIN; // admin
+            $success = true;
         }
 
-        return false;
+        if ($login=='root' && $password=='zaq12wsx') {
+            self::$u['name'] = 'root';
+            self::$u['upowers'] = USER_ROOT; // superuser
+            $success = true;
+        }
+
+        if ($success) {
+            $redirectTo = @self::$u['redirectUponLogin']
+                ?self::$u['redirectUponLogin']
+                :self::$uri['onSuccess'];
+            if (@self::$u['redirectUponLogin'])
+                self::$u['redirectUponLogin']=0;
+            redirectLocal($redirectTo);
+            return true; // won't be reached as redirectLocal exits
+        }
+
+        return $success;
+    }
+
+    public static function setRedirectUponLogin($uri) {
+        self::$u['redirectUponLogin'] = $uri;
     }
 
 }

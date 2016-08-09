@@ -28,6 +28,9 @@ if (!$ok) {
 }
 
 print unlogMessage('CORE');
+
+print alert('SESSION:<br/>'.varExport($_SESSION),'info');
+
 $moduleProps=MODULE::exportProperties();
 print alert(varExport($moduleProps));
 // phpinfo();

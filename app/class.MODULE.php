@@ -76,6 +76,12 @@ class MODULE {
         // logMessage('DEBUG',varExport(ARGV::$a,'MODULE::buildPath() ARGV'));
         foreach ($tree as $k=>$a) {
             if (ARGV::$a[0]==$k) {
+                // check authority
+                if (!(USER::$u['upowers']&$a['umask'])) {
+                    USER::setRedirectUponLogin($_SERVER['REQUEST_URI']);
+                    redirectLocal(USER::$uri['authRequired']);
+                }
+                // build up
                 self::$path[]=array_shift(ARGV::$a);
                 self::$currTreeProps=&$tree[$k];
                 if (isset($a['child']))
