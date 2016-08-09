@@ -25,10 +25,10 @@ class MODULE {
         self::$settings = &$stngs;
         self::$viewSchema = &$views;
 
-        // build-up pathtree
-        self::traverse(self::$pathtree,'pathtreeComplete');
         // supplement settings with urls for navigation
         self::makeUrls(self::$pathtree);
+        // build-up pathtree
+        self::traverse(self::$pathtree,'pathtreeComplete');
         // prepend ARGV with default module unless defined
         if ((count(ARGV::$a) && !isset(self::$pathtree[ARGV::$a[0]])) || !count(ARGV::$a)) {
             // ARGV[0] not registered as default path (1st in a key list) or ARGV is empty
@@ -94,7 +94,7 @@ class MODULE {
     private static function makeUrls($tree,$path='') {
         foreach ($tree as $k=>$a) {
             self::$settings[$k]['url'] = $path.'/'.$k;
-            if (is_array($a['child'])) {
+            if (isset($a['child']) && is_array($a['child'])) {
                 self::makeUrls($a['child'],$path . '/' . $k);
             }
         }
@@ -118,6 +118,9 @@ class MODULE {
         // build-up [uri] using parentNode[uri]
         if (!isset($node['uri']))
             $node['uri'] = ($parentNode?$parentNode['uri']:'').'/'.$nodeid;
+        // import data from ::settings
+        foreach (self::$settings[$nodeid] as $k=>$va)
+            $node[$k]=$va;
     }
 
     // ==================================== secondary services
