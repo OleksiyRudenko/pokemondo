@@ -9,22 +9,39 @@
 // MODULE::$pathtree
 // NB! If a module refers to sub-modules, there is no way to access it via menu (unless it is first in the list)
 $pathtree =    [
-        'public' => 0,
-        'manage' =>   [
-            'pokedex'           => 0,
-            'fetch-genders'     => 0,
-            'fetch-pokemons'    => 0,
-            'fetch-runames'     => 0,
-            'poketype-ru'       => 0,
-//            'import-imagery'    => 0,
-//            'view-DataBase'     => 0,
+        'public' => [
+            'umask' =>  UMASK_GUEST,
+            'viewSchema'    =>  'public',
         ],
-        'users'     =>  0,
+        'manage' =>   [
+            'umask' =>  UMASK_ADMIN,
+            'viewSchema'    =>  'private',
+            'child' =>  [
+                'pokedex'           => 0,
+                'fetch-genders'     => 0,
+                'fetch-pokemons'    => 0,
+                'fetch-runames'     => 0,
+                'poketype-ru'       => 0,
+    //            'import-imagery'    => 0,
+    //            'view-DataBase'     => 0,
+            ],
+        ],
+        'users'     =>  [
+            'umask' =>  UMASK_ROOT,
+            'viewSchema'    =>  'private',
+        ],
         // 'public'    =>  0,
-        'profile'   =>  0,
+        'profile'   =>  [
+            'umask' =>  UMASK_REGISTERED,
+            'viewSchema'    =>  'public',
+        ],
         'legal'     =>  [
-            'privacy-policy'    => 0,
-            'terms-of-service'        => 0,
+            'umask' =>  UMASK_GUEST,
+            'viewSchema'    =>  'public',
+            'child' =>  [
+                'privacy-policy'    => 0,
+                'terms-of-service'        => 0,
+            ],
         ],
 ];
 

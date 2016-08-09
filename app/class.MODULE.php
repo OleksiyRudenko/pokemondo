@@ -17,14 +17,17 @@ class MODULE {
         self::$pathtree = $ptree;
         self::$settings = $stngs;
 
+        // build-up pathtree
+        self::traverse(self::$pathtree,'pathtreeComplete');
+        // supplement settings with urls for navigation
+        self::makeUrls(self::$pathtree);
+        // prepend ARGV with default module unless defined
         if ((count(ARGV::$a) && !isset(self::$pathtree[ARGV::$a[0]])) || !count(ARGV::$a)) {
             // ARGV[0] not registered as default path (1st in a key list) or ARGV is empty
             // then insert first key from pathtree into ARGV
             foreach (self::$pathtree as $firstkey=>$val) break;
             array_unshift(ARGV::$a,$firstkey);
         }
-        // supplement settings with urls for navigation
-        self::makeUrls(self::$pathtree);
         // find current module
         self::buildPath(self::$pathtree);
         self::$currMod = self::$path[count(self::$path)-1];
@@ -61,7 +64,7 @@ class MODULE {
             if (ARGV::$a[0]==$k) {
                 self::$path[]=array_shift(ARGV::$a);
                 if (is_array($a))
-                    self::buildPath($a);
+                    self::buildPath($a['child']);
                 break;
             }
         }
@@ -76,6 +79,49 @@ class MODULE {
         }
 
     }
+
+    // ====================================
+
+    /**
+     * @desc  Copy umask from parentNode unless is set. Build up ['url']
+     * @param $node
+     * @param $parentNode
+     */
+    private static function pathtreeComplete(&$node, $nodeid, &$parentNode) {
+        // inherit [umask] from parent unless isset
+        if (!isset($node['umask']))
+            $node['umask'] = ($parentNode)?$parentNode['umask']:UMASK_GUEST;
+        // inherit [viewSchema] from parent unless isset
+        if (!isset($node['viewSchema']))
+            $node['viewSchema'] = ($parentNode)?$parentNode['viewSchema']:'private';
+        // build-up [uri] using parentNode[uri]
+        if (!isset($node['uri']))
+            $node['uri'] = (($parentNode)?$parentNode['uri'].'/':'').$nodeid;
+    }
+
+    // ==================================== secondary services
+
+    /**
+     * @desc  Traverse tree represented with array
+     * @param $tree
+     * @param $callback
+     * @param null $parentNode
+     * @param string $subtreecontainer
+     */
+    private static function traverse(&$tree, $callback, &$parentNode=NULL, $subtreecontainer='child') {
+        foreach ($tree as $nodeid=>$a) {
+            if (!is_array($a)) {
+                $tree[$nodeid] = [ $subtreecontainer=>0 ];
+            }
+            if (!isset($tree[$nodeid][$subtreecontainer])) {
+                $tree[$nodeid][$subtreecontainer]=0;
+            }
+            MODULE::$callback($tree[$nodeid],$nodeid,$parentNode);
+            if ($tree[$nodeid][$subtreecontainer])
+                self::traverse($tree[$nodeid][$subtreecontainer],$callback,$tree[$nodeid]);
+        }
+    }
+
 
     // ====================================  DEBUG
 
