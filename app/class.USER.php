@@ -21,6 +21,7 @@ class USER {
     public static $uri = [
         'onFailure'     =>  0,
         'onSuccess'     =>  '/manage',
+        'onLogout'      =>  '/public',
         'authRequired'  =>  '/login',
     ];
 

@@ -47,6 +47,10 @@ $pathtree =    [
             'umask' =>  UMASK_GUEST,
             'viewSchema'    =>  'viewPublic',
         ],
+        'logout'     =>  [
+            'umask' =>  UMASK_REGISTERED,
+            'viewSchema'    =>  'viewPublic',
+        ],
 ];
 
 // MODULE::$settings
@@ -135,6 +139,13 @@ $settings = [
             'heading'   => 'Get Authorized',
             'onSubmit'  =>  ['Login'],
         ],
+        'logout'        =>  [
+            'basepath'  => 'Auth/Logout',
+            'navmenu'   => 'Logout',
+            'heading'   => '',
+            'preHTML'   => true,
+        ],
+
 
 ];
 
