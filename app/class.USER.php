@@ -18,10 +18,13 @@ define('USER_ADMIN',7);
 define('USER_ROOT',0xffff);
 
 class USER {
-    public static $u;
+    public static $u;           // particular user settings
     public static $uri = [
         'onFailure'     =>  0,
-        'onSuccess'     =>  '/manage',
+        'onSuccess'     =>  [   // if bit is set then value is upon login redirection target; higher come first
+            0x8000      =>  '/users',
+            0x0800      =>  '/manage',
+        ],
         'onLogout'      =>  '/',
         'authRequired'  =>  '/login',
     ];
@@ -47,12 +50,42 @@ class USER {
         }
         self::$u = &$_SESSION['user'];
         if (!isset(self::$u['upowers']))
-            self::$u['upowers'] = USER_GUEST; // guest
+            self::$u['upowers'] = self::$AUTH['powers']['guest']; // guest
+    }
 
+    public static function getUponLoginDefaultUri() {
+        foreach (self::$uri['onSuccess'] as $mask=>$uri)
+            if (self::$u['upowers']&$mask)
+                return $uri;
+        return '/'; // server root
     }
 
     public static function login($login,$password) {
+        global $DBH, $DBT;
+        include_once('app/class.dbTable.php');
+        include_once('app/dbSpec/db.tables.php');
+
         $success = false;
+
+        $clauses = [
+            'WHERE' =>  'uname=\''.$DBH->real_escape_string($login).'\'',
+        ];
+        $tbUnative = new dbTable($DBH,'unative',$DBT['unative']);
+        if (!$qr=$tbUnative->select('*',$clauses)) {
+            return false;
+        }
+        if ($qr->num_rows==0) {
+            $qr->free();
+            return false;
+        }
+
+        $credentials = $qr->fetch_assoc();
+        if (md5(md5($credentials['usalt']).md5($password))===$credentials['upwdhash']) {
+            self::$u['name'] = $credentials['uname'];
+            self::$u['upowers'] = $credentials['upowers'];
+            $success = true;
+        }
+        /*
         if ($login=='admin' && $password=='zaq12wsx') {
             self::$u['name'] = 'admin';
             self::$u['upowers'] = USER_ADMIN; // admin
@@ -63,12 +96,14 @@ class USER {
             self::$u['name'] = 'root';
             self::$u['upowers'] = USER_ROOT; // superuser
             $success = true;
-        }
+        } */
+
+        $qr->free();
 
         if ($success) {
             $redirectTo = @self::$u['redirectUponLogin']
                 ?self::$u['redirectUponLogin']
-                :self::$uri['onSuccess'];
+                :self::getUponLoginDefaultUri();
             if (@self::$u['redirectUponLogin'])
                 self::$u['redirectUponLogin']=0;
             redirectLocal($redirectTo);
