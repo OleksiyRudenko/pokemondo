@@ -85,18 +85,6 @@ class USER {
             self::$u['upowers'] = $credentials['upowers'];
             $success = true;
         }
-        /*
-        if ($login=='admin' && $password=='zaq12wsx') {
-            self::$u['name'] = 'admin';
-            self::$u['upowers'] = USER_ADMIN; // admin
-            $success = true;
-        }
-
-        if ($login=='root' && $password=='zaq12wsx') {
-            self::$u['name'] = 'root';
-            self::$u['upowers'] = USER_ROOT; // superuser
-            $success = true;
-        } */
 
         $qr->free();
 
