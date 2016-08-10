@@ -10,11 +10,11 @@
 // NB! If a module refers to sub-modules, there is no way to access it via menu (unless it is first in the list)
 $pathtree =    [
         'public' => [
-            'umask' =>  UMASK_GUEST,
+            'umask' =>  USER::$AUTH['access']['guest'],
             'viewSchema'    =>  'viewPublic',
         ],
         'manage' =>   [
-            'umask' =>  UMASK_ADMIN,
+            'umask' =>  USER::$AUTH['access']['admin'],
             'viewSchema'    =>  'viewPrivate',
             'child' =>  [
                 'pokedex'           => 0,
@@ -27,7 +27,7 @@ $pathtree =    [
             ],
         ],
         'users'     =>  [
-            'umask' =>  UMASK_ROOT,
+            'umask' =>  USER::$AUTH['access']['root'],
             'viewSchema'    =>  'viewPrivate',
             'child' =>  [
                 'register'      => 0,
@@ -36,11 +36,11 @@ $pathtree =    [
         ],
         // 'public'    =>  0,
         'profile'   =>  [
-            'umask' =>  UMASK_REGISTERED,
+            'umask' =>  USER::$AUTH['access']['registered'],
             'viewSchema'    =>  'viewPublic',
         ],
         'legal'     =>  [
-            'umask' =>  UMASK_GUEST,
+            'umask' =>  USER::$AUTH['access']['guest'],
             'viewSchema'    =>  'viewPublic',
             'child' =>  [
                 'privacy-policy'    => 0,
@@ -48,11 +48,11 @@ $pathtree =    [
             ],
         ],
         'login'     =>  [
-            'umask' =>  UMASK_GUEST,
+            'umask' =>  USER::$AUTH['access']['guest'],
             'viewSchema'    =>  'viewPublic',
         ],
         'logout'     =>  [
-            'umask' =>  UMASK_REGISTERED,
+            'umask' =>  USER::$AUTH['access']['registered'],
             'viewSchema'    =>  'viewPublic',
         ],
 ];

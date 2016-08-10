@@ -6,9 +6,10 @@
  * Time: 17:22
  */
 
-define('UMASK_GUEST',1);
-define('UMASK_REGISTERED',2);
-define('UMASK_ADMIN',4);
+
+define('UMASK_GUEST',         1);
+define('UMASK_REGISTERED',    2);
+define('UMASK_ADMIN',64);
 define('UMASK_ROOT',128);
 
 define('USER_GUEST',1);
@@ -23,6 +24,20 @@ class USER {
         'onSuccess'     =>  '/manage',
         'onLogout'      =>  '/',
         'authRequired'  =>  '/login',
+    ];
+    public static $AUTH = [
+        'access'    => [
+            'guest'      =>  0x0001,
+            'registered' =>  0x0002,
+            'admin'      =>  0x0800,
+            'root'       =>  0x8000,
+        ],
+        'powers'    => [
+            'guest'      =>  0x0001,
+            'registered' =>  0x0003,
+            'admin'      =>  0x0fff,
+            'root'       =>  0xffff,
+        ],
     ];
 
     public static function initialize() {

@@ -20,9 +20,23 @@
 </FORM>
 </div><?php
 print unlogMessage('AUTH');
-/**
- * Created by PhpStorm.
- * User: Rudenko
- * Date: 09/08/2016
- * Time: 11:32
- */
+
+global $DBH, $DBT;
+include_once('app/class.dbTable.php');
+include_once('app/dbSpec/db.tables.php');
+$tbUnative = new dbTable($DBH,'unative',$DBT['unative']);
+
+// create if inexistent
+if (!$tbUnative->exists()) {
+    $tbUnative->create();
+    print alert('Create TABLE unative','info');
+    $values =
+        [
+            'uname'       =>  'root',
+            'usalt'       =>  'aQs5te',
+            'upwdhash'    =>  'f44627fdd5755e04f14ca4c949ad4241',
+            'upowers'     =>  USER::$AUTH['powers']['root'],
+        ];
+    $tbUnative->insert($values);
+    print alert('Default users created. Please, login as root using password from docs and change passwords ASAP.');
+}
