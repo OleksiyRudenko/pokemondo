@@ -5,7 +5,8 @@
  * Date: 10/08/2016
  * Time: 20:11
  *
- * Publishes FB specific og meta headers
+ * Publishes FB specific og meta headers.
+ * See _src/fb-share.md for more details.
  */
 
 $fbmetacollection = [
