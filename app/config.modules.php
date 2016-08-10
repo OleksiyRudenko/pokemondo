@@ -29,6 +29,10 @@ $pathtree =    [
         'users'     =>  [
             'umask' =>  UMASK_ROOT,
             'viewSchema'    =>  'viewPrivate',
+            'child' =>  [
+                'register'      => 0,
+                'helpers'       => 0,
+                ],
         ],
         // 'public'    =>  0,
         'profile'   =>  [
@@ -105,6 +109,17 @@ $settings = [
             'basepath'  => 'Users/Users',
             'navmenu'   => 'Users',
             'heading'   => 'Users Dashboard',
+        ],
+        'register'         =>  [
+            'basepath'  => 'Users/Register',
+            'navmenu'   => 'Register',
+            'heading'   => 'Users Register',
+        ],
+        'helpers'         =>  [
+            'basepath'  => 'Users/Helpers',
+            'navmenu'   => 'Helpers',
+            'heading'   => 'Helpers',
+            'onSubmit'  =>  ['md5'],
         ],
         'public'          =>  [
             'basepath'  => 'Public/Public',
