@@ -4,7 +4,8 @@ Each stage may include minor bugfixes and improvements to unmentioned pieces of 
 
 ```
 TOTAL= 45.8
-     =  5.0
+     =  6.0
+160810  1.0 - Authorization logic upgrade
 160809  2.1 - class.MODULE|USER: basic authorization
 160809  1.0 - class.MODULE: viewSchema, umask
 160808  0.6 - Design splash image
