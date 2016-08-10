@@ -28,8 +28,9 @@ $tbUnative = new dbTable($DBH,'unative',$DBT['unative']);
 
 // create if inexistent
 if (!$tbUnative->exists()) {
-    $tbUnative->create();
-    print alert('Create TABLE unative','info');
+    print ($tbUnative->create())
+        ? alert('Create TABLE unative','info')
+        : alert('Creating TABLE unative: '.sqlError());
     $values =
         [
             'uname'       =>  'root',
@@ -37,6 +38,7 @@ if (!$tbUnative->exists()) {
             'upwdhash'    =>  'f44627fdd5755e04f14ca4c949ad4241',
             'upowers'     =>  USER::$AUTH['powers']['root'],
         ];
-    $tbUnative->insert($values);
-    print alert('Default users created. Please, login as root using password from docs and change passwords ASAP.');
+    print ($tbUnative->insert($values,array_keys($values)))
+        ? alert('Default users created. Please, login as root using password from docs and change passwords ASAP.')
+        : alert('Creating default users: '.sqlError());
 }

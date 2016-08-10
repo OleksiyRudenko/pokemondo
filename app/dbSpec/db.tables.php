@@ -63,7 +63,7 @@ $DBT = [
     'poketype_ru'   => [
         'f'     => [
             'poketype'      => 'VARCHAR(32) NOT NULL DEFAULT \'\'',
-            'poketype_ru'      => 'VARCHAR(48) NOT NULL DEFAULT \'\'',
+            'poketype_ru'   => 'VARCHAR(48) NOT NULL DEFAULT \'\'',
             'poketypeclass' => 'VARCHAR(16) NOT NULL DEFAULT \'element\'',
         ],
         'fx'    => [
@@ -75,11 +75,11 @@ $DBT = [
 
     'unative'   => [
         'f'     => [
-            'idnative'         => 'INTEGER UNSIGNED NOT NULL PRIMARY AUTO_INCREMENT',
+            'idnative'         => 'INTEGER UNSIGNED NOT NULL AUTO_INCREMENT',
             'uname'            => 'VARCHAR(32) NOT NULL DEFAULT \'\'',
             'usalt'            => 'CHAR(6) NOT NULL DEFAULT \'abcdef\'',
             'upwdhash'         => 'CHAR(32) NOT NULL DEFAULT \'\'',
-            'upower'           => 'INTEGER UNSIGNED NOT NULL DEFAULT \'3\'',
+            'upowers'          => 'INTEGER UNSIGNED NOT NULL DEFAULT \'3\'',
         ],
         'fx'    => [
             'PRIMARY KEY (idnative)',
