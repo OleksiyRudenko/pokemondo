@@ -13,6 +13,10 @@ $pathtree =    [
             'umask' =>  USER::$AUTH['access']['guest'],
             'viewSchema'    =>  'viewPublic',
         ],
+        'outcome' => [
+            'umask' =>  USER::$AUTH['access']['guest'],
+            'viewSchema'    =>  'viewPublic',
+        ],
         'manage' =>   [
             'umask' =>  USER::$AUTH['access']['admin'],
             'viewSchema'    =>  'viewPrivate',
@@ -126,6 +130,12 @@ $settings = [
             'navmenu'   => 'Main job',
             'heading'   => 'Какой ты покемон?',
             'preHTML'   => true,
+        ],
+        'outcome'          =>  [
+            'basepath'  => 'Profile/Outcome',
+            'navmenu'   => 'Public profile',
+            'heading'   => 'Какой ты покемон?',
+            // 'preHTML'   => true,
         ],
         'profile'          =>  [
             'basepath'  => 'Profile/Profile',
