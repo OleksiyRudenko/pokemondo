@@ -3,8 +3,9 @@
 Each stage may include minor bugfixes and improvements to unmentioned pieces of code.
 
 ```
-TOTAL= 45.8
-     =  6.0
+TOTAL= 47.4
+     =  6.6
+160810  0.6 - fb og-meta support
 160810  1.0 - Authorization logic upgrade
 160809  2.1 - class.MODULE|USER: basic authorization
 160809  1.0 - class.MODULE: viewSchema, umask
