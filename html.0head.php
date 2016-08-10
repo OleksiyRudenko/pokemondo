@@ -8,6 +8,9 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php
+        include('app/Facebook/fb.meta.php');
+    ?>
 
     <!-- ****** faviconit.com favicons ****** -->
     <!-- force refreshment technique <link rel="shortcut icon" href="favicon.ico?v=<\?php echo filemtime('favicon.ico') \?\>" /> -->
