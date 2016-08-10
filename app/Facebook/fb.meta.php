@@ -10,15 +10,15 @@
 
 $fbmetacollection = [
     'public'    =>  [
-        'image'         =>  'img/what-pokemon-are-you.jpg',
+        'image'         =>  '/img/what-pokemon-are-you.jpg',
         'description'   =>  'Узнай какой ты покемон. Мы предложим тебе варианты подходящих типов покемонов согласно твоей покестихии.',
-        'url'           =>  '',
+        'url'           =>  '/',
         'title'         =>  'Тест: какой ты покемон?',
     ],
     'outcome'    =>  [
         'image'         =>  '',
         'description'   =>  'А какой покемон - ты? Мы предложим тебе варианты подходящих типов покемонов согласно твоей покестихии.',
-        'url'           =>  'outcome/',
+        'url'           =>  '/outcome/',
         'title'         =>  'А какой покемон - ты?',
     ],
 
@@ -34,9 +34,16 @@ foreach ($fbmeta as $meta=>$content) {
             // point to individual image if under 'outcome'
             if (MODULE::$currMod=='outcome') {
                 //!...
-                $content = '...';
+                $content = '/...';
             }
+            $content = getFullServerName().$content;
+            break;
         case 'url':
+            if (MODULE::$currMod=='outcome') {
+                // add arguments
+                if (count(ARGV::$a))
+                    $content .= implode('/',ARGV::$a);
+            }
             $content = getFullServerName().$content;
             break;
         case 'description':
