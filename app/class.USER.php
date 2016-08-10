@@ -6,17 +6,6 @@
  * Time: 17:22
  */
 
-
-define('UMASK_GUEST',         1);
-define('UMASK_REGISTERED',    2);
-define('UMASK_ADMIN',64);
-define('UMASK_ROOT',128);
-
-define('USER_GUEST',1);
-define('USER_REGISTERED',3);
-define('USER_ADMIN',7);
-define('USER_ROOT',0xffff);
-
 class USER {
     public static $u;           // particular user settings
     public static $uri = [
