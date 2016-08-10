@@ -164,9 +164,9 @@ class MODULE {
             'PATHTREE'=>self::$pathtree,
             'PATH'=>self::$path,
             'CURRMOD'=>self::$currMod,
-            'CURRSETTING'=>self::$currSetting,
+            // 'CURRSETTING'=>self::$currSetting,
             'CURRTREEPROPS'=>self::$currTreeProps,
-            'SETTINGS'=>self::$settings,
+            // 'SETTINGS'=>self::$settings,
         ];
     }
 

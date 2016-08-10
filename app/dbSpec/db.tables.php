@@ -73,6 +73,20 @@ $DBT = [
         ]
     ], // poketype_ru
 
+    'unative'   => [
+        'f'     => [
+            'idnative'         => 'INTEGER UNSIGNED NOT NULL PRIMARY AUTO_INCREMENT',
+            'uname'            => 'VARCHAR(32) NOT NULL DEFAULT \'\'',
+            'usalt'            => 'CHAR(6) NOT NULL DEFAULT \'abcdef\'',
+            'upwdhash'         => 'CHAR(32) NOT NULL DEFAULT \'\'',
+            'upower'           => 'INTEGER UNSIGNED NOT NULL DEFAULT \'3\'',
+        ],
+        'fx'    => [
+            'PRIMARY KEY (idnative)',
+            'UNIQUE (uname)',
+        ]
+    ], // poketype_ru
+
 
 
 ];
