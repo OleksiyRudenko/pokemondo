@@ -274,6 +274,9 @@ class UsermonProfile {
     function getUserProfileImagename() {
         return self::$path['userprofilebase'].$this->u['id'].'.jpg';
     }
+    function userProfileImageExists() {
+        return file_exists(getUserProfileImagename());
+    }
 
     /**
      * @param $fontid : which font to use

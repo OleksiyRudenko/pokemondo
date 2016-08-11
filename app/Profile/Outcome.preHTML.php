@@ -23,16 +23,51 @@ if (!USER::$u['idnative']) {
     }
 } else {
     // is registered user
+    if (!UsermonProfile::$currentProfile) {
+        // create user pokemon profile
+        if (USER::$u['idnative']) {
+            USER::loadPokemon();
+            UsermonProfile::$currentProfile = new UsermonProfile(USER::$u['idnative'],USER::$u['name'],'x',USER::$u['birthdate']);
+            UsermonProfile::$currentProfile->currentPokemon = &USER::$pokemon;
+        }
+    }
+
     if (!count(ARGV::$a)) {
         redirectLocal(MODULE::$currTreeProps['uri'].'/'.USER::getUrlId());
+    } else {
+        if (ARGV::$a[0]==USER::getUrlId()) {
+            // requested id belongs to current user
+
+            $pokelist = UsermonProfile::$currentProfile->selectPokemons();
+            // remove pokemons randomly until count()=4
+            $ini = count($pokelist)-1;
+            while (count($pokelist)>4) {
+                unset($pokelist[rand(0,$ini)]);
+            }
+
+            // this will be used for profile build or just skipped
+            $candidatePokemon = array_pop($pokelist);
+
+            if (!UsermonProfile::$currentProfile->userProfileImageExists() || isset(ARGV::$a[1])) {
+                // profile image doesn't exist or pokename provided
+
+                if (isset(ARGV::$a[1])) {
+                    $pokemon = Pokemon::loadPokemon(ARGV::$a[1]);
+                }
+
+                UsermonProfile::$currentProfile->currentPokemon = ($pokemon)
+                    ? $pokemon
+                    : $candidatePokemon;
+                // logMessage('Profile',varExport($pokeMain));
+                // create image based on tpl
+                UsermonProfile::$currentProfile->createProfileImg();
+                // logMessage('Profile',varExport(UsermonProfile::$pokemonList));
+            }
+            // save remaining pokemons
+            UsermonProfile::$pokemonList = $pokelist;
+            // redirect
+            redirectLocal(MODULE::$currTreeProps['uri'].'/'.USER::getUrlId());
+        }
     }
 }
 
-if (!UsermonProfile::$currentProfile) {
-    // create profile
-    if (USER::$u['idnative']) {
-        USER::loadPokemon();
-        UsermonProfile::$currentProfile = new UsermonProfile(USER::$u['idnative'],USER::$u['name'],'x',USER::$u['birthdate']);
-        UsermonProfile::$currentProfile->currentPokemon = &USER::$pokemon;
-    }
-}
