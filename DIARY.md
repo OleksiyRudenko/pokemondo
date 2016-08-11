@@ -4,6 +4,8 @@ Each stage may include minor bugfixes and improvements to unmentioned pieces of 
 
 ```
 TOTAL= 47.4
+     =  -.-
+160811  0.7 - Module::Outcome use cases
      =  6.6
 160810  0.6 - fb og-meta support
 160810  1.0 - Authorization logic upgrade
