@@ -278,7 +278,7 @@ class UsermonProfile {
         return self::$path['userprofilebase'].$this->u['id'].'.jpg';
     }
     function userProfileImageExists() {
-        return file_exists(getUserProfileImagename());
+        return file_exists($this->getUserProfileImagename());
     }
 
     /**
