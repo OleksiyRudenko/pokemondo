@@ -64,6 +64,9 @@ class UsermonProfile {
      */
     function selectPokemons($addNonElemental=true) {
         global $DBH, $DBT;
+        include_once('app/class.dbTable.php');
+        include_once('app/dbSpec/db.tables.php');
+
         $pokelist = [];
         // allowed genders
         $pokegender = ['x', 'n'];
