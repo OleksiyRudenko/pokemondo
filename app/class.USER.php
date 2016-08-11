@@ -70,6 +70,11 @@ class USER {
         return '/'; // server root
     }
 
+    public static function getUrlId() {
+        // TODO: return real url hash
+        return self::$u['idnative'];
+    }
+
     public static function login($login,$password) {
         global $DBH, $DBT;
         include_once('app/class.dbTable.php');

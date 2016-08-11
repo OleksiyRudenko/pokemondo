@@ -21,6 +21,11 @@ if (!USER::$u['idnative']) {
           redirect(outcome/ + currentUser.uid)
         */
     }
+} else {
+    // is registered user
+    if (!count(ARGV::$a)) {
+        redirectLocal(MODULE::$currTreeProps['uri'].'/'.USER::getUrlId());
+    }
 }
 
 if (!UsermonProfile::$currentProfile) {
