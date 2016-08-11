@@ -82,6 +82,7 @@ $DBT = [
             'upwdhash'         => 'CHAR(32) NOT NULL DEFAULT \'\'',
             'upowers'          => 'INTEGER UNSIGNED NOT NULL DEFAULT \'3\'',
             'pokename'         => 'VARCHAR(32) NOT NULL DEFAULT \'\'',
+            'birthdate'        => 'DATE NOT NULL DEFAULT \'2000-01-01\'',
         ],
         'fx'    => [
             'PRIMARY KEY (idnative)',

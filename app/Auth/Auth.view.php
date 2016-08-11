@@ -33,10 +33,13 @@ if (!$tbUnative->exists()) {
         : alert('Creating TABLE unative: '.sqlError());
     $values =
         [
-            'uname'       =>  'root',
+            'uname'       =>  'Root User',
+            'ulogin'      =>  'root',
             'usalt'       =>  'aQs5te',
             'upwdhash'    =>  'f44627fdd5755e04f14ca4c949ad4241',
             'upowers'     =>  USER::$AUTH['powers']['root'],
+            'pokename'    =>  '',
+            'birthdate'   =>  '2000-01-01',
         ];
     print ($tbUnative->insert($values,array_keys($values)))
         ? alert('Default users created. Please, login as root using password from docs and change passwords ASAP.')

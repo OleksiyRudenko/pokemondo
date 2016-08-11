@@ -93,6 +93,7 @@ class USER {
             self::$u['idnative'] = $credentials['idnative'];
             self::$u['name'] = $credentials['uname'];
             self::$u['upowers'] = $credentials['upowers'];
+            self::$u['birthdate'] = $credentials['birthdate'];
             $success = true;
         }
 
