@@ -69,7 +69,8 @@ if (!USER::$u['idnative']) {
             // save remaining pokemons
             UsermonProfile::$pokemonList = $pokelist;
             // redirect
-            redirectLocal(MODULE::$currTreeProps['uri'].'/'.USER::getUrlId());
+            if (isset(ARGV::$a[1]))
+                redirectLocal(MODULE::$currTreeProps['uri'].'/'.USER::getUrlId());
         }
     }
 }
