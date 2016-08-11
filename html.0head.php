@@ -40,7 +40,7 @@
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/general.css" rel="stylesheet">
+    <link href="/css/general.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <!-- link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" -->
