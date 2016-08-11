@@ -5,7 +5,7 @@
  * Date: 11/08/2016
  * Time: 19:51
  */
-
+include_once ('appid.gitignored.php');
 include_once('app/class.Pokemon.php');
 include_once('app/class.UsermonProfile.php');
 
