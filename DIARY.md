@@ -3,8 +3,9 @@
 Each stage may include minor bugfixes and improvements to unmentioned pieces of code.
 
 ```
-TOTAL= 47.4
-     =  -.-
+TOTAL= 50.1
+     =  2.7
+160811  2.0 - Module::Outcome
 160811  0.7 - Module::Outcome use cases
      =  6.6
 160810  0.6 - fb og-meta support
