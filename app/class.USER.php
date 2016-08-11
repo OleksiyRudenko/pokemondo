@@ -46,7 +46,9 @@ class USER {
     public static function initialize() {
         session_start();
         if (!isset($_SESSION['user'])) {
-            $_SESSION['user']=[];
+            $_SESSION['user']=[
+                'idnative'  => 0,
+            ];
         }
         self::$u = &$_SESSION['user'];
         if (!isset(self::$u['upowers']))
