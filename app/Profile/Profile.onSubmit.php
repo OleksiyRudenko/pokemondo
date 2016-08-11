@@ -26,9 +26,9 @@ if (isset($_POST['action'])) {
             // complete pokemons with types
 
             // create image based on tpl
-            $pokeMain = array_pop($pokelist);
+            UsermonProfile::$currentProfile->currentPokemon = array_pop($pokelist);
             // logMessage('Profile',varExport($pokeMain));
-            UsermonProfile::$currentProfile->createProfileImg($pokeMain);
+            UsermonProfile::$currentProfile->createProfileImg();
             // save remaining pokemons
             UsermonProfile::$pokemonList = $pokelist;
             // logMessage('Profile',varExport(UsermonProfile::$pokemonList));

@@ -34,8 +34,7 @@ foreach ($fbmeta as $meta=>$content) {
         case 'image':
             // point to individual image if under 'outcome'
             if (MODULE::$currMod=='outcome') {
-                //!...
-                $content = '/...';
+                $content = '/'.UsermonProfile::$currentProfile->getUserProfileImagename();
             }
             $content = getFullServerName().$content;
             break;
@@ -51,8 +50,9 @@ foreach ($fbmeta as $meta=>$content) {
         case 'title':
             if (MODULE::$currMod=='outcome') {
                 // prepend content with individual prefix: "Name - Pokename"
-                //!...
-                $content = 'Name - Pokename. '.$content;
+                $content = UsermonProfile::$currentProfile->getProps()['name'].' - '
+                    .UsermonProfile::$currentProfile->currentPokemon->p['pokename_ru']
+                    .'. '.$content;
             }
             break;
     }

@@ -29,6 +29,8 @@ class UsermonProfile {
     public static $pokemonList = [];
     public static $currentProfile;
 
+    public $currentPokemon;
+
     private $u = [
         'id'            =>  0,
         'gender'        => 'x',
@@ -45,6 +47,10 @@ class UsermonProfile {
                 'gender'        =>  $gender,
                 'birthdate'     =>  $birthdate,
               ];
+    }
+
+    function getProps() {
+        return $this->u;
     }
 
     function profileImgTag() {
@@ -183,7 +189,9 @@ class UsermonProfile {
      * @desc  Create profile image
      * @param $pokemon Pokemon
      */
-    function createProfileImg($pokemon) {
+    function createProfileImg($pokemon=false) {
+        if (!$pokemon)
+            $pokemon = $this->currentPokemon;
         logMessage('UsermonProfile','UsermonProfile::createProfileImg().entered');
         // load template
         if (!$img = imagecreatefrompng(self::$path['tplimg'])) {
