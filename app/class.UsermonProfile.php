@@ -139,8 +139,16 @@ class UsermonProfile {
 
     function getElement() {
         $poketypeNr=0;
+        /*
+         * 0000-00-00 - SQL Style YYYY-MM-DD
+         * 00-00-0000 - FB Style MM-DD-YYYY
+         */
+        $date = $this->u['birthdate'];
+        $fbstyle = ($date[4]=='-') ? false : true;
+        $day =  substr($date,($fbstyle?3:8),2);
+        $month = substr($date,($fbstyle?0:5),2);
         if (strlen($this->u['birthdate'])>4) {
-            $DOY=round((substr($this->u['birthdate'],0,2)-1)*30.4+substr($this->u['birthdate'],3,2));
+            $DOY=round($month*30.4+$day);
             $poketypeNr=floor($DOY/46)+1;
         }
         return self::$poketypeclassElement[$poketypeNr];
