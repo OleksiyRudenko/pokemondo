@@ -8,6 +8,14 @@
 
 class Pokemon {
     public $p; // properties
+    /*
+     * if loadPokemon() then:
+     * pokeid
+     * pokename
+     * pokename_ru
+     * poketype =>
+     *      'poketype' => [ poketype=>'', poketype_ru=>'', poketypeclass=>'' ]
+     */
 
     public static $poketypeclass = [
         'element'   =>  'Стихия',   // 9
@@ -107,13 +115,55 @@ class Pokemon {
         ];
 
     function __construct($p) {
-        $this->p = $p;
+        $this->p = is_scalar($p)
+            ?self::loadPokemon($p)
+            :$p;
         // make pokeid000
         $this->p['pokeid000'] = str_pad($this->p['pokeid'],3,'0',STR_PAD_LEFT);
     }
 
-    function name($skipGender=true) {
+    /**
+     * @param string|int $p : pokename or pokeid
+     * @return array representing Pokemon
+     */
+    public static function loadPokemon($p) {
+        global $DBH, $DBT;
+        include_once('app/class.dbTable.php');
+        include_once('app/dbSpec/db.tables.php');
+        $tb = new dbTable($DBH,'pokename',$DBT['pokename']);
+        $clauses = [
+            'WHERE' => (is_numeric($p)
+                ? 'pokename=\''.$p.'\''
+                : 'pokeid='.$p),
+        ];
+        if ($qr=$tb->select('*',$clauses)) {
+            if ($qr->num_rows) {
+                $pokemon = $qr->fetch_assoc();
+                $qr->free();
+                // add types
+                $tbtypes = new dbTable($DBH,'poketype',$DBT['poketype']);
+                $clauses = [
+                    'join' => ['LEFT JOIN','poketype_ru AS t2','ON t1.pokeid=t2.pokeid'],
+                    'WHERE' => 't1.pokeid='.$pokemon['pokeid'],
+                ];
+                if ($qrtypes = $tbtypes->select('t2.*',$clauses)) {
+                    while ($row=$qrtypes->fetch_assoc()) {
+                        $pokemon['poketype'][$row['poketype']]=$row;
+                    }
+                } else {
+                    logMessage('POKEMON',sqlError());
+                }
+                return $pokemon;
+            } else {
+                logMessage('POKEMON','No pokemon for "'.$p.'"');
+            }
+        } else {
+            logMessage('POKEMON',sqlError());
+        }
+        return false;
+    }
 
+    function name($skipGender=true) {
         if ($skipGender) {
             $name = $this->p['pokename'];
             $i = strlen($name)-1;
