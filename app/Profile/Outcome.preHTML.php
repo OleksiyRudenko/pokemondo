@@ -10,9 +10,17 @@ include_once('app/class.Pokemon.php');
 include_once('app/class.UsermonProfile.php');
 
 if (!USER::$u['idnative']) {
-    // is guest
-
-
+    // not a registered user
+    $fb=false;
+    if ($fb) {
+        // fb login callback handler
+        /*
+        if (!exists(fbUserId))
+            createUser(fbUser)
+          currentUser=getUser(fbUserId)
+          redirect(outcome/ + currentUser.uid)
+        */
+    }
 }
 
 if (!UsermonProfile::$currentProfile) {
