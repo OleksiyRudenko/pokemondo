@@ -53,8 +53,8 @@ class UsermonProfile {
         return $this->u;
     }
 
-    function profileImgTag() {
-        return htmlElementSingle('img',['src'=>$this->getUserProfileImagename()]);
+    function profileImgTag($headslash=true) {
+        return htmlElementSingle('img',['src'=>$this->getUserProfileImagename($headslash)]);
     }
 
 
@@ -274,8 +274,8 @@ class UsermonProfile {
     function getUserAvaFilename() {
         return self::$path['useravabase'].$this->u['id'].'.jpg';
     }
-    function getUserProfileImagename() {
-        return self::$path['userprofilebase'].$this->u['id'].'.jpg';
+    function getUserProfileImagename($headslash=false) {
+        return ($headslash?'/':'').self::$path['userprofilebase'].$this->u['id'].'.jpg';
     }
     function userProfileImageExists() {
         return file_exists($this->getUserProfileImagename());
