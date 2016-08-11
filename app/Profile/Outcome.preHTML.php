@@ -9,13 +9,11 @@ include_once('appid.gitignored.php');
 include_once('app/class.Pokemon.php');
 include_once('app/class.UsermonProfile.php');
 
-print alert(var_export(USER::$u));
-
 if (!USER::$u['idnative']) {
     // not a registered user
     $fb=false;
     if ($fb) {
-        // fb login callback handler
+        //TODO: fb login callback handler
         /*
         if (!exists(fbUserId))
             createUser(fbUser)
