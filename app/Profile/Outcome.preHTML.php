@@ -5,9 +5,11 @@
  * Date: 11/08/2016
  * Time: 19:51
  */
-include_once ('appid.gitignored.php');
+include_once('appid.gitignored.php');
 include_once('app/class.Pokemon.php');
 include_once('app/class.UsermonProfile.php');
+
+print alert(var_export(USER::$u));
 
 if (!USER::$u['idnative']) {
     // not a registered user
@@ -31,9 +33,12 @@ if (!USER::$u['idnative']) {
             UsermonProfile::$currentProfile->currentPokemon = &USER::$pokemon;
         }
     }
+    logMessage('OUTCOME','UsermonProfile: '.varExport(UsermonProfile::$currentProfile),'info');
+    logMessage('OUTCOME','User: '.varExport(USER::$u),'info');
 
     if (!count(ARGV::$a)) {
-        redirectLocal(MODULE::$currTreeProps['uri'].'/'.USER::getUrlId());
+        logMessage('OUTCOME','Should redirect as '.varExport(ARGV::$a));
+        // redirectLocal(MODULE::$currTreeProps['uri'].'/'.USER::getUrlId());
     } else {
         if (ARGV::$a[0]==USER::getUrlId()) {
             // requested id belongs to current user
