@@ -76,10 +76,12 @@ $DBT = [
     'unative'   => [
         'f'     => [
             'idnative'         => 'INTEGER UNSIGNED NOT NULL AUTO_INCREMENT',
-            'uname'            => 'VARCHAR(32) NOT NULL DEFAULT \'\'',
+            'uname'            => 'VARCHAR(128) NOT NULL DEFAULT \'\'',
+            'ulogin'           => 'VARCHAR(32) NOT NULL DEFAULT \'\'',
             'usalt'            => 'CHAR(6) NOT NULL DEFAULT \'abcdef\'',
             'upwdhash'         => 'CHAR(32) NOT NULL DEFAULT \'\'',
             'upowers'          => 'INTEGER UNSIGNED NOT NULL DEFAULT \'3\'',
+            'pokename'         => 'VARCHAR(32) NOT NULL DEFAULT \'\'',
         ],
         'fx'    => [
             'PRIMARY KEY (idnative)',

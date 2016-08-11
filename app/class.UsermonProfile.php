@@ -27,7 +27,7 @@ class UsermonProfile {
     ];
 
     public static $pokemonList = [];
-    public static $currentProfile;
+    public static $currentProfile = NULL;
 
     public $currentPokemon;
 

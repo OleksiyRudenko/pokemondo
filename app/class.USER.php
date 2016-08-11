@@ -8,6 +8,17 @@
 
 class USER {
     public static $u;           // particular user settings
+    /*
+     * idnative
+     * name
+     * login
+     * upowers
+     * pokename
+     */
+
+    public static $pokemon = NULL;     // main pokemon stored here
+    public static $pokelist = NULL;    // spare pokemons
+
     public static $uri = [
         'onFailure'     =>  0,
         'onSuccess'     =>  [   // if bit is set then value is upon login redirection target; higher come first
@@ -40,6 +51,15 @@ class USER {
         self::$u = &$_SESSION['user'];
         if (!isset(self::$u['upowers']))
             self::$u['upowers'] = self::$AUTH['powers']['guest']; // guest
+        if (self::$u['pokename']) {
+            self::loadPokemon();
+        }
+    }
+
+    public static function loadPokemon() {
+        if (!self::$u['pokename']) return;
+
+
     }
 
     public static function getUponLoginDefaultUri() {
@@ -57,7 +77,7 @@ class USER {
         $success = false;
 
         $clauses = [
-            'WHERE' =>  'uname=\''.$DBH->real_escape_string($login).'\'',
+            'WHERE' =>  'ulogin=\''.$DBH->real_escape_string($login).'\'',
         ];
         $tbUnative = new dbTable($DBH,'unative',$DBT['unative']);
         if (!$qr=$tbUnative->select('*',$clauses)) {
@@ -70,6 +90,8 @@ class USER {
 
         $credentials = $qr->fetch_assoc();
         if (md5(md5($credentials['usalt']).md5($password))===$credentials['upwdhash']) {
+            self::$u['login'] = $credentials['ulogin'];
+            self::$u['idnative'] = $credentials['idnative'];
             self::$u['name'] = $credentials['uname'];
             self::$u['upowers'] = $credentials['upowers'];
             $success = true;
