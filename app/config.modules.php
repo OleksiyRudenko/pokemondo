@@ -135,7 +135,7 @@ $settings = [
             'basepath'  => 'Profile/Outcome',
             'navmenu'   => 'Public profile',
             'heading'   => 'Какой ты покемон?',
-            // 'preHTML'   => true,
+            'preHTML'   => true,
         ],
         'profile'          =>  [
             'basepath'  => 'Profile/Profile',
