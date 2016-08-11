@@ -35,8 +35,8 @@ if (!USER::$u['idnative']) {
     logMessage('OUTCOME','User: '.varExport(USER::$u),'info');
 
     if (!count(ARGV::$a)) {
-        logMessage('OUTCOME','Should redirect as '.varExport(ARGV::$a));
-        // redirectLocal(MODULE::$currTreeProps['uri'].'/'.USER::getUrlId());
+        // logMessage('OUTCOME','Should redirect as '.varExport(ARGV::$a));
+        redirectLocal(MODULE::$currTreeProps['uri'].'/'.USER::getUrlId());
     } else {
         if (ARGV::$a[0]==USER::getUrlId()) {
             // requested id belongs to current user
