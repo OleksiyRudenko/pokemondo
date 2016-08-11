@@ -59,7 +59,7 @@ class USER {
     }
 
     public static function loadPokemon() {
-        if (!self::$u['pokename']) return;
+        if (!@self::$u['pokename']) return;
         self::$pokemon = new Pokemon(self::$u['pokename']);
     }
 
