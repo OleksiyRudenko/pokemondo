@@ -17,7 +17,7 @@ $fbmetacollection = [
         'title'         =>  'Тест: какой ты покемон?',
     ],
     'outcome'    =>  [
-        'image'         =>  '',
+        'image'         =>  '/img/what-pokemon-are-you.jpg',
         'description'   =>  'А какой покемон - ты? Мы предложим тебе варианты подходящих типов покемонов согласно твоей покестихии.',
         'url'           =>  '/outcome/',
         'title'         =>  'А какой покемон - ты?',
@@ -28,12 +28,13 @@ $fbmetacollection = [
 
 $result = [];
 
-$fbmeta = &$fbmetacollection[MODULE::$currMod];
+$fbmeta = &$fbmetacollection[isset($fbmetacollection[MODULE::$currMod])?MODULE::$currMod:'public'];
+
 foreach ($fbmeta as $meta=>$content) {
     switch ($meta) {
         case 'image':
             // point to individual image if under 'outcome'
-            if (MODULE::$currMod=='outcome') {
+            if (MODULE::$currMod=='outcome' && UsermonProfile::$currentProfile) {
                 $content = '/'.UsermonProfile::$currentProfile->getUserProfileImagename();
             }
             $content = getFullServerName().$content;
@@ -50,8 +51,8 @@ foreach ($fbmeta as $meta=>$content) {
         case 'title':
             if (MODULE::$currMod=='outcome') {
                 // prepend content with individual prefix: "Name - Pokename"
-                $content = UsermonProfile::$currentProfile->getProps()['name'].' - '
-                    .UsermonProfile::$currentProfile->currentPokemon->p['pokename_ru']
+                $content = @UsermonProfile::$currentProfile->getProps()['name'].' - '
+                    .@UsermonProfile::$currentProfile->currentPokemon->p['pokename_ru']
                     .'. '.$content;
             }
             break;

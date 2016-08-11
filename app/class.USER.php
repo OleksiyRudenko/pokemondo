@@ -51,7 +51,7 @@ class USER {
         self::$u = &$_SESSION['user'];
         if (!isset(self::$u['upowers']))
             self::$u['upowers'] = self::$AUTH['powers']['guest']; // guest
-        if (self::$u['pokename']) {
+        if (@self::$u['pokename']) {
             self::loadPokemon();
         }
     }
