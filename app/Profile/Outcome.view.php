@@ -5,7 +5,7 @@
  * Date: 10/08/2016
  * Time: 20:31
  */
-// print unlogMessage('OUTCOME');
+print unlogMessage('OUTCOME');
 if (count(ARGV::$a) && ARGV::$a[0]==USER::getUrlId()) {
     /*
        showProfileImage()
