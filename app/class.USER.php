@@ -58,6 +58,11 @@ class USER {
         }
     }
 
+    public static function reset() {
+        self::$u['user']['idantive'] = 0;
+        self::$u['user']['upowers'] = self::$AUTH['powers']['guest'];
+    }
+
     public static function loadPokemon() {
         if (!@self::$u['pokename']) return;
         self::$pokemon = new Pokemon(self::$u['pokename']);

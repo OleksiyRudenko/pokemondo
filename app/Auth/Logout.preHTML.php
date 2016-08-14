@@ -7,5 +7,5 @@
  */
 
 $_SESSION['user'] = [];
-USER::initialize();
+USER::reset();
 redirectLocal(USER::$uri['onLogout']);

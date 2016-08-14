@@ -9,7 +9,7 @@ include_once('appid.gitignored.php');
 include_once('app/class.Pokemon.php');
 include_once('app/class.UsermonProfile.php');
 
-if (!USER::$u['idnative']) {
+if (!@USER::$u['idnative']) {
     // not a registered user
     $fb=false;
     if ($fb) {
