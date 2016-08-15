@@ -12,7 +12,7 @@ if (count(ARGV::$a) && ARGV::$a[0]==USER::getUrlId()) {
        showAlternatives()
     */
     ?>
-    <div class="col-xs-12">
+    <div class="col-xs-12 text-center">
         <?=UsermonProfile::$currentProfile->profileImgTag()?>
     </div>
     <?php
