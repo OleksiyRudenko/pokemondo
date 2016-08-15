@@ -3,10 +3,10 @@
 Each stage may include minor bugfixes and improvements to unmentioned pieces of code.
 
 ```
-TOTAL= 51.4
-     =  4.0
+TOTAL= 51.6
+     =  4.2
 160815  0.5 - Test Roll-out
-160815  0.8 - Module::Outcome
+160815  1.0 - Module::Outcome
 160811  2.0 - Module::Outcome
 160811  0.7 - Module::Outcome use cases
      =  6.6
