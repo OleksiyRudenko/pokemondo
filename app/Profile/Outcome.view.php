@@ -13,7 +13,7 @@ if (count(ARGV::$a) && ARGV::$a[0]==USER::getUrlId()) {
     */
     ?>
     <div class="col-xs-12 text-center">
-        <?=UsermonProfile::$currentProfile->profileImgTag()?>
+        <?=UsermonProfile::$currentProfile->profileImgTag(true,true)?>
     </div>
     <?php
     foreach (UsermonProfile::$pokemonList as $poke) {
