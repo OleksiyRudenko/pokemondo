@@ -28,7 +28,7 @@ if (count(ARGV::$a) && ARGV::$a[0]==USER::getUrlId()) {
     }
     ?>
     <div class="col-xs-12 text-center">
-        <?=button('more','More','Ещё','primary','lg',[],'a')?>
+        <?=button('more','More','Ещё...','primary','lg',['href'=>'/outcome/'.ARGV::$a[0]],'a')?>
     </div>
     <?php
 } else {
