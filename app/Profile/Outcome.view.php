@@ -12,11 +12,25 @@ if (count(ARGV::$a) && ARGV::$a[0]==USER::getUrlId()) {
        showAlternatives()
     */
     ?>
-    <div class="col-xs-12">
-        <?=UsermonProfile::$currentProfile->profileImgTag()?>
+    <div class="col-xs-12 text-center">
+        <?=UsermonProfile::$currentProfile->profileImgTag(true,true)?>
     </div>
     <?php
-    //TODO:  showAlternatives()
+    foreach (UsermonProfile::$pokemonList as $poke) {
+        print '<div class="col-xs-4 text-center">'
+            .ahref(
+                '/outcome/'.ARGV::$a[0].'/'.$poke->p['pokename'],
+                htmlElementSingle('img',
+                    ['src'=>$poke->imageUrl('local','avatar','static','normal')]
+                    ))
+            .'<p class="lead text-center">'.$poke->p['pokename_ru'].'</p>'
+            .'</div>';
+    }
+    ?>
+    <div class="col-xs-12 text-center">
+        <?=button('more','More','Ещё...','primary','lg',['href'=>'/outcome/'.ARGV::$a[0]],'a')?>
+    </div>
+    <?php
 } else {
     ?>
     <div class="row">

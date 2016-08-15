@@ -58,6 +58,14 @@ class USER {
         }
     }
 
+    public static function reset() {
+        $_SESSION['user']=[
+            'idnative'  => 0,
+            'upowers'   => self::$AUTH['powers']['guest'],
+        ];
+        self::$u = &$_SESSION['user'];
+    }
+
     public static function loadPokemon() {
         if (!@self::$u['pokename']) return;
         self::$pokemon = new Pokemon(self::$u['pokename']);

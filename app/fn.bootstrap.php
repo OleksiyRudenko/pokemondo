@@ -27,7 +27,7 @@ function ahref($url,$view) {
  * @param $attr
  * @return string
  */
-function button($name, $value, $view='', $style="primary", $size="lg", $attr=[]) {
+function button($name, $value, $view='', $style="primary", $size="lg", $attr=[], $tag='button') {
     if ($name && !isset($attr['name']))     $attr['name']=$name;
     if ($value && !isset($attr['value']))   $attr['value']=$value;
     if (!$view)                             $view=$attr['value'];
@@ -36,7 +36,7 @@ function button($name, $value, $view='', $style="primary", $size="lg", $attr=[])
     if ($style) $attr['class'][] = 'btn-'.$style;
     if ($size)  $attr['class'][] = 'btn-'.$size;
     $attr['class'] = implode(' ',$attr['class']);
-    return htmlElement('button',$view,$attr);
+    return htmlElement($tag,$view,$attr);
 }
 
 /**

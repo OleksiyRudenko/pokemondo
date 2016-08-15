@@ -49,8 +49,9 @@ foreach ($fbmeta as $meta=>$content) {
             break;
         case 'description':
         case 'title':
-            if (MODULE::$currMod=='outcome') {
+            if (MODULE::$currMod=='outcome' && @USER::$u['idnative']) {
                 // prepend content with individual prefix: "Name - Pokename"
+                logMessage('OUTCOME','UserMonprofile='.varExport(UsermonProfile::$currentProfile));
                 $content = @UsermonProfile::$currentProfile->getProps()['name'].' - '
                     .@UsermonProfile::$currentProfile->currentPokemon->p['pokename_ru']
                     .'. '.$content;

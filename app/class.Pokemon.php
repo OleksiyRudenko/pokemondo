@@ -132,7 +132,7 @@ class Pokemon {
         include_once('app/dbSpec/db.tables.php');
         $tb = new dbTable($DBH,'pokename',$DBT['pokename']);
         $clauses = [
-            'WHERE' => (is_numeric($p)
+            'WHERE' => (!is_numeric($p)
                 ? 'pokename=\''.$p.'\''
                 : 'pokeid='.$p),
         ];
@@ -153,7 +153,7 @@ class Pokemon {
                 } else {
                     logMessage('POKEMON',sqlError());
                 }
-                return $pokemon;
+                return new Pokemon($pokemon);
             } else {
                 logMessage('POKEMON','No pokemon for "'.$p.'"');
             }
