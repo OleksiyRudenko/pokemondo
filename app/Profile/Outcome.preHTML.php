@@ -53,15 +53,17 @@ if (!@USER::$u['idnative']) {
 
             if (!UsermonProfile::$currentProfile->userProfileImageExists() || isset(ARGV::$a[1])) {
                 // profile image doesn't exist or pokename provided
+                $pokemon=false;
 
                 if (isset(ARGV::$a[1])) {
                     $pokemon = Pokemon::loadPokemon(ARGV::$a[1]);
+                    // logMessage('OUTCOME','url pokemon = '.varExport($pokemon));
                 }
 
-                UsermonProfile::$currentProfile->currentPokemon = ($pokemon)
+                UsermonProfile::$currentProfile->currentPokemon = ($pokemon
                     ? $pokemon
-                    : $candidatePokemon;
-                // logMessage('Profile',varExport($pokeMain));
+                    : $candidatePokemon);
+                // logMessage('OUTCOME','Assigned pokemon = '.varExport(UsermonProfile::$currentProfile->currentPokemon));
                 // create image based on tpl
                 UsermonProfile::$currentProfile->createProfileImg();
                 // logMessage('Profile',varExport(UsermonProfile::$pokemonList));
@@ -70,7 +72,7 @@ if (!@USER::$u['idnative']) {
             UsermonProfile::$pokemonList = $pokelist;
             // redirect
             if (isset(ARGV::$a[1]))
-                redirectLocal(MODULE::$currTreeProps['uri'].'/'.USER::getUrlId());
+               redirectLocal(MODULE::$currTreeProps['uri'].'/'.USER::getUrlId());
         }
     }
 }
