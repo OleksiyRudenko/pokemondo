@@ -17,7 +17,7 @@ if (count(ARGV::$a) && ARGV::$a[0]==USER::getUrlId()) {
             <?=UsermonProfile::$currentProfile->profileImgTag(true,true)?>
         </div>
     </div>
-    <div class="row">
+    <div class="row help-block">
         <div class="col-md-6 text-center">
             <?=abutton('#','Поделиться')?>
         </div>
