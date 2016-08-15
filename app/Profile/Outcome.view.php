@@ -12,9 +12,20 @@ if (count(ARGV::$a) && ARGV::$a[0]==USER::getUrlId()) {
        showAlternatives()
     */
     ?>
-    <div class="col-xs-12 text-center">
-        <?=UsermonProfile::$currentProfile->profileImgTag(true,true)?>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <?=UsermonProfile::$currentProfile->profileImgTag(true,true)?>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <?=abutton('#','Поделиться')?>
+        </div>
+        <div class="col-md-6 text-center">
+            <?=abutton('#other','Выбрать другого')?>
+        </div>
+    </div>
+    <div id="other">
     <?php
     foreach (UsermonProfile::$pokemonList as $poke) {
         print '<div class="col-xs-4 text-center">'
@@ -27,6 +38,7 @@ if (count(ARGV::$a) && ARGV::$a[0]==USER::getUrlId()) {
             .'</div>';
     }
     ?>
+    </div>
     <div class="col-xs-12 text-center">
         <?=abutton('/outcome/'.ARGV::$a[0],'Ещё...')?>
     </div>
