@@ -18,9 +18,11 @@ if (count(ARGV::$a) && ARGV::$a[0]==USER::getUrlId()) {
     <?php
     foreach (UsermonProfile::$pokemonList as $poke) {
         print '<div class="col-xs-4 text-center">'
-            .htmlElementSingle('img',
-                ['src'=>$poke->imageUrl('local','avatar','static','normal')]
-            )
+            .ahref(
+                '/outcome/'.ARGV::$a[0].'/'.$poke->p['pokename'],
+                htmlElementSingle('img',
+                    ['src'=>$poke->imageUrl('local','avatar','static','normal')]
+                    ))
             .'<p class="lead text-center">'.$poke->p['pokename_ru'].'</p>'
             .'</div>';
     }
