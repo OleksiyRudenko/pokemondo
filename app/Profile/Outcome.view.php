@@ -26,6 +26,11 @@ if (count(ARGV::$a) && ARGV::$a[0]==USER::getUrlId()) {
             .'<p class="lead text-center">'.$poke->p['pokename_ru'].'</p>'
             .'</div>';
     }
+    ?>
+    <div class="col-xs-12 text-center">
+        <?=button('more','More','Ещё','primary','lg',[],'a')?>
+    </div>
+    <?php
 } else {
     ?>
     <div class="row">
