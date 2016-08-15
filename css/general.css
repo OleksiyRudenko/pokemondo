@@ -92,3 +92,8 @@ div .overlayContainer {
     */
     padding: 5px;
 }
+
+.btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
