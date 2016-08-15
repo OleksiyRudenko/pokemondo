@@ -19,10 +19,10 @@ if (count(ARGV::$a) && ARGV::$a[0]==USER::getUrlId()) {
     </div>
     <div class="row help-block">
         <div class="col-md-6 text-center">
-            <?=abutton('#','Поделиться')?>
+            <?=abutton('#','Поделиться с друзьями')?>
         </div>
         <div class="col-md-6 text-center">
-            <?=abutton('#other','Выбрать другого')?>
+            <?=abutton('#other','Выбрать другого покемона')?>
         </div>
     </div>
     <div id="other">
