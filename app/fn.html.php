@@ -22,9 +22,9 @@ function strong($html) {
     return htmlElement('strong',$html);
 }
 
-function ahref($html,$href) {
+/* function ahref($html,$href) {
     return htmlElement('a',$html,['href'=>$href]);
-}
+} */
 
 /**
  * @param $el
