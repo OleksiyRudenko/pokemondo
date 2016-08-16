@@ -10,6 +10,9 @@ RewriteEngine on
 RewriteCond %{REQUEST_URI} !^/(webhook.git.php|favicon|index.php|css/|img/|js/|phpmyadmin) [NC]
 RewriteRule ^(.+)$ /index.php/$1 [L,NC]
 
+## Prevent indexing directories
+Options -Indexes
+
 ## Language
 #RewriteCond %{HTTP:Accept-Language} ^.*(de|es|fr|it|ja|ru|en).*$ [NC]
 #RewriteRule ^(.*)$ - [env=prefer-language:%1]
